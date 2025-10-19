@@ -29,7 +29,12 @@ export const KEYBOARD_LAYOUT: KeyboardLayout = {
     // Row 1 - ESC + Function Keys + Power
     {
       keys: [
-        { label: "esc", widthMultiplier: 1.5 },
+        {
+          label: "esc",
+          widthMultiplier: 1.5,
+          textPlacement: "bottom-left",
+          fontSize: 8,
+        },
         { label: "F1", widthMultiplier: 1 },
         { label: "F2", widthMultiplier: 1 },
         { label: "F3", widthMultiplier: 1 },
@@ -48,7 +53,7 @@ export const KEYBOARD_LAYOUT: KeyboardLayout = {
     // Row 2 - Number row
     {
       keys: [
-        { label: "`", widthMultiplier: 1 },
+        { label: "`", widthMultiplier: 1, fontSize: 14 },
         { label: "1", widthMultiplier: 1 },
         { label: "2", widthMultiplier: 1 },
         { label: "3", widthMultiplier: 1 },
@@ -61,13 +66,23 @@ export const KEYBOARD_LAYOUT: KeyboardLayout = {
         { label: "0", widthMultiplier: 1 },
         { label: "-", widthMultiplier: 1 },
         { label: "=", widthMultiplier: 1 },
-        { label: "delete", widthMultiplier: 1.5 },
+        {
+          label: "delete",
+          widthMultiplier: 1.5,
+          textPlacement: "bottom-right",
+          fontSize: 8,
+        },
       ],
     },
     // Row 3 - QWERTY
     {
       keys: [
-        { label: "tab", widthMultiplier: 1.5 },
+        {
+          label: "tab",
+          widthMultiplier: 1.5,
+          textPlacement: "bottom-left",
+          fontSize: 8,
+        },
         { label: "Q", widthMultiplier: 1 },
         { label: "W", widthMultiplier: 1 },
         { label: "E", widthMultiplier: 1 },
@@ -86,7 +101,12 @@ export const KEYBOARD_LAYOUT: KeyboardLayout = {
     // Row 4 - ASDF
     {
       keys: [
-        { label: "caps lock", widthMultiplier: 1.75, fontSize: 9 },
+        {
+          label: "caps lock",
+          widthMultiplier: 1.75,
+          textPlacement: "bottom-left",
+          fontSize: 7,
+        },
         { label: "A", widthMultiplier: 1 },
         { label: "S", widthMultiplier: 1 },
         { label: "D", widthMultiplier: 1 },
@@ -98,13 +118,23 @@ export const KEYBOARD_LAYOUT: KeyboardLayout = {
         { label: "L", widthMultiplier: 1 },
         { label: ";", widthMultiplier: 1 },
         { label: "'", widthMultiplier: 1 },
-        { label: "return", widthMultiplier: 1.85 },
+        {
+          label: "return",
+          widthMultiplier: 1.85,
+          textPlacement: "bottom-right",
+          fontSize: 8,
+        },
       ],
     },
     // Row 5 - ZXCV
     {
       keys: [
-        { label: "shift", widthMultiplier: 2.25 },
+        {
+          label: "shift",
+          widthMultiplier: 2.25,
+          textPlacement: "bottom-left",
+          fontSize: 8,
+        },
         { label: "Z", widthMultiplier: 1 },
         { label: "X", widthMultiplier: 1 },
         { label: "C", widthMultiplier: 1 },
@@ -115,19 +145,54 @@ export const KEYBOARD_LAYOUT: KeyboardLayout = {
         { label: ",", widthMultiplier: 1 },
         { label: ".", widthMultiplier: 1 },
         { label: "/", widthMultiplier: 1 },
-        { label: "shift", widthMultiplier: 2.45 },
+        {
+          label: "shift",
+          widthMultiplier: 2.45,
+          textPlacement: "bottom-right",
+          fontSize: 8,
+        },
       ],
     },
     // Row 6 - Bottom row
     {
       keys: [
-        { label: "fn", widthMultiplier: 1, fontSize: 9 },
-        { label: "ctrl", widthMultiplier: 1, fontSize: 9 },
-        { label: "opt", widthMultiplier: 1, fontSize: 9 },
-        { label: "cmd", widthMultiplier: 1.15, fontSize: 9 },
+        {
+          label: "fn",
+          widthMultiplier: 1,
+          textPlacement: "bottom-left",
+          fontSize: 7,
+        },
+        {
+          label: "control",
+          widthMultiplier: 1,
+          textPlacement: "bottom-left",
+          fontSize: 7,
+        },
+        {
+          label: "option",
+          widthMultiplier: 1,
+          textPlacement: "bottom-left",
+          fontSize: 7,
+        },
+        {
+          label: "command",
+          widthMultiplier: 1.15,
+          textPlacement: "bottom-left",
+          fontSize: 7,
+        },
         { label: null, widthMultiplier: 5.4 },
-        { label: "cmd", widthMultiplier: 1.15, fontSize: 9 },
-        { label: "opt", widthMultiplier: 1, fontSize: 9 },
+        {
+          label: "command",
+          widthMultiplier: 1.15,
+          textPlacement: "bottom-right",
+          fontSize: 7,
+        },
+        {
+          label: "option",
+          widthMultiplier: 1,
+          textPlacement: "bottom-right",
+          fontSize: 7,
+        },
         // Arrow keys - half-height with special positioning
         {
           label: "←",
