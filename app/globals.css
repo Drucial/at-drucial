@@ -239,6 +239,27 @@
     letter-spacing: var(--tracking-normal);
   }
 
+  /* Prose-like width utilities */
+  .w-prose {
+    max-width: 65ch;
+  }
+
+  .w-prose-sm {
+    max-width: 55ch;
+  }
+
+  .w-prose-lg {
+    max-width: 75ch;
+  }
+
+  .w-prose-xl {
+    max-width: 85ch;
+  }
+
+  .w-prose-2xl {
+    max-width: 95ch;
+  }
+
   h1 {
     font-family: var(--font-teko);
     @apply text-8xl leading-none font-bold;
