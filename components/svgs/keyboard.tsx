@@ -150,474 +150,51 @@ export function Keyboard() {
         label: "caps lock",
         fontSize: 9,
       })}
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 1.75 + keyGap}
-        y={10 + (keySize + rowGap) * 3}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 1.75 + keyGap + keySize / 2}
-        y={10 + (keySize + rowGap) * 3 + keySize / 2 + 4}
-      >
-        A
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap)}
-        y={10 + (keySize + rowGap) * 3}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) + keySize / 2}
-        y={10 + (keySize + rowGap) * 3 + keySize / 2 + 4}
-      >
-        S
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 2}
-        y={10 + (keySize + rowGap) * 3}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 2 + keySize / 2}
-        y={10 + (keySize + rowGap) * 3 + keySize / 2 + 4}
-      >
-        D
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 3}
-        y={10 + (keySize + rowGap) * 3}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 3 + keySize / 2}
-        y={10 + (keySize + rowGap) * 3 + keySize / 2 + 4}
-      >
-        F
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 4}
-        y={10 + (keySize + rowGap) * 3}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 4 + keySize / 2}
-        y={10 + (keySize + rowGap) * 3 + keySize / 2 + 4}
-      >
-        G
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 5}
-        y={10 + (keySize + rowGap) * 3}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 5 + keySize / 2}
-        y={10 + (keySize + rowGap) * 3 + keySize / 2 + 4}
-      >
-        H
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 6}
-        y={10 + (keySize + rowGap) * 3}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 6 + keySize / 2}
-        y={10 + (keySize + rowGap) * 3 + keySize / 2 + 4}
-      >
-        J
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 7}
-        y={10 + (keySize + rowGap) * 3}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 7 + keySize / 2}
-        y={10 + (keySize + rowGap) * 3 + keySize / 2 + 4}
-      >
-        K
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 8}
-        y={10 + (keySize + rowGap) * 3}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 8 + keySize / 2}
-        y={10 + (keySize + rowGap) * 3 + keySize / 2 + 4}
-      >
-        L
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 9}
-        y={10 + (keySize + rowGap) * 3}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 9 + keySize / 2}
-        y={10 + (keySize + rowGap) * 3 + keySize / 2 + 4}
-      >
-        ;
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 10}
-        y={10 + (keySize + rowGap) * 3}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 10 + keySize / 2}
-        y={10 + (keySize + rowGap) * 3 + keySize / 2 + 4}
-      >
-        &apos;
-      </text>
-      {/* Return - wider to align with rightmost edge */}
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize * 1.85}
-        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 11}
-        y={10 + (keySize + rowGap) * 3}
-      />
-      <text
-        fill="currentColor"
-        fontSize="10"
-        textAnchor="middle"
-        y={10 + (keySize + rowGap) * 3 + keySize / 2 + 4}
-        x={
-          10 +
-          keySize * 1.75 +
-          keyGap +
-          (keySize + keyGap) * 11 +
-          (keySize * 1.85) / 2
-        }
-      >
-        return
-      </text>
+      {renderKeyRow(
+        ["A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "'"],
+        10 + keySize * 1.75 + keyGap,
+        10 + (keySize + rowGap) * 3
+      )}
+      {renderKey({
+        x: 10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 11,
+        y: 10 + (keySize + rowGap) * 3,
+        width: keySize * 1.85,
+        height: keySize,
+        label: "return",
+      })}
 
       {/* Row 5 - ZXCV */}
-      {/* Shift - wider */}
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize * 2.25}
-        x="10"
-        y={10 + (keySize + rowGap) * 4}
-      />
-      <text
-        fill="currentColor"
-        fontSize="10"
-        textAnchor="middle"
-        x={10 + (keySize * 2.25) / 2}
-        y={10 + (keySize + rowGap) * 4 + keySize / 2 + 4}
-      >
-        shift
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 2.25 + keyGap}
-        y={10 + (keySize + rowGap) * 4}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 2.25 + keyGap + keySize / 2}
-        y={10 + (keySize + rowGap) * 4 + keySize / 2 + 4}
-      >
-        Z
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap)}
-        y={10 + (keySize + rowGap) * 4}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap) + keySize / 2}
-        y={10 + (keySize + rowGap) * 4 + keySize / 2 + 4}
-      >
-        X
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 2}
-        y={10 + (keySize + rowGap) * 4}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 2 + keySize / 2}
-        y={10 + (keySize + rowGap) * 4 + keySize / 2 + 4}
-      >
-        C
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 3}
-        y={10 + (keySize + rowGap) * 4}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 3 + keySize / 2}
-        y={10 + (keySize + rowGap) * 4 + keySize / 2 + 4}
-      >
-        V
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 4}
-        y={10 + (keySize + rowGap) * 4}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 4 + keySize / 2}
-        y={10 + (keySize + rowGap) * 4 + keySize / 2 + 4}
-      >
-        B
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 5}
-        y={10 + (keySize + rowGap) * 4}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 5 + keySize / 2}
-        y={10 + (keySize + rowGap) * 4 + keySize / 2 + 4}
-      >
-        N
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 6}
-        y={10 + (keySize + rowGap) * 4}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 6 + keySize / 2}
-        y={10 + (keySize + rowGap) * 4 + keySize / 2 + 4}
-      >
-        M
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 7}
-        y={10 + (keySize + rowGap) * 4}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 7 + keySize / 2}
-        y={10 + (keySize + rowGap) * 4 + keySize / 2 + 4}
-      >
-        ,
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 8}
-        y={10 + (keySize + rowGap) * 4}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 8 + keySize / 2}
-        y={10 + (keySize + rowGap) * 4 + keySize / 2 + 4}
-      >
-        .
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 9}
-        y={10 + (keySize + rowGap) * 4}
-      />
-      <text
-        fill="currentColor"
-        fontSize="12"
-        textAnchor="middle"
-        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 9 + keySize / 2}
-        y={10 + (keySize + rowGap) * 4 + keySize / 2 + 4}
-      >
-        /
-      </text>
-      {/* Right Shift - wider to align with rightmost edge */}
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize * 2.45}
-        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 10}
-        y={10 + (keySize + rowGap) * 4}
-      />
-      <text
-        fill="currentColor"
-        fontSize="10"
-        textAnchor="middle"
-        y={10 + (keySize + rowGap) * 4 + keySize / 2 + 4}
-        x={
-          10 +
-          keySize * 2.25 +
-          keyGap +
-          (keySize + keyGap) * 10 +
-          (keySize * 2.45) / 2
-        }
-      >
-        shift
-      </text>
+      {renderKey({
+        x: 10,
+        y: 10 + (keySize + rowGap) * 4,
+        width: keySize * 2.25,
+        height: keySize,
+        label: "shift",
+      })}
+      {renderKeyRow(
+        ["Z", "X", "C", "V", "B", "N", "M", ",", ".", "/"],
+        10 + keySize * 2.25 + keyGap,
+        10 + (keySize + rowGap) * 4
+      )}
+      {renderKey({
+        x: 10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 10,
+        y: 10 + (keySize + rowGap) * 4,
+        width: keySize * 2.45,
+        height: keySize,
+        label: "shift",
+      })}
 
       {/* Row 6 - Bottom row */}
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x="10"
-        y={10 + (keySize + rowGap) * 5}
-      />
-      <text
-        fill="currentColor"
-        fontSize="9"
-        textAnchor="middle"
-        x={10 + keySize / 2}
-        y={10 + (keySize + rowGap) * 5 + keySize / 2 + 3}
-      >
-        fn
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + (keySize + keyGap)}
-        y={10 + (keySize + rowGap) * 5}
-      />
-      <text
-        fill="currentColor"
-        fontSize="9"
-        textAnchor="middle"
-        x={10 + (keySize + keyGap) + keySize / 2}
-        y={10 + (keySize + rowGap) * 5 + keySize / 2 + 3}
-      >
-        ctrl
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        x={10 + (keySize + keyGap) * 2}
-        y={10 + (keySize + rowGap) * 5}
-      />
-      <text
-        fill="currentColor"
-        fontSize="9"
-        textAnchor="middle"
-        x={10 + (keySize + keyGap) * 2 + keySize / 2}
-        y={10 + (keySize + rowGap) * 5 + keySize / 2 + 3}
-      >
-        opt
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize * 1.15}
-        x={10 + (keySize + keyGap) * 3}
-        y={10 + (keySize + rowGap) * 5}
-      />
-      <text
-        fill="currentColor"
-        fontSize="9"
-        textAnchor="middle"
-        x={10 + (keySize + keyGap) * 3 + (keySize * 1.15) / 2}
-        y={10 + (keySize + rowGap) * 5 + keySize / 2 + 3}
-      >
-        cmd
-      </text>
-      {/* Spacebar - very wide */}
+      {renderKeyRow(["fn", "ctrl", "opt"], 10, 10 + (keySize + rowGap) * 5, 9)}
+      {renderKey({
+        x: 10 + (keySize + keyGap) * 3,
+        y: 10 + (keySize + rowGap) * 5,
+        width: keySize * 1.15,
+        height: keySize,
+        label: "cmd",
+        fontSize: 9,
+      })}
+      {/* Spacebar */}
       <rect
         height={keySize}
         rx="3"
@@ -625,43 +202,16 @@ export function Keyboard() {
         x={10 + (keySize + keyGap) * 3 + keySize * 1.15 + keyGap}
         y={10 + (keySize + rowGap) * 5}
       />
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize * 1.15}
-        y={10 + (keySize + rowGap) * 5}
-        x={
-          10 +
-          (keySize + keyGap) * 3 +
-          keySize * 1.15 +
-          keyGap +
-          keySize * 5.4 +
-          keyGap
-        }
-      />
-      <text
-        fill="currentColor"
-        fontSize="9"
-        textAnchor="middle"
-        y={10 + (keySize + rowGap) * 5 + keySize / 2 + 3}
-        x={
-          10 +
-          (keySize + keyGap) * 3 +
-          keySize * 1.15 +
-          keyGap +
-          keySize * 5.4 +
-          keyGap +
-          (keySize * 1.15) / 2
-        }
-      >
-        cmd
-      </text>
-      <rect
-        height={keySize}
-        rx="3"
-        width={keySize}
-        y={10 + (keySize + rowGap) * 5}
-        x={
+      {renderKey({
+        x: 10 + (keySize + keyGap) * 3 + keySize * 1.15 + keyGap + keySize * 5.4 + keyGap,
+        y: 10 + (keySize + rowGap) * 5,
+        width: keySize * 1.15,
+        height: keySize,
+        label: "cmd",
+        fontSize: 9,
+      })}
+      {renderKey({
+        x:
           10 +
           (keySize + keyGap) * 3 +
           keySize * 1.15 +
@@ -669,28 +219,13 @@ export function Keyboard() {
           keySize * 5.4 +
           keyGap +
           keySize * 1.15 +
-          keyGap
-        }
-      />
-      <text
-        fill="currentColor"
-        fontSize="9"
-        textAnchor="middle"
-        y={10 + (keySize + rowGap) * 5 + keySize / 2 + 3}
-        x={
-          10 +
-          (keySize + keyGap) * 3 +
-          keySize * 1.15 +
-          keyGap +
-          keySize * 5.4 +
-          keyGap +
-          keySize * 1.15 +
-          keyGap +
-          keySize / 2
-        }
-      >
-        opt
-      </text>
+          keyGap,
+        y: 10 + (keySize + rowGap) * 5,
+        width: keySize,
+        height: keySize,
+        label: "opt",
+        fontSize: 9,
+      })}
       {/* Arrow keys */}
       {/* Left arrow - half height, aligned to bottom */}
       <rect
