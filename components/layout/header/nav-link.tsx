@@ -45,7 +45,7 @@ export function NavLink({ Icon, label, href }: NavLinkProps) {
       <div className="relative size-8" style={{ perspective: "800px" }}>
         <motion.div
           animate={icon1Controls}
-          className="absolute inset-0"
+          className="absolute inset-0 flex items-center justify-center"
           initial={icon1Initial}
           style={{ transformStyle: "preserve-3d" }}
         >
@@ -53,7 +53,7 @@ export function NavLink({ Icon, label, href }: NavLinkProps) {
         </motion.div>
         <motion.div
           animate={icon2Controls}
-          className="absolute inset-0"
+          className="absolute inset-0 flex items-center justify-center"
           initial={icon2Initial}
           style={{ transformStyle: "preserve-3d" }}
         >
