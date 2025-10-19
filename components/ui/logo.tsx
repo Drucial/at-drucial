@@ -24,7 +24,7 @@ export function Logo({ variant = "wordmark", size = "md" }: LogoProps) {
         >
           <g filter="url(#filter0_dd_6709_24422)">
             <path
-              className="fill-brand"
+              className="fill-foreground"
               d="M3 3C3 2.44771 3.44772 2 4 2H20C20.5523 2 21 2.44772 21 3V34C21 34.5523 20.5523 35 20 35H4C3.44772 35 3 34.5523 3 34V3Z"
             />
             <path
