@@ -1,3 +1,5 @@
+type TextPlacement = "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right";
+
 type KeyProps = {
   x: number;
   y: number;
@@ -5,7 +7,63 @@ type KeyProps = {
   height: number;
   label: string;
   fontSize?: number;
+  textPlacement?: TextPlacement;
 };
+
+function Key({
+  x,
+  y,
+  width,
+  height,
+  label,
+  fontSize = 10,
+  textPlacement = "center",
+}: KeyProps) {
+  // Calculate text position based on placement
+  let textX = x + width / 2;
+  let textY = y + height / 2 + 4;
+
+  switch (textPlacement) {
+    case "top-left":
+      textX = x + 8;
+      textY = y + fontSize + 4;
+      break;
+    case "top-right":
+      textX = x + width - 8;
+      textY = y + fontSize + 4;
+      break;
+    case "bottom-left":
+      textX = x + 8;
+      textY = y + height - 6;
+      break;
+    case "bottom-right":
+      textX = x + width - 8;
+      textY = y + height - 6;
+      break;
+    case "center":
+    default:
+      textX = x + width / 2;
+      textY = y + height / 2 + 4;
+      break;
+  }
+
+  const textAnchor = textPlacement.includes("right") ? "end" : textPlacement.includes("left") ? "start" : "middle";
+
+  return (
+    <g>
+      <rect height={height} rx="3" width={width} x={x} y={y} />
+      <text
+        fill="currentColor"
+        fontSize={fontSize}
+        textAnchor={textAnchor}
+        x={textX}
+        y={textY}
+      >
+        {label}
+      </text>
+    </g>
+  );
+}
 
 export function Keyboard() {
   const keySize = 40;
@@ -21,32 +79,6 @@ export function Keyboard() {
   // arrowWidth = (136 - 8) / 3 = 128/3 = 42.666...
   const arrowKeyWidth = (136 - 2 * keyGap) / 3;
 
-  // Helper function to render a key with label
-  function renderKey({
-    x,
-    y,
-    width,
-    height,
-    label,
-    fontSize = 10,
-    key,
-  }: KeyProps & { key?: string }) {
-    return (
-      <g key={key}>
-        <rect height={height} rx="3" width={width} x={x} y={y} />
-        <text
-          fill="currentColor"
-          fontSize={fontSize}
-          textAnchor="middle"
-          x={x + width / 2}
-          y={y + height / 2 + 4}
-        >
-          {label}
-        </text>
-      </g>
-    );
-  }
-
   // Helper to render a row of uniform keys
   function renderKeyRow(
     labels: string[],
@@ -54,17 +86,17 @@ export function Keyboard() {
     y: number,
     fontSize = 12
   ) {
-    return labels.map((label, i) =>
-      renderKey({
-        x: startX + (keySize + keyGap) * i,
-        y,
-        width: keySize,
-        height: keySize,
-        label,
-        fontSize,
-        key: label,
-      })
-    );
+    return labels.map((label, i) => (
+      <Key
+        key={label}
+        fontSize={fontSize}
+        height={keySize}
+        label={label}
+        width={keySize}
+        x={startX + (keySize + keyGap) * i}
+        y={y}
+      />
+    ));
   }
 
   return (
@@ -76,27 +108,25 @@ export function Keyboard() {
       xmlns="http://www.w3.org/2000/svg"
     >
       {/* Row 1 - ESC + Function Keys + Power */}
-      {renderKey({
-        x: 10,
-        y: 10,
-        width: keySize * 1.5,
-        height: keySize,
-        label: "esc",
-      })}
+      <Key
+        height={keySize}
+        label="esc"
+        width={keySize * 1.5}
+        x={10}
+        y={10}
+      />
 
       {/* F1-F12 - uniform spacing */}
-      {Array.from({ length: 12 }, (_, i) => {
-        const x = 10 + keySize * 1.5 + keyGap + (keySize + keyGap) * i;
-
-        return renderKey({
-          x,
-          y: 10,
-          width: keySize,
-          height: keySize,
-          label: `F${i + 1}`,
-          key: `F${i + 1}`,
-        });
-      })}
+      {Array.from({ length: 12 }, (_, i) => (
+        <Key
+          key={`F${i + 1}`}
+          height={keySize}
+          label={`F${i + 1}`}
+          width={keySize}
+          x={10 + keySize * 1.5 + keyGap + (keySize + keyGap) * i}
+          y={10}
+        />
+      ))}
 
       {/* Power button */}
       <rect
@@ -120,22 +150,22 @@ export function Keyboard() {
         10,
         10 + (keySize + rowGap)
       )}
-      {renderKey({
-        x: 10 + (keySize + keyGap) * 13,
-        y: 10 + (keySize + rowGap),
-        width: keySize * 1.5,
-        height: keySize,
-        label: "delete",
-      })}
+      <Key
+        height={keySize}
+        label="delete"
+        width={keySize * 1.5}
+        x={10 + (keySize + keyGap) * 13}
+        y={10 + (keySize + rowGap)}
+      />
 
       {/* Row 3 - QWERTY */}
-      {renderKey({
-        x: 10,
-        y: 10 + (keySize + rowGap) * 2,
-        width: keySize * 1.5,
-        height: keySize,
-        label: "tab",
-      })}
+      <Key
+        height={keySize}
+        label="tab"
+        width={keySize * 1.5}
+        x={10}
+        y={10 + (keySize + rowGap) * 2}
+      />
       {renderKeyRow(
         ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]", "\\"],
         10 + keySize * 1.5 + keyGap,
@@ -143,58 +173,58 @@ export function Keyboard() {
       )}
 
       {/* Row 4 - ASDF */}
-      {renderKey({
-        x: 10,
-        y: 10 + (keySize + rowGap) * 3,
-        width: keySize * 1.75,
-        height: keySize,
-        label: "caps lock",
-        fontSize: 9,
-      })}
+      <Key
+        fontSize={9}
+        height={keySize}
+        label="caps lock"
+        width={keySize * 1.75}
+        x={10}
+        y={10 + (keySize + rowGap) * 3}
+      />
       {renderKeyRow(
         ["A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "'"],
         10 + keySize * 1.75 + keyGap,
         10 + (keySize + rowGap) * 3
       )}
-      {renderKey({
-        x: 10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 11,
-        y: 10 + (keySize + rowGap) * 3,
-        width: keySize * 1.85,
-        height: keySize,
-        label: "return",
-      })}
+      <Key
+        height={keySize}
+        label="return"
+        width={keySize * 1.85}
+        x={10 + keySize * 1.75 + keyGap + (keySize + keyGap) * 11}
+        y={10 + (keySize + rowGap) * 3}
+      />
 
       {/* Row 5 - ZXCV */}
-      {renderKey({
-        x: 10,
-        y: 10 + (keySize + rowGap) * 4,
-        width: keySize * 2.25,
-        height: keySize,
-        label: "shift",
-      })}
+      <Key
+        height={keySize}
+        label="shift"
+        width={keySize * 2.25}
+        x={10}
+        y={10 + (keySize + rowGap) * 4}
+      />
       {renderKeyRow(
         ["Z", "X", "C", "V", "B", "N", "M", ",", ".", "/"],
         10 + keySize * 2.25 + keyGap,
         10 + (keySize + rowGap) * 4
       )}
-      {renderKey({
-        x: 10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 10,
-        y: 10 + (keySize + rowGap) * 4,
-        width: keySize * 2.45,
-        height: keySize,
-        label: "shift",
-      })}
+      <Key
+        height={keySize}
+        label="shift"
+        width={keySize * 2.45}
+        x={10 + keySize * 2.25 + keyGap + (keySize + keyGap) * 10}
+        y={10 + (keySize + rowGap) * 4}
+      />
 
       {/* Row 6 - Bottom row */}
       {renderKeyRow(["fn", "ctrl", "opt"], 10, 10 + (keySize + rowGap) * 5, 9)}
-      {renderKey({
-        x: 10 + (keySize + keyGap) * 3,
-        y: 10 + (keySize + rowGap) * 5,
-        width: keySize * 1.15,
-        height: keySize,
-        label: "cmd",
-        fontSize: 9,
-      })}
+      <Key
+        fontSize={9}
+        height={keySize}
+        label="cmd"
+        width={keySize * 1.15}
+        x={10 + (keySize + keyGap) * 3}
+        y={10 + (keySize + rowGap) * 5}
+      />
       {/* Spacebar */}
       <rect
         height={keySize}
@@ -203,16 +233,21 @@ export function Keyboard() {
         x={10 + (keySize + keyGap) * 3 + keySize * 1.15 + keyGap}
         y={10 + (keySize + rowGap) * 5}
       />
-      {renderKey({
-        x: 10 + (keySize + keyGap) * 3 + keySize * 1.15 + keyGap + keySize * 5.4 + keyGap,
-        y: 10 + (keySize + rowGap) * 5,
-        width: keySize * 1.15,
-        height: keySize,
-        label: "cmd",
-        fontSize: 9,
-      })}
-      {renderKey({
-        x:
+      <Key
+        fontSize={9}
+        height={keySize}
+        label="cmd"
+        width={keySize * 1.15}
+        x={10 + (keySize + keyGap) * 3 + keySize * 1.15 + keyGap + keySize * 5.4 + keyGap}
+        y={10 + (keySize + rowGap) * 5}
+      />
+      <Key
+        fontSize={9}
+        height={keySize}
+        label="opt"
+        width={keySize}
+        y={10 + (keySize + rowGap) * 5}
+        x={
           10 +
           (keySize + keyGap) * 3 +
           keySize * 1.15 +
@@ -220,13 +255,9 @@ export function Keyboard() {
           keySize * 5.4 +
           keyGap +
           keySize * 1.15 +
-          keyGap,
-        y: 10 + (keySize + rowGap) * 5,
-        width: keySize,
-        height: keySize,
-        label: "opt",
-        fontSize: 9,
-      })}
+          keyGap
+        }
+      />
       {/* Arrow keys */}
       {/* Left arrow - half height, aligned to bottom */}
       <rect

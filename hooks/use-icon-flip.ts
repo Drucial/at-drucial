@@ -1,7 +1,8 @@
 import { useEffect } from "react";
+
 import { useAnimationControls } from "motion/react";
 
-export interface UseIconFlipOptions {
+export type UseIconFlipOptions = {
   /**
    * Duration of the flip animation in seconds
    * @default 0.4
@@ -14,7 +15,7 @@ export interface UseIconFlipOptions {
   ease?: string;
 }
 
-export interface IconFlipState {
+export type IconFlipState = {
   /**
    * Animation controls for the first icon (visible when state is true)
    */

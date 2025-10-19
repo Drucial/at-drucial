@@ -1,9 +1,10 @@
 import { useEffect, useRef } from "react";
+
 import { animate, useMotionValue } from "motion/react";
 
 type Direction = "left" | "right" | "top" | "bottom";
 
-export interface UseDirectionalHoverOptions {
+export type UseDirectionalHoverOptions = {
   /**
    * Duration of the background animation in seconds
    * @default 0.3
