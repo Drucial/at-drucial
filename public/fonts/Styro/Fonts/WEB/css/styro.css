@@ -19,73 +19,81 @@
 *
 */
 @font-face {
-  font-family: 'Styro-Extralight';
-  src: url('../fonts/Styro-Extralight.woff2') format('woff2'),
-       url('../fonts/Styro-Extralight.woff') format('woff'),
-       url('../fonts/Styro-Extralight.ttf') format('truetype');
+  font-family: "Styro-Extralight";
+  src:
+    url("../fonts/Styro-Extralight.woff2") format("woff2"),
+    url("../fonts/Styro-Extralight.woff") format("woff"),
+    url("../fonts/Styro-Extralight.ttf") format("truetype");
   font-weight: 200;
   font-display: swap;
   font-style: normal;
 }
 @font-face {
-  font-family: 'Styro-Light';
-  src: url('../fonts/Styro-Light.woff2') format('woff2'),
-       url('../fonts/Styro-Light.woff') format('woff'),
-       url('../fonts/Styro-Light.ttf') format('truetype');
+  font-family: "Styro-Light";
+  src:
+    url("../fonts/Styro-Light.woff2") format("woff2"),
+    url("../fonts/Styro-Light.woff") format("woff"),
+    url("../fonts/Styro-Light.ttf") format("truetype");
   font-weight: 300;
   font-display: swap;
   font-style: normal;
 }
 @font-face {
-  font-family: 'Styro-Regular';
-  src: url('../fonts/Styro-Regular.woff2') format('woff2'),
-       url('../fonts/Styro-Regular.woff') format('woff'),
-       url('../fonts/Styro-Regular.ttf') format('truetype');
+  font-family: "Styro-Regular";
+  src:
+    url("../fonts/Styro-Regular.woff2") format("woff2"),
+    url("../fonts/Styro-Regular.woff") format("woff"),
+    url("../fonts/Styro-Regular.ttf") format("truetype");
   font-weight: 400;
   font-display: swap;
   font-style: normal;
 }
 @font-face {
-  font-family: 'Styro-Medium';
-  src: url('../fonts/Styro-Medium.woff2') format('woff2'),
-       url('../fonts/Styro-Medium.woff') format('woff'),
-       url('../fonts/Styro-Medium.ttf') format('truetype');
+  font-family: "Styro-Medium";
+  src:
+    url("../fonts/Styro-Medium.woff2") format("woff2"),
+    url("../fonts/Styro-Medium.woff") format("woff"),
+    url("../fonts/Styro-Medium.ttf") format("truetype");
   font-weight: 500;
   font-display: swap;
   font-style: normal;
 }
 @font-face {
-  font-family: 'Styro-Semibold';
-  src: url('../fonts/Styro-Semibold.woff2') format('woff2'),
-       url('../fonts/Styro-Semibold.woff') format('woff'),
-       url('../fonts/Styro-Semibold.ttf') format('truetype');
+  font-family: "Styro-Semibold";
+  src:
+    url("../fonts/Styro-Semibold.woff2") format("woff2"),
+    url("../fonts/Styro-Semibold.woff") format("woff"),
+    url("../fonts/Styro-Semibold.ttf") format("truetype");
   font-weight: 600;
   font-display: swap;
   font-style: normal;
 }
 @font-face {
-  font-family: 'Styro-Bold';
-  src: url('../fonts/Styro-Bold.woff2') format('woff2'),
-       url('../fonts/Styro-Bold.woff') format('woff'),
-       url('../fonts/Styro-Bold.ttf') format('truetype');
+  font-family: "Styro-Bold";
+  src:
+    url("../fonts/Styro-Bold.woff2") format("woff2"),
+    url("../fonts/Styro-Bold.woff") format("woff"),
+    url("../fonts/Styro-Bold.ttf") format("truetype");
   font-weight: 700;
   font-display: swap;
   font-style: normal;
 }
 @font-face {
-  font-family: 'Styro-Extrabold';
-  src: url('../fonts/Styro-Extrabold.woff2') format('woff2'),
-       url('../fonts/Styro-Extrabold.woff') format('woff'),
-       url('../fonts/Styro-Extrabold.ttf') format('truetype');
+  font-family: "Styro-Extrabold";
+  src:
+    url("../fonts/Styro-Extrabold.woff2") format("woff2"),
+    url("../fonts/Styro-Extrabold.woff") format("woff"),
+    url("../fonts/Styro-Extrabold.ttf") format("truetype");
   font-weight: 800;
   font-display: swap;
   font-style: normal;
 }
 @font-face {
-  font-family: 'Styro-Black';
-  src: url('../fonts/Styro-Black.woff2') format('woff2'),
-       url('../fonts/Styro-Black.woff') format('woff'),
-       url('../fonts/Styro-Black.ttf') format('truetype');
+  font-family: "Styro-Black";
+  src:
+    url("../fonts/Styro-Black.woff2") format("woff2"),
+    url("../fonts/Styro-Black.woff") format("woff"),
+    url("../fonts/Styro-Black.ttf") format("truetype");
   font-weight: 900;
   font-display: swap;
   font-style: normal;
@@ -99,12 +107,12 @@
 'wght' (range from 200.0 to 900.0
 */
 @font-face {
-  font-family: 'Styro-Variable';
-  src: url('../fonts/Styro-Variable.woff2') format('woff2'),
-       url('../fonts/Styro-Variable.woff') format('woff'),
-       url('../fonts/Styro-Variable.ttf') format('truetype');
+  font-family: "Styro-Variable";
+  src:
+    url("../fonts/Styro-Variable.woff2") format("woff2"),
+    url("../fonts/Styro-Variable.woff") format("woff"),
+    url("../fonts/Styro-Variable.ttf") format("truetype");
   font-weight: 200 900;
   font-display: swap;
   font-style: normal;
 }
-
