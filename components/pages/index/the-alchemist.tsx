@@ -19,8 +19,8 @@ export function TheAlchemist() {
       </h1>
 
       {/* Right whitespace / image column spanning both rows */}
-      <div className="row-span-2 hidden overflow-hidden border-l md:col-span-5 md:col-start-8 md:block">
-        <Keyboard />
+      <div className="row-span-2 hidden overflow-hidden border-l pt-6 pl-6 md:col-span-5 md:col-start-8 md:block md:pt-8 md:pl-8 lg:pt-12 lg:pl-12">
+        <Keyboard orientation="vertical" />
       </div>
     </section>
   );
