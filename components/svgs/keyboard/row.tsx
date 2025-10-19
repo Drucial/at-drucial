@@ -8,6 +8,7 @@ type RowProps = {
   keyGap: number;
   rowGap: number;
   startX?: number;
+  startY?: number;
 };
 
 export function Row({
@@ -17,8 +18,9 @@ export function Row({
   keyGap,
   rowGap,
   startX = 0,
+  startY = 0,
 }: RowProps) {
-  const baseY = (keySize + rowGap) * rowIndex;
+  const baseY = startY + (keySize + rowGap) * rowIndex;
 
   // Calculate x positions for all keys upfront
   const keyPositions = keys.reduce<number[]>((positions, _, index) => {

@@ -19,14 +19,15 @@ export function Keyboard({
   const keySize = size;
   const keyGap = size * 0.1; // 10% of key size
   const rowGap = size * 0.1;
-  const padding = 0;
+  const strokeWidth = 1;
+  const padding = strokeWidth / 2; // Account for stroke width
 
   // Calculate precise dimensions
   // Row 2 (number row) is the widest: 13 regular keys + 1.5x delete = 14.5 key widths
-  // Width: 14.5 * keySize + 14 * keyGap
-  // Height: 6 rows * keySize + 5 * rowGap
-  const baseWidth = 14.5 * keySize + 14 * keyGap;
-  const baseHeight = 6 * keySize + 5 * rowGap;
+  // Width: 14.5 * keySize + 14 * keyGap + padding on both sides
+  // Height: 6 rows * keySize + 5 * rowGap + padding on both sides
+  const baseWidth = 14.5 * keySize + 14 * keyGap + padding * 2;
+  const baseHeight = 6 * keySize + 5 * rowGap + padding * 2;
 
   // Swap dimensions for vertical orientation
   const width = orientation === "vertical" ? baseHeight : baseWidth;
@@ -45,13 +46,11 @@ export function Keyboard({
   return (
     <svg
       className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1"
-      viewBox={`${padding} ${padding} ${width} ${height}`}
+      strokeWidth={strokeWidth}
+      viewBox={`0 0 ${width} ${height}`}
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g className="stroke-muted text-muted" transform={transform}>
+      <g transform={transform}>
         {KEYBOARD_LAYOUT.rows.map((row, index) => (
           <Row
             key={index}
@@ -61,6 +60,7 @@ export function Keyboard({
             rowGap={rowGap}
             rowIndex={index}
             startX={row.startX ?? padding}
+            startY={padding}
           />
         ))}
       </g>
