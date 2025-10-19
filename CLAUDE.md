@@ -123,12 +123,8 @@ We use a consistent 12-column grid across all layouts:
 
 ```tsx
 <section className="grid grid-cols-12 gap-x-8 px-6 md:px-8 lg:px-12">
-  <div className="col-span-6 md:col-span-6">
-    {/* Content */}
-  </div>
-  <div className="col-span-6 md:col-span-6">
-    {/* Content */}
-  </div>
+  <div className="col-span-6 md:col-span-6">{/* Content */}</div>
+  <div className="col-span-6 md:col-span-6">{/* Content */}</div>
 </section>
 ```
 
@@ -161,14 +157,17 @@ When child components have their own padding (like navigation items with `px-4`)
 ```tsx
 export const HEADER_HEIGHT = 128; // Fixed height constant
 
-<header className="grid grid-cols-12 gap-x-8 border-b" style={{ height: HEADER_HEIGHT }}>
+<header
+  className="grid grid-cols-12 gap-x-8 border-b"
+  style={{ height: HEADER_HEIGHT }}
+>
   <div className="col-span-6 flex items-center px-6 md:px-8">
     <Logo />
   </div>
   <div className="col-span-6 flex items-center justify-end">
     <Nav />
   </div>
-</header>
+</header>;
 ```
 
 ## Animation Patterns
@@ -178,7 +177,12 @@ export const HEADER_HEIGHT = 128; // Fixed height constant
 We use the `motion` package for all animations. Import from `motion/react`:
 
 ```tsx
-import { motion, useMotionValue, useAnimationControls, animate } from "motion/react";
+import {
+  motion,
+  useMotionValue,
+  useAnimationControls,
+  animate,
+} from "motion/react";
 ```
 
 ### Custom Animation Hooks
@@ -189,8 +193,8 @@ Provides directional hover effects that animate from the mouse entry direction:
 
 ```tsx
 const { ref, bgX, bgY, handlers } = useDirectionalHover<HTMLButtonElement>({
-  duration: 0.3,  // optional, defaults to 0.3
-  ease: "easeInOut"  // optional, defaults to "easeInOut"
+  duration: 0.3, // optional, defaults to 0.3
+  ease: "easeInOut", // optional, defaults to "easeInOut"
 });
 
 return (
@@ -200,7 +204,7 @@ return (
     onMouseLeave={handlers.onMouseLeave}
   >
     <motion.div
-      className="absolute inset-0 bg-muted"
+      className="bg-muted absolute inset-0"
       style={{ translateX: bgX, translateY: bgY }}
     />
   </button>
@@ -208,6 +212,7 @@ return (
 ```
 
 **Key features**:
+
 - Detects entry/exit direction (left, right, top, bottom)
 - Animates background from that direction
 - Auto-cleanup on unmount
@@ -220,8 +225,8 @@ Creates 3D flip transitions between two icons:
 ```tsx
 const { icon1Controls, icon2Controls, icon1Initial, icon2Initial } =
   useIconFlip(isFirstIconVisible, {
-    duration: 0.4,  // optional, defaults to 0.4
-    ease: "easeInOut"  // optional
+    duration: 0.4, // optional, defaults to 0.4
+    ease: "easeInOut", // optional
   });
 
 return (
@@ -245,6 +250,7 @@ return (
 ```
 
 **Key features**:
+
 - 3D rotateX flip animation
 - Opacity transitions
 - Triggers automatically on state change
@@ -268,6 +274,7 @@ Three custom variable fonts are configured:
 - **Styro**: Decorative font (200-900 weight)
 
 Access via Tailwind classes:
+
 ```tsx
 <div className="font-teko">Heading</div>
 <div className="font-styro">Decorative</div>
@@ -286,18 +293,20 @@ Headings automatically use the Teko font:
 ```
 
 **Eyebrow text** (small text before headings):
+
 ```tsx
 <hgroup>
-  <p>Eyebrow text</p>  {/* Auto-styled as uppercase, muted */}
+  <p>Eyebrow text</p> {/* Auto-styled as uppercase, muted */}
   <h1>Main Heading</h1>
 </hgroup>
 ```
 
 **Subtitle text** (text after headings):
+
 ```tsx
 <hgroup>
   <h1>Main Heading</h1>
-  <p>Subtitle text</p>  {/* Auto-styled as lowercase, muted */}
+  <p>Subtitle text</p> {/* Auto-styled as lowercase, muted */}
 </hgroup>
 ```
 
@@ -369,6 +378,7 @@ setTheme(isLight ? "dark" : "light");
 ```
 
 Dark mode is configured with the custom variant in `globals.css`:
+
 ```css
 @custom-variant dark (&:is(.dark *));
 ```
@@ -391,7 +401,7 @@ export function InteractiveCard() {
       onMouseLeave={handlers.onMouseLeave}
     >
       <motion.div
-        className="absolute inset-0 bg-muted"
+        className="bg-muted absolute inset-0"
         style={{ translateX: bgX, translateY: bgY }}
       />
       {/* Content */}
@@ -530,7 +540,7 @@ import { HEADER_HEIGHT } from "@/components/layout/header";
   style={{ height: `calc(100svh - ${HEADER_HEIGHT}px)` }}
 >
   {/* Content fills viewport height minus header */}
-</section>
+</section>;
 ```
 
 ---

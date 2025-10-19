@@ -15,10 +15,10 @@ export type UseDirectionalHoverOptions = {
    * @default "easeInOut"
    */
   ease?: string;
-}
+};
 
 export function useDirectionalHover<T extends HTMLElement>(
-  options: UseDirectionalHoverOptions = {},
+  options: UseDirectionalHoverOptions = {}
 ) {
   const { duration = 0.3, ease = "easeInOut" } = options;
 

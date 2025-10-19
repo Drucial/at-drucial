@@ -13,7 +13,7 @@ export type UseIconFlipOptions = {
    * @default "easeInOut"
    */
   ease?: string;
-}
+};
 
 export type IconFlipState = {
   /**
@@ -32,7 +32,7 @@ export type IconFlipState = {
    * Initial animation state for icon 2 (hidden)
    */
   icon2Initial: { rotateX: number; opacity: number };
-}
+};
 
 /**
  * Hook for creating a 3D flip transition between two icons
@@ -42,7 +42,7 @@ export type IconFlipState = {
  */
 export function useIconFlip(
   isFirstIconVisible: boolean,
-  options: UseIconFlipOptions = {},
+  options: UseIconFlipOptions = {}
 ): IconFlipState {
   const { duration = 0.4, ease = "easeInOut" } = options;
 
