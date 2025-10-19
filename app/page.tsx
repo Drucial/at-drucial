@@ -1,18 +1,8 @@
-import { Logo } from "@/components/ui/logo";
-import { ModeToggle } from "@/components/ui/theme-toggle";
 import { Heading } from "@/components/ui/typography/heading";
 
 export default function Home() {
   return (
-    <div className="container mx-auto space-y-12 p-8">
-      <div className="flex gap-4">
-        <Logo size="md" variant="wordmark" />
-        <Logo size="md" variant="mark" />
-        <Logo size="md" variant="chip" />
-        <div className="ml-auto">
-          <ModeToggle />
-        </div>
-      </div>
+    <div className="container mx-auto space-y-12">
       <Heading
         as="h1"
         eyebrow="Eyebrow Text"

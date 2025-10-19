@@ -32,6 +32,15 @@ const eslintConfig = [
     },
     settings: { react: { version: "detect" } },
     rules: {
+      // No unused variables or imports
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
+        },
+      ],
       // Import sorting
       "simple-import-sort/imports": [
         "error",
