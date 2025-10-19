@@ -60,6 +60,8 @@ const eslintConfig = [
         },
       ],
       "@typescript-eslint/no-import-type-side-effects": "warn",
+      // Enforce type over interface
+      "@typescript-eslint/consistent-type-definitions": ["warn", "type"],
       // Enforce top-level type imports (import type { X } instead of import { type X })
       "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
       // Enforce aliased imports - prevent relative imports using ../
@@ -98,6 +100,14 @@ const eslintConfig = [
         },
       ],
       "simple-import-sort/exports": "error",
+      // Enforce function declarations over arrow functions for components
+      "react/function-component-definition": [
+        "warn",
+        {
+          namedComponents: "function-declaration",
+          unnamedComponents: "arrow-function",
+        },
+      ],
       // React prop sorting
       "react/jsx-sort-props": [
         "error",
