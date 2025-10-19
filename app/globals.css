@@ -103,6 +103,16 @@
   --shadow-spread: var(--shadow-spread);
   --shadow-blur: var(--shadow-blur);
   --shadow-opacity: var(--shadow-opacity);
+  --text-9xl: var(--text-9xl);
+  --text-10xl: var(--text-10xl);
+  --text-11xl: var(--text-11xl);
+  --text-12xl: var(--text-12xl);
+  --text-13xl: var(--text-13xl);
+  --text-14xl: var(--text-14xl);
+  --text-15xl: var(--text-15xl);
+  --text-16xl: var(--text-16xl);
+  --text-17xl: var(--text-17xl);
+  --text-18xl: var(--text-18xl);
   --color-shadow-color: var(--shadow-color);
   --color-destructive-foreground: var(--destructive-foreground);
 }
@@ -167,6 +177,16 @@
     0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 8px 10px -1px hsl(0 0% 0% / 0.1);
   --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
   --tracking-normal: 0.025em;
+  --text-9xl: 9rem;
+  --text-10xl: 10rem;
+  --text-11xl: 11rem;
+  --text-12xl: 12rem;
+  --text-13xl: 13rem;
+  --text-14xl: 14rem;
+  --text-15xl: 15rem;
+  --text-16xl: 16rem;
+  --text-17xl: 17rem;
+  --text-18xl: 18rem;
 }
 
 .dark {
@@ -262,7 +282,7 @@
 
   h1 {
     font-family: var(--font-teko);
-    @apply text-8xl leading-none font-bold;
+    @apply text-9xl leading-24 font-bold;
   }
 
   h2 {

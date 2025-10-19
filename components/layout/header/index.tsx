@@ -2,7 +2,7 @@ import { Logo } from "@/components/ui/logo";
 
 import { Nav } from "./nav";
 
-const HEADER_HEIGHT = 128;
+export const HEADER_HEIGHT = 128;
 
 export function Header() {
   return (
@@ -10,7 +10,7 @@ export function Header() {
       className="flex items-center justify-between border-b"
       style={{ height: HEADER_HEIGHT }}
     >
-      <div className="flex-1 px-8">
+      <div className="flex-1 px-6">
         <Logo size="md" variant="wordmark" />
       </div>
       <Nav />
