@@ -1,5 +1,7 @@
 import { Logo } from "@/components/ui/logo";
 
+import { Nav } from "./nav";
+
 const HEADER_HEIGHT = 128;
 
 export function Header() {
