@@ -10,7 +10,7 @@ export function Header() {
       className="flex items-center justify-between border-b"
       style={{ height: HEADER_HEIGHT }}
     >
-      <div className="px-8">
+      <div className="flex-1 px-8">
         <Logo size="md" variant="wordmark" />
       </div>
       <Nav />

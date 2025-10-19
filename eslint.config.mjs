@@ -6,6 +6,7 @@ import stylistic from "@stylistic/eslint-plugin";
 import importPlugin from "eslint-plugin-import";
 import react from "eslint-plugin-react";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
+import unusedImports from "eslint-plugin-unused-imports";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -31,6 +32,7 @@ const eslintConfig = [
       "simple-import-sort": simpleImportSort,
       react: react,
       import: importPlugin,
+      "unused-imports": unusedImports,
     },
     settings: {
       react: { version: "detect" },
@@ -41,8 +43,10 @@ const eslintConfig = [
       },
     },
     rules: {
+      // No unused imports (auto-removable with --fix)
+      "unused-imports/no-unused-imports": "error",
       // No unused variables or imports
-      "@typescript-eslint/no-unused-vars": [
+      "unused-imports/no-unused-vars": [
         "error",
         {
           argsIgnorePattern: "^_",

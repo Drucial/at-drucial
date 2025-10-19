@@ -1,27 +1,14 @@
-import { HomeIcon } from "lucide-react";
+"use client";
 
-import type { NavLinkProps } from "./nav-link";
 import { NavLink } from "./nav-link";
+import { NAV_LINKS } from "./nav-links";
 
 export function Nav() {
   return (
-    <nav className="flex h-full items-center gap-4">
+    <nav className="flex h-full items-center divide-x border-l">
       {NAV_LINKS.map((link) => (
         <NavLink key={link.href} {...link} />
       ))}
     </nav>
   );
 }
-
-const NAV_LINKS: NavLinkProps[] = [
-  {
-    Icon: HomeIcon,
-    label: "Home",
-    href: "/",
-  },
-  {
-    Icon: HomeIcon,
-    label: "About",
-    href: "/about",
-  },
-];
