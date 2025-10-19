@@ -1,3 +1,9 @@
+"use client";
+
+import { useState } from "react";
+
+import { motion } from "motion/react";
+
 type TextPlacement =
   | "center"
   | "top-left"
@@ -24,6 +30,7 @@ export function Key({
   fontSize = 10,
   textPlacement = "center",
 }: KeyProps) {
+  const [hasBeenHovered, setHasBeenHovered] = useState(false);
   const hasLabel = label !== undefined && label !== null && label !== "";
 
   // Calculate text position based on placement
@@ -61,19 +68,58 @@ export function Key({
       : "middle";
 
   return (
-    <g>
-      <rect height={height} rx="3" width={width} x={x} y={y} />
+    <motion.g
+      className="group cursor-pointer"
+      whileHover="hover"
+      onMouseEnter={() => setHasBeenHovered(true)}
+    >
+      {/* Base key with transparent fill to catch mouse events */}
+      <rect
+        className="stroke-muted fill-transparent"
+        fill="none"
+        height={height}
+        rx="3"
+        width={width}
+        x={x}
+        y={y}
+      />
+      {/* Animated hover fill */}
+      <motion.rect
+        className="fill-foreground stroke-muted pointer-events-none"
+        height={height}
+        initial={{ opacity: 0, scale: 0.5 }}
+        rx="3"
+        style={{ transformOrigin: `${x + width / 2}px ${y + height / 2}px` }}
+        width={width}
+        x={x}
+        y={y}
+        transition={{
+          duration: 0.3,
+          type: "spring",
+          stiffness: 200,
+          damping: 20,
+        }}
+        variants={{
+          hover: { opacity: 0.1, scale: 1 },
+        }}
+      />
       {hasLabel && (
-        <text
-          fill="currentColor"
+        <motion.text
+          animate={{ opacity: hasBeenHovered ? 1 : 0 }}
+          className="fill-muted-foreground/50 pointer-events-none select-none"
           fontSize={fontSize}
+          initial={{ opacity: 0 }}
           textAnchor={textAnchor}
+          transition={{ duration: 0.2 }}
           x={textX}
           y={textY}
+          variants={{
+            hover: { fill: "oklch(var(--background))" },
+          }}
         >
           {label}
-        </text>
+        </motion.text>
       )}
-    </g>
+    </motion.g>
   );
 }
