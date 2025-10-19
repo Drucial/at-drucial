@@ -1,4 +1,5 @@
 import { HEADER_HEIGHT } from "@/components/layout/header";
+import { Keyboard } from "@/components/svgs/keyboard";
 
 export function TheAlchemist() {
   return (
@@ -18,7 +19,9 @@ export function TheAlchemist() {
       </h1>
 
       {/* Right whitespace / image column spanning both rows */}
-      <div className="row-span-2 hidden border-l md:col-span-5 md:col-start-8 md:block" />
+      <div className="row-span-2 hidden overflow-hidden border-l md:col-span-5 md:col-start-8 md:block">
+        <Keyboard />
+      </div>
     </section>
   );
 }
