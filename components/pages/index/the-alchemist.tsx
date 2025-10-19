@@ -12,7 +12,7 @@ export function TheAlchemist() {
   const keyboardY = useTransform(scrollY, [0, 800], [0, -600]);
 
   // Pseudo-sticky parallax for subtitle text (moves down at similar rate to keyboard)
-  const subtitleY = useTransform(scrollY, [0, 800], [0, 650]);
+  const subtitleY = useTransform(scrollY, [0, 800], [0, 600]);
 
   return (
     <section className="grid-auto-rows-[minmax(auto,1fr)] grid h-[calc(100svh-128px)] grid-cols-12 gap-x-8 px-6 md:px-8 lg:gap-x-12 lg:px-12">

@@ -1,7 +1,8 @@
 import { Fragment } from "react";
 
-import { DesignerEngineer } from "@/components/pages/index/designer-engineer";
+import { FullStackUnicorn } from "@/components/pages/index/full-stack-unicorn";
 import { TheAlchemist } from "@/components/pages/index/the-alchemist";
+import { UiUxDesignerEngineer } from "@/components/pages/index/ui-ux-designer-engineer";
 import { Separator } from "@/components/ui/separator";
 
 export default function Home() {
@@ -9,7 +10,10 @@ export default function Home() {
     <Fragment>
       <TheAlchemist />
       <Separator />
-      <DesignerEngineer />
+      <UiUxDesignerEngineer />
+      <Separator />
+      <FullStackUnicorn />
+      <Separator />
     </Fragment>
   );
 }
