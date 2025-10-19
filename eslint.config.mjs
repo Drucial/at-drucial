@@ -1,6 +1,8 @@
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { FlatCompat } from "@eslint/eslintrc";
+import stylistic from "@stylistic/eslint-plugin";
+import simpleImportSort from "eslint-plugin-simple-import-sort";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -19,6 +21,59 @@ const eslintConfig = [
       "build/**",
       "next-env.d.ts",
     ],
+  },
+  {
+    plugins: {
+      "@stylistic": stylistic,
+      "simple-import-sort": simpleImportSort,
+    },
+    rules: {
+      // Import sorting
+      "simple-import-sort/imports": [
+        "error",
+        {
+          groups: [
+            // Side effect imports first
+            ["^\\u0000"],
+            // Node.js built-ins
+            ["^(assert|buffer|child_process|cluster|console|constants|crypto|dgram|dns|domain|events|fs|http|https|module|net|os|path|punycode|querystring|readline|repl|stream|string_decoder|sys|timers|tls|tty|url|util|vm|zlib|freelist|v8|process|async_hooks|http2|perf_hooks)(/.*|$)"],
+            // React and Next.js
+            ["^react", "^next"],
+            // Other packages
+            ["^@?\\w"],
+            // Absolute imports and other imports
+            ["^"],
+            // Relative imports
+            ["^\\."],
+          ],
+        },
+      ],
+      "simple-import-sort/exports": "error",
+      // Padding between statements
+      "@stylistic/padding-line-between-statements": [
+        "error",
+        // Blank line after imports
+        { blankLine: "always", prev: "import", next: "*" },
+        { blankLine: "any", prev: "import", next: "import" },
+        // Blank line before return statements
+        { blankLine: "always", prev: "*", next: "return" },
+        // Blank line before and after function declarations
+        { blankLine: "always", prev: "*", next: "function" },
+        { blankLine: "always", prev: "function", next: "*" },
+        // Blank line before and after type/interface declarations
+        { blankLine: "always", prev: "*", next: "type" },
+        { blankLine: "always", prev: "type", next: "*" },
+        { blankLine: "always", prev: "*", next: "interface" },
+        { blankLine: "always", prev: "interface", next: "*" },
+        // Blank line before and after class declarations
+        { blankLine: "always", prev: "*", next: "class" },
+        { blankLine: "always", prev: "class", next: "*" },
+        // Blank line before and after export statements
+        { blankLine: "always", prev: "*", next: "export" },
+        { blankLine: "always", prev: "export", next: "*" },
+        { blankLine: "any", prev: "export", next: "export" },
+      ],
+    },
   },
 ];
 
