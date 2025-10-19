@@ -1,7 +1,9 @@
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+
 import { FlatCompat } from "@eslint/eslintrc";
 import stylistic from "@stylistic/eslint-plugin";
+import react from "eslint-plugin-react";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -26,7 +28,9 @@ const eslintConfig = [
     plugins: {
       "@stylistic": stylistic,
       "simple-import-sort": simpleImportSort,
+      "react": react,
     },
+    settings: { react: { version: "detect" } },
     rules: {
       // Import sorting
       "simple-import-sort/imports": [
@@ -49,6 +53,17 @@ const eslintConfig = [
         },
       ],
       "simple-import-sort/exports": "error",
+      // React prop sorting
+      "react/jsx-sort-props": [
+        "error",
+        {
+          callbacksLast: true,
+          shorthandFirst: true,
+          multiline: "last",
+          ignoreCase: true,
+          reservedFirst: true,
+        },
+      ],
       // Padding between statements
       "@stylistic/padding-line-between-statements": [
         "error",
