@@ -22,8 +22,11 @@ export function Header() {
 
   return (
     <motion.header
+      animate={{ opacity: 1, y: 0 }}
       className="bg-background sticky top-0 z-50 grid grid-cols-12 gap-x-8 border-b"
+      initial={{ opacity: 0, y: -20 }}
       style={{ height: headerHeight }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <div className="col-span-6 flex items-center px-6 md:col-span-6 md:px-8">
         <Logo />
