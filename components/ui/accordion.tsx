@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import type * as React from "react"
+import type * as React from "react";
 
-import { MinusIcon, PlusIcon } from "lucide-react"
-import * as AccordionPrimitive from "@radix-ui/react-accordion"
+import * as AccordionPrimitive from "@radix-ui/react-accordion";
+import { MinusIcon, PlusIcon } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 function Accordion({
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Root>) {
-  return <AccordionPrimitive.Root data-slot="accordion" {...props} />
+  return <AccordionPrimitive.Root data-slot="accordion" {...props} />;
 }
 
 function AccordionItem({
@@ -19,11 +19,11 @@ function AccordionItem({
 }: React.ComponentProps<typeof AccordionPrimitive.Item>) {
   return (
     <AccordionPrimitive.Item
+      className={cn("border-border border-b last:border-b-0", className)}
       data-slot="accordion-item"
-      className={cn("border-b border-border last:border-b-0", className)}
       {...props}
     />
-  )
+  );
 }
 
 function AccordionTrigger({
@@ -43,12 +43,12 @@ function AccordionTrigger({
       >
         {children}
         <div className="relative size-8 shrink-0">
-          <MinusIcon className="text-muted-foreground absolute inset-0 size-8 transition-all duration-200 group-data-[state=open]:rotate-0 group-data-[state=open]:opacity-100 group-data-[state=closed]:rotate-90 group-data-[state=closed]:opacity-0" />
+          <MinusIcon className="text-muted-foreground absolute inset-0 size-8 transition-all duration-200 group-data-[state=closed]:rotate-90 group-data-[state=closed]:opacity-0 group-data-[state=open]:rotate-0 group-data-[state=open]:opacity-100" />
           <PlusIcon className="text-muted-foreground absolute inset-0 size-8 transition-all duration-200 group-data-[state=closed]:rotate-0 group-data-[state=closed]:opacity-100 group-data-[state=open]:rotate-90 group-data-[state=open]:opacity-0" />
         </div>
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
-  )
+  );
 }
 
 function AccordionContent({
@@ -58,13 +58,13 @@ function AccordionContent({
 }: React.ComponentProps<typeof AccordionPrimitive.Content>) {
   return (
     <AccordionPrimitive.Content
-      data-slot="accordion-content"
       className="text-muted-foreground data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-base md:text-lg"
+      data-slot="accordion-content"
       {...props}
     >
-      <div className={cn("pb-6 pt-2", className)}>{children}</div>
+      <div className={cn("pt-2 pb-6", className)}>{children}</div>
     </AccordionPrimitive.Content>
-  )
+  );
 }
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent }
+export { Accordion, AccordionContent, AccordionItem, AccordionTrigger };

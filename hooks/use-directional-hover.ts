@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 
+import type { Easing } from "motion/react";
 import { animate, useMotionValue } from "motion/react";
 
 type Direction = "left" | "right" | "top" | "bottom";
@@ -14,13 +15,13 @@ export type UseDirectionalHoverOptions = {
    * Easing function for the animation
    * @default "easeInOut"
    */
-  ease?: string;
+  ease?: Easing;
 };
 
 export function useDirectionalHover<T extends HTMLElement>(
   options: UseDirectionalHoverOptions = {}
 ) {
-  const { duration = 0.3, ease = "easeInOut" } = options;
+  const { duration = 0.3, ease = "easeInOut" as Easing } = options;
 
   const elementRef = useRef<T>(null);
   const rafRef = useRef<number | null>(null);

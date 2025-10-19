@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 
+import type { Easing } from "motion/react";
 import { useAnimationControls } from "motion/react";
 
 export type UseIconFlipOptions = {
@@ -12,7 +13,7 @@ export type UseIconFlipOptions = {
    * Easing function for the animation
    * @default "easeInOut"
    */
-  ease?: string;
+  ease?: Easing;
 };
 
 export type IconFlipState = {
@@ -44,7 +45,7 @@ export function useIconFlip(
   isFirstIconVisible: boolean,
   options: UseIconFlipOptions = {}
 ): IconFlipState {
-  const { duration = 0.4, ease = "easeInOut" } = options;
+  const { duration = 0.4, ease = "easeInOut" as Easing } = options;
 
   const icon1Controls = useAnimationControls();
   const icon2Controls = useAnimationControls();
