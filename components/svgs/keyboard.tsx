@@ -29,9 +29,10 @@ export function Keyboard() {
     height,
     label,
     fontSize = 10,
+    key,
   }: KeyProps & { key?: string }) {
     return (
-      <>
+      <g key={key}>
         <rect height={height} rx="3" width={width} x={x} y={y} />
         <text
           fill="currentColor"
@@ -42,7 +43,7 @@ export function Keyboard() {
         >
           {label}
         </text>
-      </>
+      </g>
     );
   }
 
