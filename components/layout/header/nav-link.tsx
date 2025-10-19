@@ -26,7 +26,7 @@ export function NavLink({ Icon, label, href }: NavLinkProps) {
   return (
     <Link
       ref={ref}
-      className="relative flex aspect-square h-full shrink-0 items-center justify-center overflow-hidden px-4"
+      className="relative flex aspect-square h-full shrink-0 items-center justify-center overflow-hidden"
       href={href}
       onMouseEnter={(e) => {
         setIsHovered(true);
