@@ -7,6 +7,7 @@ import {
   AnimatePresence,
   motion,
   useMotionValue,
+  useMotionValueEvent,
   useScroll,
   useSpring,
   useTransform,
@@ -258,12 +259,33 @@ export function TheMinimalistSavant() {
     [0, 1, 1, 0]
   );
 
+  // Background color transition - spring-based at buffer point
+  const normalBgOpacityValue = useMotionValue(1);
+  const normalBgOpacity = useSpring(normalBgOpacityValue, {
+    stiffness: 300,
+    damping: 30,
+  });
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (latest >= 0.18) {
+      normalBgOpacityValue.set(0);
+    } else {
+      normalBgOpacityValue.set(1);
+    }
+  });
+
   return (
     <section
       ref={sectionRef}
       className="bg-foreground text-background relative grid grid-cols-12 gap-x-8 px-6 md:px-8 lg:gap-x-12 lg:px-12"
       style={{ minHeight: `calc(100svh - ${HEADER_HEIGHT}px)` }}
     >
+      {/* Normal background overlay that fades out to reveal inverted bg */}
+      <motion.div
+        className="bg-background pointer-events-none absolute inset-0"
+        style={{ opacity: normalBgOpacity }}
+      />
+
       {/* Left column - Heading with letter animations */}
       <div className="col-span-12 flex items-center py-24 pr-8 md:col-span-5 md:py-32 lg:py-40">
         <h2 className="text-[clamp(3rem,12vw,12rem)] leading-[0.8] font-bold tracking-tighter">

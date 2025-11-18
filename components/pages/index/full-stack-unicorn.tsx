@@ -1,3 +1,10 @@
+"use client";
+
+import { useRef } from "react";
+
+import type { MotionValue } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
+
 import { HEADER_HEIGHT } from "@/components/layout/header";
 import {
   Accordion,
@@ -12,36 +19,98 @@ type AccordionData = {
   content: string[];
 };
 
+// Hook for staggered accordion item animations
+function useAccordionItemAnimation(
+  scrollYProgress: MotionValue<number>,
+  index: number
+) {
+  const stagger = 0.05;
+  const start = 0.25 + index * stagger;
+  const end = start + 0.15;
+
+  return {
+    opacity: useTransform(scrollYProgress, [start, end], [0, 1]),
+    x: useTransform(scrollYProgress, [start, end], [-100, 0]),
+  };
+}
+
+// Animated accordion item wrapper
+function AnimatedAccordionItem({
+  item,
+  index,
+  scrollYProgress,
+}: {
+  item: AccordionData;
+  index: number;
+  scrollYProgress: MotionValue<number>;
+}) {
+  const animations = useAccordionItemAnimation(scrollYProgress, index);
+
+  return (
+    <motion.div style={{ opacity: animations.opacity, x: animations.x }}>
+      <AccordionItem value={item.value}>
+        <AccordionTrigger>{item.title}</AccordionTrigger>
+        <AccordionContent>
+          <div className="space-y-4">
+            {item.content.map((paragraph, idx) => (
+              <p key={idx}>{paragraph}</p>
+            ))}
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+    </motion.div>
+  );
+}
+
 export function FullStackUnicorn() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Right column and border slide in from right together
+  const rightColumnX = useTransform(
+    scrollYProgress,
+    [0.35, 0.5],
+    ["100%", "0%"]
+  );
+
   return (
     <section
+      ref={sectionRef}
       className="grid min-h-screen grid-cols-12 gap-x-8 px-6 md:px-8 lg:gap-x-12 lg:px-12"
       style={{ minHeight: `calc(100svh - ${HEADER_HEIGHT}px)` }}
     >
       {/* Left column - Accordion */}
-      <div className="border-border col-span-12 flex items-center justify-center border-r py-12 md:col-span-6">
+      <div className="col-span-12 flex items-center justify-center py-12 md:col-span-6">
         <Accordion
           className="w-full max-w-[65ch]"
           defaultValue={["research"]}
           type="multiple"
         >
-          {accordionData.map((item) => (
-            <AccordionItem key={item.value} value={item.value}>
-              <AccordionTrigger>{item.title}</AccordionTrigger>
-              <AccordionContent>
-                <div className="space-y-4">
-                  {item.content.map((paragraph, index) => (
-                    <p key={index}>{paragraph}</p>
-                  ))}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
+          {accordionData.map((item, index) => (
+            <AnimatedAccordionItem
+              key={item.value}
+              index={index}
+              item={item}
+              scrollYProgress={scrollYProgress}
+            />
           ))}
         </Accordion>
       </div>
 
-      {/* Right column - Title */}
-      <div className="col-span-12 flex items-center justify-center py-12 md:col-span-6">
+      {/* Right column - Title with border sliding in from right */}
+      <motion.div
+        className="relative col-span-12 flex items-center justify-center py-12 md:col-span-6"
+        style={{
+          x: rightColumnX,
+        }}
+      >
+        {/* Border */}
+        <div className="bg-border absolute bottom-0 left-0 top-0 w-px" />
+
         <div className="font-teko text-border mt-12 flex flex-col items-center p-6 font-black uppercase tabular-nums md:p-8 lg:p-12">
           <span className="text-[15vw] leading-40 tracking-tighter">Full-</span>
           <span className="text-[12.5vw] leading-36 tracking-tighter">
@@ -51,7 +120,7 @@ export function FullStackUnicorn() {
             Unicorn
           </span>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
