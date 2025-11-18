@@ -128,10 +128,14 @@ function AnimatedLetter({
   );
 }
 
-function MagnifiedWord({ children }: { children: string }) {
-  const wordRef = useRef<HTMLSpanElement>(null);
+type MagnifiableAreaProps = {
+  children: React.ReactNode;
+  magnifiedContent: React.ReactNode;
+};
+
+function MagnifiableArea({ children, magnifiedContent }: MagnifiableAreaProps) {
+  const areaRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [wordWidth, setWordWidth] = useState(0);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -140,41 +144,27 @@ function MagnifiedWord({ children }: { children: string }) {
   const lensX = useSpring(mouseX, springConfig);
   const lensY = useSpring(mouseY, springConfig);
 
-  // Subtle parallax for the text (opposite direction, small amount)
-  const textX = useTransform(lensX, (v) => v * -0.05);
-  const textY = useTransform(lensY, (v) => v * -0.05);
-
-  const LENS_SIZE = 140;
+  const LENS_SIZE = 210;
   const scale = 1.3;
 
-  // Magnified text position inside lens - text stays fixed relative to word
-  // When lens is at position v, magnified text needs to offset so it appears stationary
-  // The text origin is top-left, lens center is at (v, y), so text needs to be at:
-  // lens center - (mouse position * scale) to keep the magnified text aligned
-  const magnifiedTextX = useTransform(
-    lensX,
-    (v) => LENS_SIZE / 2 - v * scale
-  );
-  const magnifiedTextY = useTransform(
-    lensY,
-    (v) => LENS_SIZE / 2 - v * scale
-  );
+  // Magnified content position inside lens
+  const magnifiedX = useTransform(lensX, (v) => LENS_SIZE / 2 - v * scale);
+  const magnifiedY = useTransform(lensY, (v) => LENS_SIZE / 2 - v * scale);
 
-  function handleMouseMove(e: React.MouseEvent<HTMLSpanElement>) {
-    if (!wordRef.current) return;
+  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    if (!areaRef.current) return;
 
-    const rect = wordRef.current.getBoundingClientRect();
+    const rect = areaRef.current.getBoundingClientRect();
     mouseX.set(e.clientX - rect.left);
     mouseY.set(e.clientY - rect.top);
   }
 
-  function handleMouseEnter(e: React.MouseEvent<HTMLSpanElement>) {
-    if (!wordRef.current) return;
+  function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
+    if (!areaRef.current) return;
 
-    const rect = wordRef.current.getBoundingClientRect();
+    const rect = areaRef.current.getBoundingClientRect();
     mouseX.set(e.clientX - rect.left);
     mouseY.set(e.clientY - rect.top);
-    setWordWidth(rect.width);
     setIsHovered(true);
   }
 
@@ -183,52 +173,52 @@ function MagnifiedWord({ children }: { children: string }) {
   }
 
   return (
-    <span
-      ref={wordRef}
-      className="relative inline-block cursor-pointer"
+    <div
+      ref={areaRef}
+      className="relative cursor-pointer"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
     >
-      {/* Base text - always visible to maintain layout */}
-      <span className="text-background">{children}</span>
+      {/* Base content - always visible */}
+      {children}
 
       {/* Magnified lens effect */}
       {isHovered && (
-        <>
-          {/* Circular lens with magnified text */}
-          <motion.span
-            className="bg-foreground border-background/20 pointer-events-none absolute overflow-hidden rounded-full border-2"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0 }}
+        <motion.div
+          className="bg-foreground border-background/20 pointer-events-none absolute overflow-hidden rounded-full border-2"
+          animate={{ scale: 1 }}
+          exit={{ scale: 0 }}
+          initial={{ scale: 0 }}
+          style={{
+            width: LENS_SIZE,
+            height: LENS_SIZE,
+            left: lensX,
+            top: lensY,
+            x: "-50%",
+            y: "-50%",
+            transformOrigin: "center center",
+          }}
+          transition={{ type: "spring", damping: 20, stiffness: 300 }}
+        >
+          {/* Magnified content inside lens */}
+          <motion.div
+            className="absolute"
             style={{
-              width: LENS_SIZE,
-              height: LENS_SIZE,
-              left: lensX,
-              top: lensY,
-              x: "-50%",
-              y: "-50%",
-              transformOrigin: "center center",
+              left: 0,
+              top: 0,
+              x: magnifiedX,
+              y: magnifiedY,
+              scale: scale,
+              transformOrigin: "top left",
+              width: areaRef.current?.offsetWidth,
             }}
-            transition={{ type: "spring", damping: 20, stiffness: 300 }}
           >
-            {/* Magnified text inside lens */}
-            <motion.span
-              className="text-background absolute whitespace-nowrap text-[1.3em]"
-              style={{
-                left: 0,
-                top: 0,
-                x: magnifiedTextX,
-                y: magnifiedTextY,
-              }}
-            >
-              {children}
-            </motion.span>
-          </motion.span>
-        </>
+            {magnifiedContent}
+          </motion.div>
+        </motion.div>
       )}
-    </span>
+    </div>
   );
 }
 
@@ -303,35 +293,59 @@ export function TheMinimalistSavant() {
 
       {/* Right column - Content */}
       <div className="col-span-12 flex flex-col items-end justify-start gap-8 py-24 pl-8 text-right md:col-span-6 md:col-start-7 md:py-32 lg:py-40">
-        {/* Quote */}
-        <motion.p
-          className="text-background/50 font-teko text-3xl leading-tight font-medium md:text-4xl lg:text-5xl"
-          style={{
-            x: quoteTranslateX,
-            opacity: quoteOpacity,
-          }}
-        >
-          In a world cluttered with complexity,{" "}
-          <MagnifiedWord>simplicity</MagnifiedWord> stands out.
-        </motion.p>
+        <MagnifiableArea
+          magnifiedContent={
+            <div className="flex flex-col items-end text-right">
+              {/* Static quote for magnification */}
+              <p className="text-background/50 font-teko text-3xl leading-tight font-medium md:text-4xl lg:text-5xl">
+                In a world cluttered with complexity,{" "}
+                <span className="text-background">simplicity</span> stands out.
+              </p>
 
-        {/* Description */}
-        <motion.div
-          className="text-background/50 max-w-md space-y-6 text-balance"
-          style={{
-            y: descriptionTranslateY,
-            opacity: descriptionOpacity,
-          }}
+              {/* Static description for magnification */}
+              <div className="text-background/50 mt-8 max-w-md space-y-6 text-balance ml-auto">
+                <p className="leading-relaxed">
+                  Less is more is not just a mantra; it&apos;s a disciplined
+                  approach to design and life.
+                </p>
+                <p className="leading-relaxed">
+                  Elegance lies in restraint. Every element has a purpose, every
+                  feature is thoughtfully crafted, and nothing is superfluous.
+                </p>
+              </div>
+            </div>
+          }
         >
-          <p className="leading-relaxed">
-            Less is more is not just a mantra; it&apos;s a disciplined approach
-            to design and life.
-          </p>
-          <p className="leading-relaxed">
-            Elegance lies in restraint. Every element has a purpose, every
-            feature is thoughtfully crafted, and nothing is superfluous.
-          </p>
-        </motion.div>
+          {/* Quote */}
+          <motion.p
+            className="text-background/50 font-teko text-3xl leading-tight font-medium md:text-4xl lg:text-5xl"
+            style={{
+              x: quoteTranslateX,
+              opacity: quoteOpacity,
+            }}
+          >
+            In a world cluttered with complexity,{" "}
+            <span className="text-background">simplicity</span> stands out.
+          </motion.p>
+
+          {/* Description */}
+          <motion.div
+            className="text-background/50 mt-8 max-w-md space-y-6 text-balance ml-auto"
+            style={{
+              y: descriptionTranslateY,
+              opacity: descriptionOpacity,
+            }}
+          >
+            <p className="leading-relaxed">
+              Less is more is not just a mantra; it&apos;s a disciplined approach
+              to design and life.
+            </p>
+            <p className="leading-relaxed">
+              Elegance lies in restraint. Every element has a purpose, every
+              feature is thoughtfully crafted, and nothing is superfluous.
+            </p>
+          </motion.div>
+        </MagnifiableArea>
       </div>
     </section>
   );
