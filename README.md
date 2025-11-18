@@ -32,17 +32,17 @@ npm run dev
 
 ## Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server with Turbopack |
-| `npm run build` | Build for production |
-| `npm run start` | Start production server |
-| `npm run lint` | Check for linting errors |
-| `npm run lint:fix` | Auto-fix linting errors |
-| `npm run format` | Format code with Prettier |
-| `npm run format:check` | Check Prettier formatting |
-| `npm run type-check` | Run TypeScript type checking |
-| `npm run check` | Run all checks in parallel |
+| Command                | Description                             |
+| ---------------------- | --------------------------------------- |
+| `npm run dev`          | Start development server with Turbopack |
+| `npm run build`        | Build for production                    |
+| `npm run start`        | Start production server                 |
+| `npm run lint`         | Check for linting errors                |
+| `npm run lint:fix`     | Auto-fix linting errors                 |
+| `npm run format`       | Format code with Prettier               |
+| `npm run format:check` | Check Prettier formatting               |
+| `npm run type-check`   | Run TypeScript type checking            |
+| `npm run check`        | Run all checks in parallel              |
 
 ## Tech Stack
 
