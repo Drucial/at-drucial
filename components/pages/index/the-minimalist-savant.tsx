@@ -138,6 +138,7 @@ type MagnifiableAreaProps = {
 function MagnifiableArea({ children, magnifiedContent }: MagnifiableAreaProps) {
   const areaRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [areaWidth, setAreaWidth] = useState(0);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -167,6 +168,7 @@ function MagnifiableArea({ children, magnifiedContent }: MagnifiableAreaProps) {
     const rect = areaRef.current.getBoundingClientRect();
     mouseX.set(e.clientX - rect.left);
     mouseY.set(e.clientY - rect.top);
+    setAreaWidth(areaRef.current.offsetWidth);
     setIsHovered(true);
   }
 
@@ -189,10 +191,11 @@ function MagnifiableArea({ children, magnifiedContent }: MagnifiableAreaProps) {
       <AnimatePresence>
         {isHovered && (
           <motion.div
-            className="bg-foreground border-background/20 pointer-events-none absolute overflow-hidden rounded-full border-2"
             animate={{ scale: 1, opacity: 1 }}
+            className="bg-foreground border-background/20 pointer-events-none absolute overflow-hidden rounded-full border-2"
             exit={{ scale: 0, opacity: 0 }}
             initial={{ scale: 0, opacity: 0 }}
+            transition={{ type: "spring", damping: 20, stiffness: 300 }}
             style={{
               width: LENS_SIZE,
               height: LENS_SIZE,
@@ -202,7 +205,6 @@ function MagnifiableArea({ children, magnifiedContent }: MagnifiableAreaProps) {
               y: "-50%",
               transformOrigin: "center center",
             }}
-            transition={{ type: "spring", damping: 20, stiffness: 300 }}
           >
             {/* Magnified content inside lens */}
             <motion.div
@@ -214,7 +216,7 @@ function MagnifiableArea({ children, magnifiedContent }: MagnifiableAreaProps) {
                 y: magnifiedY,
                 scale: scale,
                 transformOrigin: "top left",
-                width: areaRef.current?.offsetWidth,
+                width: areaWidth,
               }}
             >
               {magnifiedContent}
@@ -292,7 +294,7 @@ export function TheMinimalistSavant() {
           {/* "The" = 3 letters */}
           <AnimatedWord
             baseExit={0.75}
-            baseStart={0.20}
+            baseStart={0.2}
             className="block"
             scrollYProgress={scrollYProgress}
             word="The"
@@ -328,7 +330,7 @@ export function TheMinimalistSavant() {
               </p>
 
               {/* Static description for magnification */}
-              <div className="text-background/50 mt-8 max-w-md space-y-6 text-balance ml-auto">
+              <div className="text-background/50 mt-8 ml-auto max-w-md space-y-6 text-balance">
                 <p className="leading-relaxed">
                   Less is more is not just a mantra; it&apos;s a disciplined
                   approach to design and life.
@@ -355,15 +357,15 @@ export function TheMinimalistSavant() {
 
           {/* Description */}
           <motion.div
-            className="text-background/50 mt-8 max-w-md space-y-6 text-balance ml-auto"
+            className="text-background/50 mt-8 ml-auto max-w-md space-y-6 text-balance"
             style={{
               y: descriptionTranslateY,
               opacity: descriptionOpacity,
             }}
           >
             <p className="leading-relaxed">
-              Less is more is not just a mantra; it&apos;s a disciplined approach
-              to design and life.
+              Less is more is not just a mantra; it&apos;s a disciplined
+              approach to design and life.
             </p>
             <p className="leading-relaxed">
               Elegance lies in restraint. Every element has a purpose, every

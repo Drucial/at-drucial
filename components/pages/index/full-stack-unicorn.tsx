@@ -109,7 +109,7 @@ export function FullStackUnicorn() {
         }}
       >
         {/* Border */}
-        <div className="bg-border absolute bottom-0 left-0 top-0 w-px" />
+        <div className="bg-border absolute top-0 bottom-0 left-0 w-px" />
 
         <div className="font-teko text-border mt-12 flex flex-col items-center p-6 font-black uppercase tabular-nums md:p-8 lg:p-12">
           <span className="text-[15vw] leading-40 tracking-tighter">Full-</span>
