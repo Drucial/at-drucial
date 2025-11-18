@@ -267,17 +267,15 @@ return (
 
 ### Custom Fonts
 
-Three custom variable fonts are configured:
+Two custom variable fonts are configured:
 
 - **Archivo**: Primary sans-serif (100-900 weight)
 - **Teko**: Display font for headings (300-700 weight)
-- **Styro**: Decorative font (200-900 weight)
 
 Access via Tailwind classes:
 
 ```tsx
 <div className="font-teko">Heading</div>
-<div className="font-styro">Decorative</div>
 ```
 
 ### Typography Hierarchy
