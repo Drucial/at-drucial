@@ -1,9 +1,15 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import type { MotionValue } from "motion/react";
-import { motion, useScroll, useTransform } from "motion/react";
+import {
+  motion,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "motion/react";
 
 import { HEADER_HEIGHT } from "@/components/layout/header";
 
@@ -122,6 +128,110 @@ function AnimatedLetter({
   );
 }
 
+function MagnifiedWord({ children }: { children: string }) {
+  const wordRef = useRef<HTMLSpanElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [wordWidth, setWordWidth] = useState(0);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 25, stiffness: 400 };
+  const lensX = useSpring(mouseX, springConfig);
+  const lensY = useSpring(mouseY, springConfig);
+
+  // Subtle parallax for the text (opposite direction, small amount)
+  const textX = useTransform(lensX, (v) => v * -0.05);
+  const textY = useTransform(lensY, (v) => v * -0.05);
+
+  const LENS_SIZE = 140;
+  const scale = 1.3;
+
+  // Magnified text position inside lens - text stays fixed relative to word
+  // When lens is at position v, magnified text needs to offset so it appears stationary
+  // The text origin is top-left, lens center is at (v, y), so text needs to be at:
+  // lens center - (mouse position * scale) to keep the magnified text aligned
+  const magnifiedTextX = useTransform(
+    lensX,
+    (v) => LENS_SIZE / 2 - v * scale
+  );
+  const magnifiedTextY = useTransform(
+    lensY,
+    (v) => LENS_SIZE / 2 - v * scale
+  );
+
+  function handleMouseMove(e: React.MouseEvent<HTMLSpanElement>) {
+    if (!wordRef.current) return;
+
+    const rect = wordRef.current.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  }
+
+  function handleMouseEnter(e: React.MouseEvent<HTMLSpanElement>) {
+    if (!wordRef.current) return;
+
+    const rect = wordRef.current.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+    setWordWidth(rect.width);
+    setIsHovered(true);
+  }
+
+  function handleMouseLeave() {
+    setIsHovered(false);
+  }
+
+  return (
+    <span
+      ref={wordRef}
+      className="relative inline-block cursor-pointer"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onMouseMove={handleMouseMove}
+    >
+      {/* Base text - always visible to maintain layout */}
+      <span className="text-background">{children}</span>
+
+      {/* Magnified lens effect */}
+      {isHovered && (
+        <>
+          {/* Circular lens with magnified text */}
+          <motion.span
+            className="bg-foreground border-background/20 pointer-events-none absolute overflow-hidden rounded-full border-2"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
+            style={{
+              width: LENS_SIZE,
+              height: LENS_SIZE,
+              left: lensX,
+              top: lensY,
+              x: "-50%",
+              y: "-50%",
+              transformOrigin: "center center",
+            }}
+            transition={{ type: "spring", damping: 20, stiffness: 300 }}
+          >
+            {/* Magnified text inside lens */}
+            <motion.span
+              className="text-background absolute whitespace-nowrap text-[1.3em]"
+              style={{
+                left: 0,
+                top: 0,
+                x: magnifiedTextX,
+                y: magnifiedTextY,
+              }}
+            >
+              {children}
+            </motion.span>
+          </motion.span>
+        </>
+      )}
+    </span>
+  );
+}
+
 export function TheMinimalistSavant() {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -192,21 +302,22 @@ export function TheMinimalistSavant() {
       </div>
 
       {/* Right column - Content */}
-      <div className="col-span-12 flex flex-col justify-center gap-16 py-24 pl-8 md:col-span-6 md:col-start-7 md:py-32 lg:py-40">
+      <div className="col-span-12 flex flex-col items-end justify-start gap-8 py-24 pl-8 text-right md:col-span-6 md:col-start-7 md:py-32 lg:py-40">
         {/* Quote */}
         <motion.p
-          className="text-background/90 font-teko text-3xl leading-tight font-medium md:text-4xl lg:text-5xl"
+          className="text-background/50 font-teko text-3xl leading-tight font-medium md:text-4xl lg:text-5xl"
           style={{
             x: quoteTranslateX,
             opacity: quoteOpacity,
           }}
         >
-          In a world cluttered with complexity, simplicity stands out.
+          In a world cluttered with complexity,{" "}
+          <MagnifiedWord>simplicity</MagnifiedWord> stands out.
         </motion.p>
 
         {/* Description */}
         <motion.div
-          className="text-background/50 max-w-md space-y-6"
+          className="text-background/50 max-w-md space-y-6 text-balance"
           style={{
             y: descriptionTranslateY,
             opacity: descriptionOpacity,
