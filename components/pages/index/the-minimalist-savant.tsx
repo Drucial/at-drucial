@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 
 import type { MotionValue } from "motion/react";
 import {
+  AnimatePresence,
   motion,
   useMotionValue,
   useScroll,
@@ -184,40 +185,42 @@ function MagnifiableArea({ children, magnifiedContent }: MagnifiableAreaProps) {
       {children}
 
       {/* Magnified lens effect */}
-      {isHovered && (
-        <motion.div
-          className="bg-foreground border-background/20 pointer-events-none absolute overflow-hidden rounded-full border-2"
-          animate={{ scale: 1 }}
-          exit={{ scale: 0 }}
-          initial={{ scale: 0 }}
-          style={{
-            width: LENS_SIZE,
-            height: LENS_SIZE,
-            left: lensX,
-            top: lensY,
-            x: "-50%",
-            y: "-50%",
-            transformOrigin: "center center",
-          }}
-          transition={{ type: "spring", damping: 20, stiffness: 300 }}
-        >
-          {/* Magnified content inside lens */}
+      <AnimatePresence>
+        {isHovered && (
           <motion.div
-            className="absolute"
+            className="bg-foreground border-background/20 pointer-events-none absolute overflow-hidden rounded-full border-2"
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            initial={{ scale: 0, opacity: 0 }}
             style={{
-              left: 0,
-              top: 0,
-              x: magnifiedX,
-              y: magnifiedY,
-              scale: scale,
-              transformOrigin: "top left",
-              width: areaRef.current?.offsetWidth,
+              width: LENS_SIZE,
+              height: LENS_SIZE,
+              left: lensX,
+              top: lensY,
+              x: "-50%",
+              y: "-50%",
+              transformOrigin: "center center",
             }}
+            transition={{ type: "spring", damping: 20, stiffness: 300 }}
           >
-            {magnifiedContent}
+            {/* Magnified content inside lens */}
+            <motion.div
+              className="absolute"
+              style={{
+                left: 0,
+                top: 0,
+                x: magnifiedX,
+                y: magnifiedY,
+                scale: scale,
+                transformOrigin: "top left",
+                width: areaRef.current?.offsetWidth,
+              }}
+            >
+              {magnifiedContent}
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
+        )}
+      </AnimatePresence>
     </div>
   );
 }
