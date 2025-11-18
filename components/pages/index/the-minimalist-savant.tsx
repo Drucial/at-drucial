@@ -270,7 +270,7 @@ export function TheMinimalistSavant() {
           {/* "The" = 3 letters */}
           <AnimatedWord
             baseExit={0.75}
-            baseStart={0.16}
+            baseStart={0.20}
             className="block"
             scrollYProgress={scrollYProgress}
             word="The"
@@ -278,7 +278,7 @@ export function TheMinimalistSavant() {
           {/* "Minimalist" = 10 letters */}
           <AnimatedWord
             baseExit={0.71}
-            baseStart={0.20}
+            baseStart={0.24}
             className="block"
             scrollYProgress={scrollYProgress}
             word="Minimalist"
@@ -286,7 +286,7 @@ export function TheMinimalistSavant() {
           {/* "Savant" = 6 letters */}
           <AnimatedWord
             baseExit={0.67}
-            baseStart={0.31}
+            baseStart={0.35}
             className="block"
             scrollYProgress={scrollYProgress}
             word="Savant"
