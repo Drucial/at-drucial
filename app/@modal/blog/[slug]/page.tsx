@@ -8,6 +8,36 @@ import { AnimatePresence, motion } from "motion/react";
 
 import { useBlogModal } from "@/components/providers/blog-modal-provider";
 import { blogPosts } from "@/data/blog-posts";
+import { useDirectionalHover } from "@/hooks/use-directional-hover";
+
+type NavButtonProps = {
+  onClick: () => void;
+  children: React.ReactNode;
+  label: string;
+  disabled?: boolean;
+};
+
+function NavButton({ onClick, children, label, disabled }: NavButtonProps) {
+  const { ref, bgX, bgY, handlers } = useDirectionalHover<HTMLButtonElement>();
+
+  return (
+    <button
+      ref={ref}
+      className="relative flex aspect-square h-full items-center justify-center overflow-hidden disabled:opacity-30"
+      disabled={disabled}
+      onClick={onClick}
+      onMouseEnter={handlers.onMouseEnter}
+      onMouseLeave={handlers.onMouseLeave}
+    >
+      <motion.div
+        className="bg-muted absolute inset-0"
+        style={{ translateX: bgX, translateY: bgY }}
+      />
+      <span className="relative">{children}</span>
+      <span className="sr-only">{label}</span>
+    </button>
+  );
+}
 
 export default function BlogModal() {
   const params = useParams();
@@ -118,7 +148,7 @@ export default function BlogModal() {
         {/* Header with close button */}
         <motion.header
           animate={{ y: 0, opacity: 1 }}
-          className="border-border flex h-16 shrink-0 items-center justify-between border-b px-6"
+          className="border-border flex h-16 shrink-0 items-center justify-between border-b pl-6"
           exit={{ y: -64, opacity: 0, transition: { duration: 0.2, ease: [0.32, 0.72, 0, 1] } }}
           initial={isNavigating ? { y: 0, opacity: 1 } : { y: -64, opacity: 0 }}
           transition={{
@@ -136,13 +166,11 @@ export default function BlogModal() {
               {post.readTime}
             </span>
           </div>
-          <button
-            className="hover:bg-muted flex h-10 w-10 items-center justify-center rounded transition-colors"
-            onClick={handleClose}
-          >
-            <X className="h-5 w-5" />
-            <span className="sr-only">Close</span>
-          </button>
+          <div className="border-border flex h-full border-l">
+            <NavButton label="Close" onClick={handleClose}>
+              <X className="h-4 w-4" />
+            </NavButton>
+          </div>
         </motion.header>
 
         {/* Scrollable content */}
@@ -214,22 +242,12 @@ export default function BlogModal() {
           }}
         >
           <div className="border-border flex h-full divide-x border-r">
-            <button
-              className="hover:bg-muted flex aspect-square h-full items-center justify-center transition-colors disabled:opacity-30"
-              disabled={!prevPost}
-              onClick={handlePrev}
-            >
+            <NavButton disabled={!prevPost} label="Previous post" onClick={handlePrev}>
               <ChevronLeft className="h-4 w-4" />
-              <span className="sr-only">Previous post</span>
-            </button>
-            <button
-              className="hover:bg-muted flex aspect-square h-full items-center justify-center transition-colors disabled:opacity-30"
-              disabled={!nextPost}
-              onClick={handleNext}
-            >
+            </NavButton>
+            <NavButton disabled={!nextPost} label="Next post" onClick={handleNext}>
               <ChevronRight className="h-4 w-4" />
-              <span className="sr-only">Next post</span>
-            </button>
+            </NavButton>
           </div>
 
           <div className="text-muted-foreground px-6 font-mono text-sm">

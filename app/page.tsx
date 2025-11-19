@@ -9,7 +9,7 @@ import { Separator } from "@/components/ui/separator";
 
 export default function Home() {
   return (
-    <Fragment>
+    <main>
       <TheAlchemist />
       <Separator />
       <UiUxDesignerEngineer />
@@ -20,6 +20,6 @@ export default function Home() {
       <TheThinker />
       {/* Temporary spacer for testing scroll transitions */}
       <div className="h-screen" />
-    </Fragment>
+    </main>
   );
 }

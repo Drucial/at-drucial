@@ -57,7 +57,7 @@ function BlogCard({ post, index, onClick }: BlogCardProps) {
   return (
     <div
       ref={cardRef}
-      className="group flex cursor-pointer flex-col p-8 transition-colors hover:bg-muted/50"
+      className="group flex h-full cursor-pointer flex-col p-8 transition-colors hover:bg-muted/50"
       onClick={handleClick}
     >
       {/* Image placeholder - 3:2 aspect ratio */}
@@ -119,24 +119,20 @@ export function TheThinker() {
   // Header grows from 0 to full width
   const headerWidth = useTransform(
     scrollYProgress,
-    [0.1, 0.3],
+    [0.25, 0.45],
     [0, 128] // 0 to 8rem (w-32)
   );
 
-  // Stagger blog cards opacity - individual transforms for each card
+  // Stagger first 4 blog cards opacity, rest are always visible
   const cardOpacity0 = useTransform(scrollYProgress, [0.35, 0.45], [0, 1]);
   const cardOpacity1 = useTransform(scrollYProgress, [0.38, 0.48], [0, 1]);
   const cardOpacity2 = useTransform(scrollYProgress, [0.41, 0.51], [0, 1]);
   const cardOpacity3 = useTransform(scrollYProgress, [0.44, 0.54], [0, 1]);
-  const cardOpacity4 = useTransform(scrollYProgress, [0.47, 0.57], [0, 1]);
-  const cardOpacity5 = useTransform(scrollYProgress, [0.5, 0.6], [0, 1]);
   const cardOpacities = [
     cardOpacity0,
     cardOpacity1,
     cardOpacity2,
     cardOpacity3,
-    cardOpacity4,
-    cardOpacity5,
   ];
 
   function scrollLeft() {
@@ -195,9 +191,9 @@ export function TheThinker() {
               <motion.div
                 key={post.id}
                 className="w-[calc((100vw-8rem)/3)] shrink-0 snap-start"
-                style={{
+                style={index < 4 ? {
                   opacity: cardOpacities[index],
-                }}
+                } : undefined}
               >
                 <BlogCard
                   index={index}

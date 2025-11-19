@@ -237,28 +237,28 @@ export function TheMinimalistSavant() {
     offset: ["start end", "end start"],
   });
 
-  // Quote slides in from right
+  // Quote slides in from right (no exit animation)
   const quoteTranslateX = useTransform(
     scrollYProgress,
-    [0.25, 0.45, 0.55, 0.75],
-    [100, 0, 0, 100]
+    [0.25, 0.45],
+    [100, 0]
   );
   const quoteOpacity = useTransform(
     scrollYProgress,
-    [0.25, 0.4, 0.6, 0.75],
-    [0, 1, 1, 0]
+    [0.25, 0.4],
+    [0, 1]
   );
 
-  // Description fades in after quote
+  // Description fades in after quote (no exit animation)
   const descriptionTranslateY = useTransform(
     scrollYProgress,
-    [0.3, 0.45, 0.55, 0.7],
-    [40, 0, 0, -40]
+    [0.3, 0.45],
+    [40, 0]
   );
   const descriptionOpacity = useTransform(
     scrollYProgress,
-    [0.3, 0.45, 0.55, 0.7],
-    [0, 1, 1, 0]
+    [0.3, 0.45],
+    [0, 1]
   );
 
   // Background color transition - spring-based at buffer point
@@ -310,7 +310,7 @@ export function TheMinimalistSavant() {
           />
           {/* "Savant" = 6 letters */}
           <AnimatedWord
-            baseExit={0.67}
+            baseExit={0.77}
             baseStart={0.35}
             className="block"
             scrollYProgress={scrollYProgress}

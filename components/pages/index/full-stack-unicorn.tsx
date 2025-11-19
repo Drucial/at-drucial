@@ -24,13 +24,13 @@ function useAccordionItemAnimation(
   scrollYProgress: MotionValue<number>,
   index: number
 ) {
-  const stagger = 0.05;
-  const start = 0.25 + index * stagger;
-  const end = start + 0.15;
+  const stagger = 0.08;
+  const start = 0.15 + index * stagger;
+  const end = start + 0.12;
 
   return {
     opacity: useTransform(scrollYProgress, [start, end], [0, 1]),
-    x: useTransform(scrollYProgress, [start, end], [-100, 0]),
+    x: useTransform(scrollYProgress, [start, end], [-300, 0]),
   };
 }
 
@@ -84,11 +84,12 @@ export function FullStackUnicorn() {
       style={{ minHeight: `calc(100svh - ${HEADER_HEIGHT}px)` }}
     >
       {/* Left column - Accordion */}
-      <div className="col-span-12 flex items-center justify-center py-12 md:col-span-6">
+      <div className="col-span-12 flex items-center justify-center overflow-hidden py-12 md:col-span-6">
         <Accordion
           className="w-full max-w-[65ch]"
-          defaultValue={["research"]}
-          type="multiple"
+          defaultValue="research"
+          type="single"
+          collapsible
         >
           {accordionData.map((item, index) => (
             <AnimatedAccordionItem
