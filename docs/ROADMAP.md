@@ -25,6 +25,18 @@ The homepage has several sections implemented with scroll-based animations. Core
 
 ---
 
+## Recent Updates
+
+### Full Stack Unicorn - Scroll Hijacking
+- [x] 300vh sticky scroll section
+- [x] Controlled accordion with scroll-synced state
+- [x] Click-to-scroll navigation for accordion items
+- [x] 10-bar progress indicator with staggered entrance
+- [x] Equal thirds timing (0.33, 0.66 thresholds)
+- [x] Scroll offset adjusted for earlier animations
+
+---
+
 ## Completed Sections (Recent)
 
 ### Blog Section - "The Perpetual Thinker"
