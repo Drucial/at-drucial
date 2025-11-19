@@ -90,8 +90,8 @@ export function FullStackUnicorn() {
   // Right column and border slide in from right together
   const rightColumnX = useTransform(scrollYProgress, [0, 0.3], ["100%", "0%"]);
 
-  // Progress indicator container animation
-  const progressX = useTransform(scrollYProgress, [0.05, 0.2], [50, 0]);
+  // Progress indicator container animation (from left)
+  const progressX = useTransform(scrollYProgress, [0.05, 0.2], [-50, 0]);
 
   // Progress bar staggered entrance animations (Y and opacity)
   const barY0 = useTransform(scrollYProgress, [0.05, 0.12], [-10, 0]);
@@ -189,7 +189,7 @@ export function FullStackUnicorn() {
 
         {/* Progress indicator */}
         <motion.div
-          className="absolute right-6 bottom-4 flex gap-1 md:right-8 lg:right-12"
+          className="absolute bottom-24 left-1/4 flex -translate-x-1/2 gap-1"
           style={{ x: progressX }}
         >
           {barOpacities.map((opacity, i) => (
