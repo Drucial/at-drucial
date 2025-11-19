@@ -3,7 +3,10 @@
 import { useRef } from "react";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useScroll } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
+
+import { HEADER_HEIGHT } from "@/components/layout/header";
+import { useDirectionalHover } from "@/hooks/use-directional-hover";
 
 type BlogPost = {
   id: string;
@@ -72,6 +75,33 @@ const blogPosts: BlogPost[] = [
   },
 ];
 
+type NavButtonProps = {
+  onClick: () => void;
+  children: React.ReactNode;
+  label: string;
+};
+
+function NavButton({ onClick, children, label }: NavButtonProps) {
+  const { ref, bgX, bgY, handlers } = useDirectionalHover<HTMLButtonElement>();
+
+  return (
+    <button
+      ref={ref}
+      className="relative flex aspect-square h-full items-center justify-center overflow-hidden"
+      onClick={onClick}
+      onMouseEnter={handlers.onMouseEnter}
+      onMouseLeave={handlers.onMouseLeave}
+    >
+      <motion.div
+        className="bg-muted absolute inset-0"
+        style={{ translateX: bgX, translateY: bgY }}
+      />
+      <span className="relative">{children}</span>
+      <span className="sr-only">{label}</span>
+    </button>
+  );
+}
+
 function BlogCard({ post, index }: { post: BlogPost; index: number }) {
   return (
     <div className="group flex cursor-pointer flex-col p-8 transition-colors hover:bg-muted/50">
@@ -112,6 +142,13 @@ export function TheThinker() {
     offset: ["start end", "end start"],
   });
 
+  // Section grows by adding vertical padding
+  const paddingY = useTransform(
+    scrollYProgress,
+    [0, 0.3],
+    [0, 200]
+  );
+
   function scrollLeft() {
     if (!scrollContainerRef.current) return;
     const cardWidth = scrollContainerRef.current.offsetWidth / 3;
@@ -125,8 +162,12 @@ export function TheThinker() {
   }
 
   return (
-    <section ref={sectionRef} className="border-border relative border-y">
-      <div className="flex flex-col">
+    <motion.section
+      ref={sectionRef}
+      className="border-border relative flex flex-col justify-center border-y"
+      style={{ paddingTop: paddingY, paddingBottom: paddingY }}
+    >
+      <div className="border-border flex flex-col border-y">
         <div className="flex">
           {/* Left column - Vertical heading (sticky) */}
           <div className="bg-background border-border sticky left-0 z-10 flex w-32 shrink-0 items-center justify-center border-r pt-4 pb-2 leading-none">
@@ -169,28 +210,20 @@ export function TheThinker() {
         </div>
 
         {/* Footer with nav controls */}
-        <div className="border-border flex items-center justify-between border-t px-6 py-3">
-          <span className="text-muted-foreground text-sm">
+        <div className="border-border flex h-12 items-center justify-between border-t">
+          <span className="text-muted-foreground pl-4 font-mono text-sm">
             {blogPosts.length} articles
           </span>
-          <div className="flex gap-2">
-            <button
-              className="border-border hover:bg-muted flex h-8 w-8 items-center justify-center rounded border transition-colors"
-              onClick={scrollLeft}
-            >
+          <div className="border-border flex h-full divide-x border-l">
+            <NavButton label="Previous" onClick={scrollLeft}>
               <ChevronLeft className="h-4 w-4" />
-              <span className="sr-only">Previous</span>
-            </button>
-            <button
-              className="border-border hover:bg-muted flex h-8 w-8 items-center justify-center rounded border transition-colors"
-              onClick={scrollRight}
-            >
+            </NavButton>
+            <NavButton label="Next" onClick={scrollRight}>
               <ChevronRight className="h-4 w-4" />
-              <span className="sr-only">Next</span>
-            </button>
+            </NavButton>
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

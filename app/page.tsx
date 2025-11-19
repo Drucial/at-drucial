@@ -18,6 +18,8 @@ export default function Home() {
       <Separator />
       <TheMinimalistSavant />
       <TheThinker />
+      {/* Temporary spacer for testing scroll transitions */}
+      <div className="h-screen" />
     </Fragment>
   );
 }

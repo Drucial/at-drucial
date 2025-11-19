@@ -269,7 +269,8 @@ export function TheMinimalistSavant() {
   });
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (latest >= 0.18) {
+    // Transition to dark when entering (0.18), back to light when leaving (0.82)
+    if (latest >= 0.18 && latest <= 0.82) {
       normalBgOpacityValue.set(0);
     } else {
       normalBgOpacityValue.set(1);
