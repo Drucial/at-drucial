@@ -15,7 +15,6 @@ export default function Home() {
       <UiUxDesignerEngineer />
       <Separator />
       <FullStackUnicorn />
-      <Separator />
       <TheMinimalistSavant />
       <TheThinker />
       {/* Temporary spacer for testing scroll transitions */}
