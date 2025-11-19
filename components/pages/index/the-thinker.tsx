@@ -1,79 +1,15 @@
 "use client";
 
 import { useRef } from "react";
+import { useRouter } from "next/navigation";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
 
-import { HEADER_HEIGHT } from "@/components/layout/header";
+import { useBlogModal } from "@/components/providers/blog-modal-provider";
+import type { BlogPost } from "@/data/blog-posts";
+import { blogPosts } from "@/data/blog-posts";
 import { useDirectionalHover } from "@/hooks/use-directional-hover";
-
-type BlogPost = {
-  id: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  readTime: string;
-  image: string;
-};
-
-// Mock data - replace with real data later
-const blogPosts: BlogPost[] = [
-  {
-    id: "1",
-    title: "Vibe Coding as a Senior Dev",
-    excerpt:
-      "Hyperdirmic is a macOS utility that watches your Downloads folder for new files and instantly moves them into clean subfolders.",
-    date: "2024-01-15",
-    readTime: "5 min",
-    image: "/placeholder-blog-1.jpg",
-  },
-  {
-    id: "2",
-    title: "Productivity Super Stack",
-    excerpt:
-      "Welcome to the Productivity Super Stack. This is all about the core tools that keep me focused, fast, and efficient.",
-    date: "2024-01-10",
-    readTime: "8 min",
-    image: "/placeholder-blog-2.jpg",
-  },
-  {
-    id: "3",
-    title: "Design Systems at Scale",
-    excerpt:
-      "Building consistent UI across multiple products requires more than just a component library. Here's how to think about it.",
-    date: "2024-01-05",
-    readTime: "6 min",
-    image: "/placeholder-blog-3.jpg",
-  },
-  {
-    id: "4",
-    title: "The Art of Refactoring",
-    excerpt:
-      "When code becomes unmanageable, it's time to refactor. Here's a systematic approach to cleaning up legacy codebases.",
-    date: "2024-01-01",
-    readTime: "7 min",
-    image: "/placeholder-blog-4.jpg",
-  },
-  {
-    id: "5",
-    title: "Motion Design Principles",
-    excerpt:
-      "Good animation isn't just decoration. Learn the principles that make UI motion feel natural and purposeful.",
-    date: "2023-12-28",
-    readTime: "6 min",
-    image: "/placeholder-blog-5.jpg",
-  },
-  {
-    id: "6",
-    title: "Building for Accessibility",
-    excerpt:
-      "Accessibility isn't an afterthought. Here's how to bake it into your design and development process from day one.",
-    date: "2023-12-20",
-    readTime: "9 min",
-    image: "/placeholder-blog-6.jpg",
-  },
-];
 
 type NavButtonProps = {
   onClick: () => void;
@@ -102,9 +38,28 @@ function NavButton({ onClick, children, label }: NavButtonProps) {
   );
 }
 
-function BlogCard({ post, index }: { post: BlogPost; index: number }) {
+type BlogCardProps = {
+  post: BlogPost;
+  index: number;
+  onClick: (bounds: DOMRect) => void;
+};
+
+function BlogCard({ post, index, onClick }: BlogCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  function handleClick() {
+    if (cardRef.current) {
+      const bounds = cardRef.current.getBoundingClientRect();
+      onClick(bounds);
+    }
+  }
+
   return (
-    <div className="group flex cursor-pointer flex-col p-8 transition-colors hover:bg-muted/50">
+    <div
+      ref={cardRef}
+      className="group flex cursor-pointer flex-col p-8 transition-colors hover:bg-muted/50"
+      onClick={handleClick}
+    >
       {/* Image placeholder - 3:2 aspect ratio */}
       <div className="bg-muted aspect-[3/2] w-full overflow-hidden">
         {/* Replace with actual image */}
@@ -136,6 +91,18 @@ function BlogCard({ post, index }: { post: BlogPost; index: number }) {
 export function TheThinker() {
   const sectionRef = useRef<HTMLElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const { setCardBounds } = useBlogModal();
+
+  function handleCardClick(post: BlogPost, bounds: DOMRect) {
+    setCardBounds({
+      top: bounds.top,
+      left: bounds.left,
+      width: bounds.width,
+      height: bounds.height,
+    });
+    router.push(`/blog/${post.slug}`);
+  }
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -156,12 +123,21 @@ export function TheThinker() {
     [0, 128] // 0 to 8rem (w-32)
   );
 
-  // Stagger blog cards opacity
-  const getCardOpacity = (index: number) => {
-    const start = 0.35 + index * 0.03;
-    const end = start + 0.1;
-    return useTransform(scrollYProgress, [start, end], [0, 1]);
-  };
+  // Stagger blog cards opacity - individual transforms for each card
+  const cardOpacity0 = useTransform(scrollYProgress, [0.35, 0.45], [0, 1]);
+  const cardOpacity1 = useTransform(scrollYProgress, [0.38, 0.48], [0, 1]);
+  const cardOpacity2 = useTransform(scrollYProgress, [0.41, 0.51], [0, 1]);
+  const cardOpacity3 = useTransform(scrollYProgress, [0.44, 0.54], [0, 1]);
+  const cardOpacity4 = useTransform(scrollYProgress, [0.47, 0.57], [0, 1]);
+  const cardOpacity5 = useTransform(scrollYProgress, [0.5, 0.6], [0, 1]);
+  const cardOpacities = [
+    cardOpacity0,
+    cardOpacity1,
+    cardOpacity2,
+    cardOpacity3,
+    cardOpacity4,
+    cardOpacity5,
+  ];
 
   function scrollLeft() {
     if (!scrollContainerRef.current) return;
@@ -220,10 +196,14 @@ export function TheThinker() {
                 key={post.id}
                 className="w-[calc((100vw-8rem)/3)] shrink-0 snap-start"
                 style={{
-                  opacity: getCardOpacity(index),
+                  opacity: cardOpacities[index],
                 }}
               >
-                <BlogCard index={index} post={post} />
+                <BlogCard
+                  index={index}
+                  post={post}
+                  onClick={(bounds) => handleCardClick(post, bounds)}
+                />
               </motion.div>
             ))}
           </div>

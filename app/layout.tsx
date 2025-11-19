@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 import { Header } from "@/components/layout/header";
+import { BlogModalProvider } from "@/components/providers/blog-modal-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 
 export const metadata: Metadata = {
@@ -13,8 +14,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <html suppressHydrationWarning lang="en">
@@ -25,8 +28,11 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="system"
         >
-          <Header />
-          {children}
+          <BlogModalProvider>
+            <Header />
+            {children}
+            {modal}
+          </BlogModalProvider>
         </ThemeProvider>
       </body>
     </html>
