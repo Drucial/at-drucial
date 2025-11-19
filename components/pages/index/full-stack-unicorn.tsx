@@ -90,6 +90,23 @@ export function FullStackUnicorn() {
   // Right column and border slide in from right together
   const rightColumnX = useTransform(scrollYProgress, [0, 0.3], ["100%", "0%"]);
 
+  // Progress indicator container animation
+  const progressOpacity = useTransform(scrollYProgress, [0.05, 0.2], [0, 1]);
+  const progressX = useTransform(scrollYProgress, [0.05, 0.2], [50, 0]);
+
+  // Progress bar staggered animations from above
+  const barY0 = useTransform(scrollYProgress, [0.08, 0.15], [-10, 0]);
+  const barY1 = useTransform(scrollYProgress, [0.09, 0.16], [-10, 0]);
+  const barY2 = useTransform(scrollYProgress, [0.1, 0.17], [-10, 0]);
+  const barY3 = useTransform(scrollYProgress, [0.11, 0.18], [-10, 0]);
+  const barY4 = useTransform(scrollYProgress, [0.12, 0.19], [-10, 0]);
+  const barY5 = useTransform(scrollYProgress, [0.13, 0.2], [-10, 0]);
+  const barY6 = useTransform(scrollYProgress, [0.14, 0.21], [-10, 0]);
+  const barY7 = useTransform(scrollYProgress, [0.15, 0.22], [-10, 0]);
+  const barY8 = useTransform(scrollYProgress, [0.16, 0.23], [-10, 0]);
+  const barY9 = useTransform(scrollYProgress, [0.17, 0.24], [-10, 0]);
+  const barYs = [barY0, barY1, barY2, barY3, barY4, barY5, barY6, barY7, barY8, barY9];
+
   // Progress bar segments (10 bars)
   const barOpacity0 = useTransform(scrollYProgress, [0, 0.1], [0.2, 1]);
   const barOpacity1 = useTransform(scrollYProgress, [0.1, 0.2], [0.2, 1]);
@@ -172,15 +189,18 @@ export function FullStackUnicorn() {
         </motion.div>
 
         {/* Progress indicator */}
-        <div className="absolute right-6 bottom-4 flex gap-1 md:right-8 lg:right-12">
+        <motion.div
+          className="absolute right-6 bottom-4 flex gap-1 md:right-8 lg:right-12"
+          style={{ opacity: progressOpacity, x: progressX }}
+        >
           {barOpacities.map((opacity, i) => (
             <motion.div
               key={i}
               className="bg-muted-foreground h-3 w-1"
-              style={{ opacity }}
+              style={{ opacity, y: barYs[i] }}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
