@@ -73,7 +73,7 @@ export function FullStackUnicorn() {
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start start", "end end"],
+    offset: ["start center", "end end"],
   });
 
   // Toggle accordion items based on scroll progress
