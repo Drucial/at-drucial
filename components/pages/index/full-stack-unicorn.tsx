@@ -78,14 +78,43 @@ export function FullStackUnicorn() {
 
   // Toggle accordion items based on scroll progress
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (latest < 0.45) {
+    if (latest < 0.33) {
       setActiveItem("research");
-    } else if (latest < 0.72) {
+    } else if (latest < 0.66) {
       setActiveItem("design");
     } else {
       setActiveItem("build");
     }
   });
+
+  // Handle manual accordion clicks - scroll to position (state follows scroll)
+  function handleAccordionChange(value: string) {
+    if (!sectionRef.current || !value) return;
+
+    const sectionRect = sectionRef.current.getBoundingClientRect();
+    const sectionTop = window.scrollY + sectionRect.top;
+    const sectionHeight = sectionRef.current.offsetHeight;
+    const viewportHeight = window.innerHeight;
+
+    // Target middle of each section
+    let targetProgress = 0;
+    if (value === "research") {
+      targetProgress = 0.3;
+    } else if (value === "design") {
+      targetProgress = 0.5;
+    } else if (value === "build") {
+      targetProgress = 0.8;
+    }
+
+    // Convert progress to scroll position (accounting for "start center" offset)
+    const scrollRange = sectionHeight - viewportHeight / 2;
+    const targetScroll = sectionTop - viewportHeight / 2 + scrollRange * targetProgress;
+
+    window.scrollTo({
+      top: targetScroll,
+      behavior: "smooth",
+    });
+  }
 
   // Right column and border slide in from right together
   const rightColumnX = useTransform(scrollYProgress, [0, 0.3], ["100%", "0%"]);
@@ -151,7 +180,7 @@ export function FullStackUnicorn() {
             className="w-full max-w-[65ch]"
             type="single"
             value={activeItem}
-            onValueChange={setActiveItem}
+            onValueChange={handleAccordionChange}
           >
             {accordionData.map((item, index) => (
               <AnimatedAccordionItem
