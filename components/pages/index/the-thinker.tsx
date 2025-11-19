@@ -57,7 +57,7 @@ function BlogCard({ post, index, onClick }: BlogCardProps) {
   return (
     <div
       ref={cardRef}
-      className="group flex h-full cursor-pointer flex-col p-8 transition-colors hover:bg-muted/50"
+      className="group hover:bg-muted/50 flex h-full cursor-pointer flex-col p-8 transition-colors"
       onClick={handleClick}
     >
       {/* Image placeholder - 3:2 aspect ratio */}
@@ -72,7 +72,7 @@ function BlogCard({ post, index, onClick }: BlogCardProps) {
 
       {/* Content */}
       <div className="flex flex-1 flex-col pt-4">
-        <h3 className="font-teko text-xl leading-tight font-semibold group-hover:text-primary transition-colors">
+        <h3 className="font-teko group-hover:text-primary text-xl leading-tight font-semibold transition-colors">
           {post.title}
         </h3>
         <p className="text-muted-foreground mt-2 line-clamp-2 text-sm">
@@ -110,11 +110,7 @@ export function TheThinker() {
   });
 
   // Section grows by adding vertical padding
-  const paddingY = useTransform(
-    scrollYProgress,
-    [0, 0.3],
-    [0, 200]
-  );
+  const paddingY = useTransform(scrollYProgress, [0, 0.3], [0, 200]);
 
   // Header grows from 0 to full width
   const headerWidth = useTransform(
@@ -138,19 +134,25 @@ export function TheThinker() {
   function scrollLeft() {
     if (!scrollContainerRef.current) return;
     const cardWidth = scrollContainerRef.current.offsetWidth / 3;
-    scrollContainerRef.current.scrollBy({ left: -cardWidth, behavior: "smooth" });
+    scrollContainerRef.current.scrollBy({
+      left: -cardWidth,
+      behavior: "smooth",
+    });
   }
 
   function scrollRight() {
     if (!scrollContainerRef.current) return;
     const cardWidth = scrollContainerRef.current.offsetWidth / 3;
-    scrollContainerRef.current.scrollBy({ left: cardWidth, behavior: "smooth" });
+    scrollContainerRef.current.scrollBy({
+      left: cardWidth,
+      behavior: "smooth",
+    });
   }
 
   return (
     <motion.section
       ref={sectionRef}
-      className="border-border relative flex flex-col justify-center border-y"
+      className="border-border relative flex flex-col justify-center border-b"
       style={{ paddingTop: paddingY, paddingBottom: paddingY }}
     >
       <div className="border-border flex flex-col border-y">
@@ -191,9 +193,13 @@ export function TheThinker() {
               <motion.div
                 key={post.id}
                 className="w-[calc((100vw-8rem)/3)] shrink-0 snap-start"
-                style={index < 4 ? {
-                  opacity: cardOpacities[index],
-                } : undefined}
+                style={
+                  index < 4
+                    ? {
+                        opacity: cardOpacities[index],
+                      }
+                    : undefined
+                }
               >
                 <BlogCard
                   index={index}
