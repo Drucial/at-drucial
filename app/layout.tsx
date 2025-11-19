@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning lang="en">
-      <body className="antialiased">
+      <body className="overflow-x-hidden antialiased">
         <ThemeProvider
           disableTransitionOnChange
           enableSystem

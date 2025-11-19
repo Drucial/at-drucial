@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useScroll } from "motion/react";
 
 type BlogPost = {
@@ -73,11 +74,11 @@ const blogPosts: BlogPost[] = [
 
 function BlogCard({ post, index }: { post: BlogPost; index: number }) {
   return (
-    <div className="flex flex-col p-8 last:border-r-0">
-      {/* Image placeholder - 2:1 aspect ratio */}
-      <div className="bg-muted aspect-[3/2] w-full">
+    <div className="group flex cursor-pointer flex-col p-8 transition-colors hover:bg-muted/50">
+      {/* Image placeholder - 3:2 aspect ratio */}
+      <div className="bg-muted aspect-[3/2] w-full overflow-hidden">
         {/* Replace with actual image */}
-        <div className="flex h-full w-full items-center justify-center">
+        <div className="flex h-full w-full items-center justify-center transition-transform duration-300 group-hover:scale-105">
           <span className="text-muted-foreground text-sm">
             Image {index + 1}
           </span>
@@ -86,7 +87,7 @@ function BlogCard({ post, index }: { post: BlogPost; index: number }) {
 
       {/* Content */}
       <div className="flex flex-1 flex-col pt-4">
-        <h3 className="font-teko text-xl leading-tight font-semibold">
+        <h3 className="font-teko text-xl leading-tight font-semibold group-hover:text-primary transition-colors">
           {post.title}
         </h3>
         <p className="text-muted-foreground mt-2 line-clamp-2 text-sm">
@@ -104,46 +105,90 @@ function BlogCard({ post, index }: { post: BlogPost; index: number }) {
 
 export function TheThinker() {
   const sectionRef = useRef<HTMLElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
 
+  function scrollLeft() {
+    if (!scrollContainerRef.current) return;
+    const cardWidth = scrollContainerRef.current.offsetWidth / 3;
+    scrollContainerRef.current.scrollBy({ left: -cardWidth, behavior: "smooth" });
+  }
+
+  function scrollRight() {
+    if (!scrollContainerRef.current) return;
+    const cardWidth = scrollContainerRef.current.offsetWidth / 3;
+    scrollContainerRef.current.scrollBy({ left: cardWidth, behavior: "smooth" });
+  }
+
   return (
     <section ref={sectionRef} className="border-border relative border-y">
-      <div className="flex">
-        {/* Left column - Vertical heading (sticky) */}
-        <div className="bg-background border-border sticky left-0 z-10 flex shrink-0 items-center justify-center border-r pt-4 pb-2 leading-none">
-          <div className="relative">
-            <span
-              className="font-teko text-muted-foreground text-9xl leading-none font-bold uppercase"
-              style={{
-                writingMode: "vertical-rl",
-                transform: "rotate(180deg)",
-              }}
-            >
-              Thinker
-            </span>
-            <span
-              className="font-teko text-background absolute bottom-4 left-4 text-xl font-black tracking-widest uppercase"
-              style={{
-                writingMode: "vertical-rl",
-                transform: "rotate(180deg)",
-              }}
-            >
-              The
-            </span>
+      <div className="flex flex-col">
+        <div className="flex">
+          {/* Left column - Vertical heading (sticky) */}
+          <div className="bg-background border-border sticky left-0 z-10 flex w-32 shrink-0 items-center justify-center border-r pt-4 pb-2 leading-none">
+            <div className="relative">
+              <span
+                className="font-teko text-muted-foreground text-9xl leading-none font-bold uppercase"
+                style={{
+                  writingMode: "vertical-rl",
+                  transform: "rotate(180deg)",
+                }}
+              >
+                Thinker
+              </span>
+              <span
+                className="font-teko text-background absolute bottom-4 left-4 text-xl font-black tracking-widest uppercase"
+                style={{
+                  writingMode: "vertical-rl",
+                  transform: "rotate(180deg)",
+                }}
+              >
+                The
+              </span>
+            </div>
+          </div>
+
+          {/* Blog posts - horizontal scroll with snap */}
+          <div
+            ref={scrollContainerRef}
+            className="flex snap-x snap-mandatory divide-x overflow-x-auto"
+          >
+            {blogPosts.map((post, index) => (
+              <div
+                key={post.id}
+                className="w-[calc((100vw-8rem)/3)] shrink-0 snap-start"
+              >
+                <BlogCard index={index} post={post} />
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Blog posts - horizontal scroll */}
-        <div className="flex divide-x overflow-x-auto">
-          {blogPosts.map((post, index) => (
-            <div key={post.id} className="w-[calc((100vw-4rem)/3)] shrink-0">
-              <BlogCard index={index} post={post} />
-            </div>
-          ))}
+        {/* Footer with nav controls */}
+        <div className="border-border flex items-center justify-between border-t px-6 py-3">
+          <span className="text-muted-foreground text-sm">
+            {blogPosts.length} articles
+          </span>
+          <div className="flex gap-2">
+            <button
+              className="border-border hover:bg-muted flex h-8 w-8 items-center justify-center rounded border transition-colors"
+              onClick={scrollLeft}
+            >
+              <ChevronLeft className="h-4 w-4" />
+              <span className="sr-only">Previous</span>
+            </button>
+            <button
+              className="border-border hover:bg-muted flex h-8 w-8 items-center justify-center rounded border transition-colors"
+              onClick={scrollRight}
+            >
+              <ChevronRight className="h-4 w-4" />
+              <span className="sr-only">Next</span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
