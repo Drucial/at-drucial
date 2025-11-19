@@ -149,6 +149,20 @@ export function TheThinker() {
     [0, 200]
   );
 
+  // Header grows from 0 to full width
+  const headerWidth = useTransform(
+    scrollYProgress,
+    [0.1, 0.3],
+    [0, 128] // 0 to 8rem (w-32)
+  );
+
+  // Stagger blog cards opacity
+  const getCardOpacity = (index: number) => {
+    const start = 0.35 + index * 0.03;
+    const end = start + 0.1;
+    return useTransform(scrollYProgress, [start, end], [0, 1]);
+  };
+
   function scrollLeft() {
     if (!scrollContainerRef.current) return;
     const cardWidth = scrollContainerRef.current.offsetWidth / 3;
@@ -170,7 +184,10 @@ export function TheThinker() {
       <div className="border-border flex flex-col border-y">
         <div className="flex">
           {/* Left column - Vertical heading (sticky) */}
-          <div className="bg-background border-border sticky left-0 z-10 flex w-32 shrink-0 items-center justify-center border-r pt-4 pb-2 leading-none">
+          <motion.div
+            className="bg-background border-border sticky left-0 z-10 flex shrink-0 items-center justify-center overflow-hidden border-r pt-4 pb-2 leading-none"
+            style={{ width: headerWidth }}
+          >
             <div className="relative">
               <span
                 className="font-teko text-muted-foreground text-9xl leading-none font-bold uppercase"
@@ -191,7 +208,7 @@ export function TheThinker() {
                 The
               </span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Blog posts - horizontal scroll with snap */}
           <div
@@ -199,12 +216,15 @@ export function TheThinker() {
             className="flex snap-x snap-mandatory divide-x overflow-x-auto"
           >
             {blogPosts.map((post, index) => (
-              <div
+              <motion.div
                 key={post.id}
                 className="w-[calc((100vw-8rem)/3)] shrink-0 snap-start"
+                style={{
+                  opacity: getCardOpacity(index),
+                }}
               >
                 <BlogCard index={index} post={post} />
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
