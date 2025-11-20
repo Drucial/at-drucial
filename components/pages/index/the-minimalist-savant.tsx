@@ -13,6 +13,7 @@ import {
 } from "motion/react";
 
 import { HEADER_HEIGHT } from "@/components/layout/header";
+import { BlurText } from "@/components/ui/blur-text";
 import { MagnifiableArea } from "@/components/ui/magnifiable-area";
 
 // Animation constants
@@ -143,14 +144,6 @@ export function TheMinimalistSavant() {
   const quoteTranslateX = useTransform(scrollYProgress, [0.25, 0.45], [100, 0]);
   const quoteOpacity = useTransform(scrollYProgress, [0.25, 0.4], [0, 1]);
 
-  // Description fades in after quote (no exit animation)
-  const descriptionTranslateY = useTransform(
-    scrollYProgress,
-    [0.3, 0.45],
-    [40, 0]
-  );
-  const descriptionOpacity = useTransform(scrollYProgress, [0.3, 0.45], [0, 1]);
-
   // Background color transition - spring-based at buffer point
   const normalBgOpacityValue = useMotionValue(1);
   const normalBgOpacity = useSpring(normalBgOpacityValue, {
@@ -247,22 +240,24 @@ export function TheMinimalistSavant() {
           </motion.p>
 
           {/* Description */}
-          <motion.div
-            className="text-background/50 mt-8 ml-auto max-w-md space-y-6 text-balance"
-            style={{
-              y: descriptionTranslateY,
-              opacity: descriptionOpacity,
-            }}
-          >
-            <p className="leading-relaxed">
-              Less is more is not just a mantra; it&apos;s a disciplined
-              approach to design and life.
-            </p>
-            <p className="leading-relaxed">
-              Elegance lies in restraint. Every element has a purpose, every
-              feature is thoughtfully crafted, and nothing is superfluous.
-            </p>
-          </motion.div>
+          <div className="text-background/50 mt-8 ml-auto max-w-md space-y-6 text-balance">
+            <BlurText
+              className="justify-end leading-relaxed"
+              delay={50}
+              direction="bottom"
+              scrollTrigger={0.35}
+              scrollYProgress={scrollYProgress}
+              text="Less is more is not just a mantra; it's a disciplined approach to design and life."
+            />
+            <BlurText
+              className="justify-end leading-relaxed"
+              delay={50}
+              direction="bottom"
+              scrollTrigger={0.4}
+              scrollYProgress={scrollYProgress}
+              text="Elegance lies in restraint. Every element has a purpose, every feature is thoughtfully crafted, and nothing is superfluous."
+            />
+          </div>
         </MagnifiableArea>
       </div>
     </section>

@@ -67,8 +67,13 @@ export function MagnifiableArea({
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
     >
-      {/* Base content - always visible */}
-      {children}
+      {/* Base content - blurs when magnifying */}
+      <motion.div
+        animate={{ filter: isHovered ? "blur(2px)" : "blur(0px)" }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+      >
+        {children}
+      </motion.div>
 
       {/* Magnified lens effect */}
       <AnimatePresence>
