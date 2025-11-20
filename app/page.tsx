@@ -1,5 +1,6 @@
 import { FullStackUnicorn } from "@/components/pages/index/full-stack-unicorn";
 import { TheAlchemist } from "@/components/pages/index/the-alchemist";
+import { TheConnection } from "@/components/pages/index/the-connection";
 import { TheMinimalistSavant } from "@/components/pages/index/the-minimalist-savant";
 import { TheRenaissanceTechnologist } from "@/components/pages/index/the-renaissance-technologist";
 import { TheThinker } from "@/components/pages/index/the-thinker";
@@ -17,6 +18,8 @@ export default function Home() {
       <TheMinimalistSavant />
       <TheThinker />
       <TheRenaissanceTechnologist />
+      <Separator />
+      <TheConnection />
     </main>
   );
 }
