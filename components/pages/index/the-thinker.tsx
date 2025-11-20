@@ -76,7 +76,7 @@ export function TheThinker() {
   return (
     <motion.section
       ref={sectionRef}
-      className="border-border relative flex flex-col justify-center border-b"
+      className="border-border relative flex flex-col justify-center"
       style={{ paddingTop: paddingY, paddingBottom: paddingY }}
     >
       <div className="border-border flex flex-col border-y">

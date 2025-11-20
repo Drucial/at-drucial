@@ -29,10 +29,6 @@ export function TheRenaissanceTechnologist() {
   const imageOpacity = useTransform(scrollYProgress, [0.1, 0.3], [0, 1]);
   const imageScale = useTransform(scrollYProgress, [0.1, 0.35], [0.8, 1]);
 
-  // Text fades in
-  const textOpacity = useTransform(scrollYProgress, [0.2, 0.4], [0, 1]);
-  const textY = useTransform(scrollYProgress, [0.2, 0.4], [40, 0]);
-
   // Background color transition - spring-based
   const lightBgOpacityValue = useMotionValue(0);
   const lightBgOpacity = useSpring(lightBgOpacityValue, {
