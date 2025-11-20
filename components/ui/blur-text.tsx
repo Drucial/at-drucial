@@ -28,6 +28,12 @@ type BlurTextProps = {
    * @default 0.3
    */
   scrollTrigger?: number;
+  /**
+   * Offset to add to delay calculations (in ms)
+   * Useful for continuing stagger from previous BlurText
+   * @default 0
+   */
+  delayOffset?: number;
 };
 
 function buildKeyframes(
@@ -61,6 +67,7 @@ export function BlurText({
   stepDuration = 0.35,
   scrollYProgress,
   scrollTrigger = 0.3,
+  delayOffset = 0,
 }: BlurTextProps) {
   const elements = animateBy === "words" ? text.split(" ") : text.split("");
   const [inView, setInView] = useState(false);
@@ -129,7 +136,7 @@ export function BlurText({
         const spanTransition: Transition = {
           duration: totalDuration,
           times,
-          delay: (index * delay) / 1000,
+          delay: (index * delay + delayOffset) / 1000,
           ease: easing,
         };
 
