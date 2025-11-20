@@ -2,25 +2,10 @@
 
 ## Current Sprint
 
-### Blog Section - "The Perpetual Thinker"
+### The Connection Form
 
-- [ ] Create component file
-- [ ] Add to page.tsx
-- [ ] Implement scroll animations
-
-### Profile Section - "The Renaissance Technologist"
-
-- [ ] Create component file
-- [ ] Source profile photo
-- [ ] Add to page.tsx
-- [ ] Implement scroll animations
-
-### Contact Section - "The Shop-Talker"
-
-- [ ] Create component file
-- [ ] Set up Acuity scheduling embed
-- [ ] Add to page.tsx
-- [ ] Implement scroll animations
+- [ ] Wire up form with React Hook Form and Resend
+- [ ] Add social links to form footer on left
 
 ### Footer
 
@@ -49,3 +34,7 @@
 - [x] Spring-based color transitions
 - [x] Remove Styro font
 - [x] Update CLAUDE.md documentation
+- [x] The Renaissance Technologist section with scroll animations
+- [x] The Connection appointment/contact section with live preview
+- [x] Scroll-based fade out animations for Renaissance Technologist
+- [x] Parallax scroll effect for content
