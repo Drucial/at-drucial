@@ -1,5 +1,3 @@
-import { Fragment } from "react";
-
 import { FullStackUnicorn } from "@/components/pages/index/full-stack-unicorn";
 import { TheAlchemist } from "@/components/pages/index/the-alchemist";
 import { TheMinimalistSavant } from "@/components/pages/index/the-minimalist-savant";

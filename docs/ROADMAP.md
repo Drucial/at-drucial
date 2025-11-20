@@ -18,6 +18,7 @@ The homepage has several sections implemented with scroll-based animations. Core
 ## In Progress
 
 ### Code Review & Polish
+
 - [ ] Review The Minimalist Savant section
 - [ ] Review The Thinker section (blog)
 - [ ] Code cleanup and optimization
@@ -28,6 +29,7 @@ The homepage has several sections implemented with scroll-based animations. Core
 ## Recent Updates
 
 ### Full Stack Unicorn - Scroll Hijacking
+
 - [x] 300vh sticky scroll section
 - [x] Controlled accordion with scroll-synced state
 - [x] Click-to-scroll navigation for accordion items
@@ -40,6 +42,7 @@ The homepage has several sections implemented with scroll-based animations. Core
 ## Completed Sections (Recent)
 
 ### Blog Section - "The Perpetual Thinker"
+
 - [x] Component scaffold
 - [x] Content and data (6 blog posts)
 - [x] Scroll animations (header grow, staggered card fade)
@@ -52,20 +55,24 @@ The homepage has several sections implemented with scroll-based animations. Core
 ## Remaining Sections
 
 ### Profile Section - "The Renaissance Technologist"
+
 - [ ] Component scaffold
 - [ ] Content and data
 - [ ] Scroll animations
 
 ### Contact Section - "The Shop-Talker"
+
 - [ ] Component scaffold
 - [ ] Appointment scheduler integration
 - [ ] Scroll animations
 
 ### Previous Work / Logos (TBD)
+
 - [ ] Evaluate if needed
 - [ ] Component scaffold if proceeding
 
 ### Footer
+
 - [ ] Component scaffold
 - [ ] Social links
 - [ ] Attribution

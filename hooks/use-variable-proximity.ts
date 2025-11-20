@@ -100,17 +100,22 @@ export function useVariableProximity<T extends HTMLElement>(
           );
 
           const falloffValue = calculateFalloff(distance);
-          const fontValue =
-            minValue + (maxValue - minValue) * falloffValue;
-          const scaleValue =
-            maxScale + (minScale - maxScale) * falloffValue;
+          const fontValue = minValue + (maxValue - minValue) * falloffValue;
+          const scaleValue = maxScale + (minScale - maxScale) * falloffValue;
 
           letter.style.fontVariationSettings = `'${fontVariationAxis}' ${fontValue}`;
           letter.style.transform = `scale(${scaleValue})`;
         });
       });
     },
-    [calculateFalloff, fontVariationAxis, minValue, maxValue, minScale, maxScale]
+    [
+      calculateFalloff,
+      fontVariationAxis,
+      minValue,
+      maxValue,
+      minScale,
+      maxScale,
+    ]
   );
 
   const handleMouseLeave = useCallback(() => {
@@ -144,11 +149,14 @@ export function useVariableProximity<T extends HTMLElement>(
     };
   }, [handleMouseMove, handleMouseLeave]);
 
-  const registerLetter = useCallback((el: HTMLSpanElement | null, index: number) => {
-    if (el) {
-      lettersRef.current[index] = el;
-    }
-  }, []);
+  const registerLetter = useCallback(
+    (el: HTMLSpanElement | null, index: number) => {
+      if (el) {
+        lettersRef.current[index] = el;
+      }
+    },
+    []
+  );
 
   return {
     containerRef,

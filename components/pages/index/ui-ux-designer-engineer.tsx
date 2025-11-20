@@ -15,7 +15,11 @@ type ProximityTextProps = {
   registerLetter: (el: HTMLSpanElement | null, index: number) => void;
 };
 
-function ProximityText({ text, startIndex, registerLetter }: ProximityTextProps) {
+function ProximityText({
+  text,
+  startIndex,
+  registerLetter,
+}: ProximityTextProps) {
   return (
     <h2
       className="text-background text-[clamp(12rem,35vw,28rem)] leading-none font-bold tracking-tighter whitespace-nowrap"
@@ -48,13 +52,15 @@ export function UiUxDesignerEngineer() {
   // Horizontal parallax: moves right to left as section enters viewport
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
 
-  const { containerRef, registerLetter } = useVariableProximity<HTMLDivElement>({
-    fontVariationAxis: "wght",
-    minValue: 900,
-    maxValue: 400,
-    radius: 500,
-    falloff: "gaussian",
-  });
+  const { containerRef, registerLetter } = useVariableProximity<HTMLDivElement>(
+    {
+      fontVariationAxis: "wght",
+      minValue: 900,
+      maxValue: 400,
+      radius: 500,
+      falloff: "gaussian",
+    }
+  );
 
   return (
     <section

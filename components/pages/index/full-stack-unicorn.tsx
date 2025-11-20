@@ -108,7 +108,8 @@ export function FullStackUnicorn() {
 
     // Convert progress to scroll position (accounting for "start center" offset)
     const scrollRange = sectionHeight - viewportHeight / 2;
-    const targetScroll = sectionTop - viewportHeight / 2 + scrollRange * targetProgress;
+    const targetScroll =
+      sectionTop - viewportHeight / 2 + scrollRange * targetProgress;
 
     window.scrollTo({
       top: targetScroll,
@@ -133,19 +134,70 @@ export function FullStackUnicorn() {
   const barY7 = useTransform(scrollYProgress, [0.19, 0.26], [-10, 0]);
   const barY8 = useTransform(scrollYProgress, [0.21, 0.28], [-10, 0]);
   const barY9 = useTransform(scrollYProgress, [0.23, 0.3], [-10, 0]);
-  const barYs = [barY0, barY1, barY2, barY3, barY4, barY5, barY6, barY7, barY8, barY9];
+  const barYs = [
+    barY0,
+    barY1,
+    barY2,
+    barY3,
+    barY4,
+    barY5,
+    barY6,
+    barY7,
+    barY8,
+    barY9,
+  ];
 
   // Progress bar segments (10 bars) - entrance fades in, then progress animates 0.2 to 1
-  const barOpacity0 = useTransform(scrollYProgress, [0.05, 0.12, 0.12, 0.25], [0, 0.2, 0.2, 1]);
-  const barOpacity1 = useTransform(scrollYProgress, [0.07, 0.14, 0.25, 0.35], [0, 0.2, 0.2, 1]);
-  const barOpacity2 = useTransform(scrollYProgress, [0.09, 0.16, 0.35, 0.45], [0, 0.2, 0.2, 1]);
-  const barOpacity3 = useTransform(scrollYProgress, [0.11, 0.18, 0.45, 0.55], [0, 0.2, 0.2, 1]);
-  const barOpacity4 = useTransform(scrollYProgress, [0.13, 0.2, 0.55, 0.65], [0, 0.2, 0.2, 1]);
-  const barOpacity5 = useTransform(scrollYProgress, [0.15, 0.22, 0.65, 0.75], [0, 0.2, 0.2, 1]);
-  const barOpacity6 = useTransform(scrollYProgress, [0.17, 0.24, 0.75, 0.85], [0, 0.2, 0.2, 1]);
-  const barOpacity7 = useTransform(scrollYProgress, [0.19, 0.26, 0.85, 0.9], [0, 0.2, 0.2, 1]);
-  const barOpacity8 = useTransform(scrollYProgress, [0.21, 0.28, 0.9, 0.95], [0, 0.2, 0.2, 1]);
-  const barOpacity9 = useTransform(scrollYProgress, [0.23, 0.3, 0.95, 1], [0, 0.2, 0.2, 1]);
+  const barOpacity0 = useTransform(
+    scrollYProgress,
+    [0.05, 0.12, 0.12, 0.25],
+    [0, 0.2, 0.2, 1]
+  );
+  const barOpacity1 = useTransform(
+    scrollYProgress,
+    [0.07, 0.14, 0.25, 0.35],
+    [0, 0.2, 0.2, 1]
+  );
+  const barOpacity2 = useTransform(
+    scrollYProgress,
+    [0.09, 0.16, 0.35, 0.45],
+    [0, 0.2, 0.2, 1]
+  );
+  const barOpacity3 = useTransform(
+    scrollYProgress,
+    [0.11, 0.18, 0.45, 0.55],
+    [0, 0.2, 0.2, 1]
+  );
+  const barOpacity4 = useTransform(
+    scrollYProgress,
+    [0.13, 0.2, 0.55, 0.65],
+    [0, 0.2, 0.2, 1]
+  );
+  const barOpacity5 = useTransform(
+    scrollYProgress,
+    [0.15, 0.22, 0.65, 0.75],
+    [0, 0.2, 0.2, 1]
+  );
+  const barOpacity6 = useTransform(
+    scrollYProgress,
+    [0.17, 0.24, 0.75, 0.85],
+    [0, 0.2, 0.2, 1]
+  );
+  const barOpacity7 = useTransform(
+    scrollYProgress,
+    [0.19, 0.26, 0.85, 0.9],
+    [0, 0.2, 0.2, 1]
+  );
+  const barOpacity8 = useTransform(
+    scrollYProgress,
+    [0.21, 0.28, 0.9, 0.95],
+    [0, 0.2, 0.2, 1]
+  );
+  const barOpacity9 = useTransform(
+    scrollYProgress,
+    [0.23, 0.3, 0.95, 1],
+    [0, 0.2, 0.2, 1]
+  );
   const barOpacities = [
     barOpacity0,
     barOpacity1,
