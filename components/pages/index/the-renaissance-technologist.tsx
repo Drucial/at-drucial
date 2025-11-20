@@ -26,8 +26,14 @@ export function TheRenaissanceTechnologist() {
 
   // Image parallax - moves up slightly as you scroll
   const imageY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
-  const imageOpacity = useTransform(scrollYProgress, [0.1, 0.3], [0, 1]);
+  const imageOpacity = useTransform(scrollYProgress, [0.1, 0.3, 0.65, 0.8], [0, 1, 1, 0]);
   const imageScale = useTransform(scrollYProgress, [0.1, 0.35], [0.8, 1]);
+
+  // Text fade out on scroll through
+  const textOpacity = useTransform(scrollYProgress, [0.65, 0.8], [1, 0]);
+
+  // Content parallax
+  const contentY = useTransform(scrollYProgress, [0, 1], ["5%", "-15%"]);
 
   // Background color transition - spring-based
   const lightBgOpacityValue = useMotionValue(0);
@@ -37,7 +43,7 @@ export function TheRenaissanceTechnologist() {
   });
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (latest >= 0.15 && latest <= 0.85) {
+    if (latest >= 0.15 && latest <= 0.7) {
       lightBgOpacityValue.set(1);
     } else {
       lightBgOpacityValue.set(0);
@@ -47,7 +53,7 @@ export function TheRenaissanceTechnologist() {
   return (
     <section
       ref={sectionRef}
-      className="bg-background text-foreground relative flex items-center px-6 md:px-8 lg:px-12"
+      className="bg-background text-foreground relative flex items-center px-6 py-32 md:px-8 lg:px-12"
       style={{ minHeight: `calc(100svh - ${HEADER_HEIGHT / 2}px)` }}
     >
       {/* Light mode overlay */}
@@ -56,7 +62,7 @@ export function TheRenaissanceTechnologist() {
         style={{ opacity: lightBgOpacity }}
       />
 
-      <div className="relative flex items-center">
+      <motion.div className="relative flex items-center" style={{ y: contentY }}>
         {/* Image */}
         <motion.div
           className="relative aspect-square w-[clamp(20rem,50vw,40rem)] shrink-0 overflow-hidden rounded-full"
@@ -72,7 +78,10 @@ export function TheRenaissanceTechnologist() {
         </motion.div>
 
         {/* Heading + Description - overlapping image, pushed right */}
-        <div className="-ml-32 flex flex-col md:-ml-48 lg:-ml-56">
+        <motion.div
+          className="-ml-32 flex flex-col md:-ml-48 lg:-ml-56"
+          style={{ opacity: textOpacity }}
+        >
           <h2 className="text-background relative z-10 -mt-8 text-[clamp(3rem,12vw,10rem)] leading-[0.85] font-bold tracking-tighter">
             <RollingText
               scrollTrigger={0.2}
@@ -140,8 +149,8 @@ export function TheRenaissanceTechnologist() {
               text="Beyond developing world-class products, I'm a devoted dad, a collector of motorcycles and bicycles, and a culinary enthusiast who believes in the magic of a delectable meal with good company."
             />
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

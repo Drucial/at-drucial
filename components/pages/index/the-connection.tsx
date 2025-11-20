@@ -183,10 +183,10 @@ export function TheConnection() {
   });
 
   // Scroll animations
-  const titleOpacity = useTransform(scrollYProgress, [0.1, 0.25], [0, 1]);
-  const titleX = useTransform(scrollYProgress, [0.1, 0.25], [-50, 0]);
-  const formOpacity = useTransform(scrollYProgress, [0.15, 0.3], [0, 1]);
-  const formY = useTransform(scrollYProgress, [0.15, 0.3], [60, 0]);
+  const rightOpacity = useTransform(scrollYProgress, [0.2, 0.35], [0, 1]);
+  const rightX = useTransform(scrollYProgress, [0.2, 0.35], [100, 0]);
+  const formOpacity = useTransform(scrollYProgress, [0.25, 0.4], [0, 1]);
+  const formY = useTransform(scrollYProgress, [0.25, 0.4], [60, 0]);
 
   const {
     ref: submitRef,
@@ -198,7 +198,7 @@ export function TheConnection() {
   return (
     <section
       ref={sectionRef}
-      className="bg-background text-foreground relative grid grid-cols-12 divide-x"
+      className="bg-background text-foreground relative grid grid-cols-12"
       style={{ minHeight: `calc(100svh - ${HEADER_HEIGHT}px)` }}
     >
       {/* Left column - Form */}
@@ -313,8 +313,8 @@ export function TheConnection() {
 
       {/* Right column - Live message preview */}
       <motion.div
-        className="col-span-5 flex flex-col"
-        style={{ opacity: titleOpacity, x: titleX }}
+        className="border-border col-span-5 flex flex-col border-l"
+        style={{ opacity: rightOpacity, x: rightX }}
       >
         <div className="flex-1">
           {/* Email header */}
