@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { Easing, MotionValue, Transition } from "motion/react";
-import { motion, useMotionValueEvent } from "motion/react";
+import { motion } from "motion/react";
 
 type BlurTextProps = {
   text?: string;
@@ -74,13 +74,19 @@ export function BlurText({
   const ref = useRef<HTMLParagraphElement>(null);
 
   // Scroll-based trigger - bidirectional
-  useMotionValueEvent(scrollYProgress ?? null, "change", (latest) => {
-    if (latest >= scrollTrigger && !inView) {
-      setInView(true);
-    } else if (latest < scrollTrigger && inView) {
-      setInView(false);
-    }
-  });
+  useEffect(() => {
+    if (!scrollYProgress) return;
+
+    const unsubscribe = scrollYProgress.on("change", (latest) => {
+      if (latest >= scrollTrigger && !inView) {
+        setInView(true);
+      } else if (latest < scrollTrigger && inView) {
+        setInView(false);
+      }
+    });
+
+    return unsubscribe;
+  }, [scrollYProgress, scrollTrigger, inView]);
 
   // Intersection observer fallback (when no scrollYProgress provided)
   useEffect(() => {

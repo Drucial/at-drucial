@@ -24,40 +24,40 @@ type ProjectType = (typeof PROJECT_TYPES)[number];
 
 type TimeSlot = (typeof TIME_SLOTS)[number];
 
-function SelectableCell({
-  children,
-  isSelected,
-  onSelect,
-}: {
-  children: React.ReactNode;
-  isSelected: boolean;
-  onSelect: () => void;
-}) {
-  const { ref, bgX, bgY, handlers } = useDirectionalHover<HTMLButtonElement>();
+// function SelectableCell({
+//   children,
+//   isSelected,
+//   onSelect,
+// }: {
+//   children: React.ReactNode;
+//   isSelected: boolean;
+//   onSelect: () => void;
+// }) {
+//   const { ref, bgX, bgY, handlers } = useDirectionalHover<HTMLButtonElement>();
 
-  return (
-    <button
-      ref={ref}
-      type="button"
-      className={`border-border relative overflow-hidden border-b border-r px-4 py-3 text-sm transition-colors ${
-        isSelected
-          ? "bg-foreground text-background"
-          : "hover:text-foreground text-muted-foreground"
-      }`}
-      onClick={onSelect}
-      onMouseEnter={handlers.onMouseEnter}
-      onMouseLeave={handlers.onMouseLeave}
-    >
-      {!isSelected && (
-        <motion.div
-          className="bg-muted absolute inset-0"
-          style={{ translateX: bgX, translateY: bgY }}
-        />
-      )}
-      <span className="relative z-10">{children}</span>
-    </button>
-  );
-}
+//   return (
+//     <button
+//       ref={ref}
+//       type="button"
+//       className={`border-border relative overflow-hidden border-b border-r px-4 py-3 text-sm transition-colors ${
+//         isSelected
+//           ? "bg-foreground text-background"
+//           : "hover:text-foreground text-muted-foreground"
+//       }`}
+//       onClick={onSelect}
+//       onMouseEnter={handlers.onMouseEnter}
+//       onMouseLeave={handlers.onMouseLeave}
+//     >
+//       {!isSelected && (
+//         <motion.div
+//           className="bg-muted absolute inset-0"
+//           style={{ translateX: bgX, translateY: bgY }}
+//         />
+//       )}
+//       <span className="relative z-10">{children}</span>
+//     </button>
+//   );
+// }
 
 function FormInput({
   label,
@@ -272,6 +272,7 @@ export function TheConnection() {
               <div className="grid grid-cols-2">
                 {TIME_SLOTS.map((time, i) => {
                   const isLastCol = i % 2 === 1;
+
                   return (
                     <button
                       key={time}

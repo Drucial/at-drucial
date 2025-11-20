@@ -2,13 +2,10 @@
 
 import * as React from "react";
 
+import type {MotionValue, Transition, UseInViewOptions} from "motion/react";
 import {
   motion,
-  useInView,
-  useMotionValueEvent,
-  type MotionValue,
-  type Transition,
-  type UseInViewOptions,
+  useInView
 } from "motion/react";
 
 const ENTRY_ANIMATION = {
@@ -60,13 +57,19 @@ function RollingText({
   const [isTriggered, setIsTriggered] = React.useState(false);
 
   // Scroll-based trigger - bidirectional
-  useMotionValueEvent(scrollYProgress ?? null, "change", (latest) => {
-    if (latest >= scrollTrigger && !isTriggered) {
-      setIsTriggered(true);
-    } else if (latest < scrollTrigger && isTriggered) {
-      setIsTriggered(false);
-    }
-  });
+  React.useEffect(() => {
+    if (!scrollYProgress) return;
+
+    const unsubscribe = scrollYProgress.on("change", (latest) => {
+      if (latest >= scrollTrigger && !isTriggered) {
+        setIsTriggered(true);
+      } else if (latest < scrollTrigger && isTriggered) {
+        setIsTriggered(false);
+      }
+    });
+
+    return unsubscribe;
+  }, [scrollYProgress, scrollTrigger, isTriggered]);
 
   const inViewResult = useInView(localRef, {
     once: inViewOnce,
