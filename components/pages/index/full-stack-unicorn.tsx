@@ -39,6 +39,41 @@ function useAccordionItemAnimation(
   };
 }
 
+// Progress bar with staggered animations
+function ProgressBar({
+  index,
+  scrollYProgress,
+}: {
+  index: number;
+  scrollYProgress: MotionValue<number>;
+}) {
+  const entranceStagger = 0.02;
+  const entranceStart = 0.05 + index * entranceStagger;
+  const entranceEnd = entranceStart + 0.07;
+
+  // Progress fill timing - evenly distributed across 0.25 to 1.0
+  const progressStart = 0.25 + (index / 10) * 0.75;
+  const progressEnd = progressStart + 0.1;
+
+  const y = useTransform(
+    scrollYProgress,
+    [entranceStart, entranceEnd],
+    [-10, 0]
+  );
+  const opacity = useTransform(
+    scrollYProgress,
+    [entranceStart, entranceEnd, progressStart, progressEnd],
+    [0, 0.2, 0.2, 1]
+  );
+
+  return (
+    <motion.div
+      className="bg-muted-foreground h-3 w-1"
+      style={{ opacity, y }}
+    />
+  );
+}
+
 // Animated accordion item wrapper
 function AnimatedAccordionItem({
   item,
@@ -123,94 +158,6 @@ export function FullStackUnicorn() {
   // Progress indicator container animation (from left)
   const progressX = useTransform(scrollYProgress, [0.05, 0.2], [-50, 0]);
 
-  // Progress bar staggered entrance animations (Y and opacity)
-  const barY0 = useTransform(scrollYProgress, [0.05, 0.12], [-10, 0]);
-  const barY1 = useTransform(scrollYProgress, [0.07, 0.14], [-10, 0]);
-  const barY2 = useTransform(scrollYProgress, [0.09, 0.16], [-10, 0]);
-  const barY3 = useTransform(scrollYProgress, [0.11, 0.18], [-10, 0]);
-  const barY4 = useTransform(scrollYProgress, [0.13, 0.2], [-10, 0]);
-  const barY5 = useTransform(scrollYProgress, [0.15, 0.22], [-10, 0]);
-  const barY6 = useTransform(scrollYProgress, [0.17, 0.24], [-10, 0]);
-  const barY7 = useTransform(scrollYProgress, [0.19, 0.26], [-10, 0]);
-  const barY8 = useTransform(scrollYProgress, [0.21, 0.28], [-10, 0]);
-  const barY9 = useTransform(scrollYProgress, [0.23, 0.3], [-10, 0]);
-  const barYs = [
-    barY0,
-    barY1,
-    barY2,
-    barY3,
-    barY4,
-    barY5,
-    barY6,
-    barY7,
-    barY8,
-    barY9,
-  ];
-
-  // Progress bar segments (10 bars) - entrance fades in, then progress animates 0.2 to 1
-  const barOpacity0 = useTransform(
-    scrollYProgress,
-    [0.05, 0.12, 0.12, 0.25],
-    [0, 0.2, 0.2, 1]
-  );
-  const barOpacity1 = useTransform(
-    scrollYProgress,
-    [0.07, 0.14, 0.25, 0.35],
-    [0, 0.2, 0.2, 1]
-  );
-  const barOpacity2 = useTransform(
-    scrollYProgress,
-    [0.09, 0.16, 0.35, 0.45],
-    [0, 0.2, 0.2, 1]
-  );
-  const barOpacity3 = useTransform(
-    scrollYProgress,
-    [0.11, 0.18, 0.45, 0.55],
-    [0, 0.2, 0.2, 1]
-  );
-  const barOpacity4 = useTransform(
-    scrollYProgress,
-    [0.13, 0.2, 0.55, 0.65],
-    [0, 0.2, 0.2, 1]
-  );
-  const barOpacity5 = useTransform(
-    scrollYProgress,
-    [0.15, 0.22, 0.65, 0.75],
-    [0, 0.2, 0.2, 1]
-  );
-  const barOpacity6 = useTransform(
-    scrollYProgress,
-    [0.17, 0.24, 0.75, 0.85],
-    [0, 0.2, 0.2, 1]
-  );
-  const barOpacity7 = useTransform(
-    scrollYProgress,
-    [0.19, 0.26, 0.85, 0.9],
-    [0, 0.2, 0.2, 1]
-  );
-  const barOpacity8 = useTransform(
-    scrollYProgress,
-    [0.21, 0.28, 0.9, 0.95],
-    [0, 0.2, 0.2, 1]
-  );
-  const barOpacity9 = useTransform(
-    scrollYProgress,
-    [0.23, 0.3, 0.95, 1],
-    [0, 0.2, 0.2, 1]
-  );
-  const barOpacities = [
-    barOpacity0,
-    barOpacity1,
-    barOpacity2,
-    barOpacity3,
-    barOpacity4,
-    barOpacity5,
-    barOpacity6,
-    barOpacity7,
-    barOpacity8,
-    barOpacity9,
-  ];
-
   return (
     <section
       ref={sectionRef}
@@ -273,15 +220,8 @@ export function FullStackUnicorn() {
           className="absolute bottom-24 left-1/4 flex -translate-x-1/2 gap-1"
           style={{ x: progressX }}
         >
-          {barOpacities.map((opacity, i) => (
-            <motion.div
-              key={i}
-              className="bg-muted-foreground h-3 w-1"
-              style={{
-                opacity,
-                y: barYs[i],
-              }}
-            />
+          {Array.from({ length: 10 }).map((_, i) => (
+            <ProgressBar key={i} index={i} scrollYProgress={scrollYProgress} />
           ))}
         </motion.div>
       </div>

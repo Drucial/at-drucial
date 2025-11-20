@@ -7,37 +7,8 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 
 import { useBlogModal } from "@/components/providers/blog-modal-provider";
+import { NavButton } from "@/components/ui/nav-button";
 import { blogPosts } from "@/data/blog-posts";
-import { useDirectionalHover } from "@/hooks/use-directional-hover";
-
-type NavButtonProps = {
-  onClick: () => void;
-  children: React.ReactNode;
-  label: string;
-  disabled?: boolean;
-};
-
-function NavButton({ onClick, children, label, disabled }: NavButtonProps) {
-  const { ref, bgX, bgY, handlers } = useDirectionalHover<HTMLButtonElement>();
-
-  return (
-    <button
-      ref={ref}
-      className="relative flex aspect-square h-full items-center justify-center overflow-hidden disabled:opacity-30"
-      disabled={disabled}
-      onClick={onClick}
-      onMouseEnter={handlers.onMouseEnter}
-      onMouseLeave={handlers.onMouseLeave}
-    >
-      <motion.div
-        className="bg-muted absolute inset-0"
-        style={{ translateX: bgX, translateY: bgY }}
-      />
-      <span className="relative">{children}</span>
-      <span className="sr-only">{label}</span>
-    </button>
-  );
-}
 
 export default function BlogModal() {
   const params = useParams();

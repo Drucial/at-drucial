@@ -7,86 +7,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
 
 import { useBlogModal } from "@/components/providers/blog-modal-provider";
+import { BlogCard } from "@/components/ui/blog-card";
+import { NavButton } from "@/components/ui/nav-button";
 import type { BlogPost } from "@/data/blog-posts";
 import { blogPosts } from "@/data/blog-posts";
-import { useDirectionalHover } from "@/hooks/use-directional-hover";
-
-type NavButtonProps = {
-  onClick: () => void;
-  children: React.ReactNode;
-  label: string;
-};
-
-function NavButton({ onClick, children, label }: NavButtonProps) {
-  const { ref, bgX, bgY, handlers } = useDirectionalHover<HTMLButtonElement>();
-
-  return (
-    <button
-      ref={ref}
-      className="relative flex aspect-square h-full items-center justify-center overflow-hidden"
-      onClick={onClick}
-      onMouseEnter={handlers.onMouseEnter}
-      onMouseLeave={handlers.onMouseLeave}
-    >
-      <motion.div
-        className="bg-muted absolute inset-0"
-        style={{ translateX: bgX, translateY: bgY }}
-      />
-      <span className="relative">{children}</span>
-      <span className="sr-only">{label}</span>
-    </button>
-  );
-}
-
-type BlogCardProps = {
-  post: BlogPost;
-  index: number;
-  onClick: (bounds: DOMRect) => void;
-};
-
-function BlogCard({ post, index, onClick }: BlogCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  function handleClick() {
-    if (cardRef.current) {
-      const bounds = cardRef.current.getBoundingClientRect();
-      onClick(bounds);
-    }
-  }
-
-  return (
-    <div
-      ref={cardRef}
-      className="group hover:bg-muted/50 flex h-full cursor-pointer flex-col p-8 transition-colors"
-      onClick={handleClick}
-    >
-      {/* Image placeholder - 3:2 aspect ratio */}
-      <div className="bg-muted aspect-[3/2] w-full overflow-hidden">
-        {/* Replace with actual image */}
-        <div className="flex h-full w-full items-center justify-center transition-transform duration-300 group-hover:scale-105">
-          <span className="text-muted-foreground text-sm">
-            Image {index + 1}
-          </span>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="flex flex-1 flex-col pt-4">
-        <h3 className="font-teko group-hover:text-primary text-xl leading-tight font-semibold transition-colors">
-          {post.title}
-        </h3>
-        <p className="text-muted-foreground mt-2 line-clamp-2 text-sm">
-          {post.excerpt}
-        </p>
-        <div className="text-muted-foreground mt-auto flex gap-2 pt-4 text-xs">
-          <span>{post.readTime}</span>
-          <span>·</span>
-          <span>{post.date}</span>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export function TheThinker() {
   const sectionRef = useRef<HTMLElement>(null);
