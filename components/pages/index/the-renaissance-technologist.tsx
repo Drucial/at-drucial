@@ -26,7 +26,11 @@ export function TheRenaissanceTechnologist() {
 
   // Image parallax - moves up slightly as you scroll
   const imageY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
-  const imageOpacity = useTransform(scrollYProgress, [0.1, 0.3, 0.65, 0.8], [0, 1, 1, 0]);
+  const imageOpacity = useTransform(
+    scrollYProgress,
+    [0.1, 0.3, 0.65, 0.8],
+    [0, 1, 1, 0]
+  );
   const imageScale = useTransform(scrollYProgress, [0.1, 0.35], [0.8, 1]);
 
   // Text fade out on scroll through
@@ -53,7 +57,7 @@ export function TheRenaissanceTechnologist() {
   return (
     <section
       ref={sectionRef}
-      className="bg-background text-foreground relative flex items-center px-6 py-32 md:px-8 lg:px-12"
+      className="bg-background text-foreground relative flex items-center justify-center px-6 py-32 md:px-8 lg:px-12"
       style={{ minHeight: `calc(100svh - ${HEADER_HEIGHT / 2}px)` }}
     >
       {/* Light mode overlay */}
@@ -62,7 +66,10 @@ export function TheRenaissanceTechnologist() {
         style={{ opacity: lightBgOpacity }}
       />
 
-      <motion.div className="relative flex items-center" style={{ y: contentY }}>
+      <motion.div
+        className="relative flex items-center"
+        style={{ y: contentY }}
+      >
         {/* Image */}
         <motion.div
           className="relative aspect-square w-[clamp(20rem,50vw,40rem)] shrink-0 overflow-hidden rounded-full"

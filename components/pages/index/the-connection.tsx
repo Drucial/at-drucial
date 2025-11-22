@@ -24,41 +24,6 @@ type ProjectType = (typeof PROJECT_TYPES)[number];
 
 type TimeSlot = (typeof TIME_SLOTS)[number];
 
-// function SelectableCell({
-//   children,
-//   isSelected,
-//   onSelect,
-// }: {
-//   children: React.ReactNode;
-//   isSelected: boolean;
-//   onSelect: () => void;
-// }) {
-//   const { ref, bgX, bgY, handlers } = useDirectionalHover<HTMLButtonElement>();
-
-//   return (
-//     <button
-//       ref={ref}
-//       type="button"
-//       className={`border-border relative overflow-hidden border-b border-r px-4 py-3 text-sm transition-colors ${
-//         isSelected
-//           ? "bg-foreground text-background"
-//           : "hover:text-foreground text-muted-foreground"
-//       }`}
-//       onClick={onSelect}
-//       onMouseEnter={handlers.onMouseEnter}
-//       onMouseLeave={handlers.onMouseLeave}
-//     >
-//       {!isSelected && (
-//         <motion.div
-//           className="bg-muted absolute inset-0"
-//           style={{ translateX: bgX, translateY: bgY }}
-//         />
-//       )}
-//       <span className="relative z-10">{children}</span>
-//     </button>
-//   );
-// }
-
 function FormInput({
   label,
   type = "text",
@@ -120,7 +85,9 @@ function CalendarGrid({
   return (
     <div className="border-border border">
       <div className="border-border flex items-stretch border-b text-xs tracking-widest uppercase">
-        <span className="text-muted-foreground flex-1 px-4 py-2">Select Date</span>
+        <span className="text-muted-foreground flex-1 px-4 py-2">
+          Select Date
+        </span>
         <span className="border-border text-muted-foreground/50 border-l px-4 py-2">
           {monthName} {currentYear}
         </span>
@@ -142,7 +109,10 @@ function CalendarGrid({
             className={`border-border p-2 text-center text-sm transition-colors ${
               (i + 1) % 7 !== 0 ? "border-r" : ""
             } ${
-              i < days.length - 7 || (days.length % 7 !== 0 && i < days.length - (days.length % 7)) ? "border-b" : ""
+              i < days.length - 7 ||
+              (days.length % 7 !== 0 && i < days.length - (days.length % 7))
+                ? "border-b"
+                : ""
             } ${
               day === null
                 ? "cursor-default"
@@ -199,7 +169,7 @@ export function TheConnection() {
     <section
       ref={sectionRef}
       className="bg-background text-foreground relative grid grid-cols-12"
-      style={{ minHeight: `calc(100svh - ${HEADER_HEIGHT}px)` }}
+      style={{ minHeight: `calc(100svh - ${HEADER_HEIGHT / 2}px)` }}
     >
       {/* Left column - Form */}
       <motion.div
@@ -265,7 +235,7 @@ export function TheConnection() {
             />
 
             {/* Time slots */}
-            <div className="border-border self-start border-t border-l border-r">
+            <div className="border-border self-start border-t border-r border-l">
               <div className="border-border text-muted-foreground border-b px-4 py-2 text-xs tracking-widest uppercase">
                 Select Time
               </div>
@@ -307,9 +277,7 @@ export function TheConnection() {
               onChange={(e) => setMessage(e.target.value)}
             />
           </div>
-
         </form>
-
       </motion.div>
 
       {/* Right column - Live message preview */}
