@@ -2,11 +2,8 @@
 
 import * as React from "react";
 
-import type {MotionValue, Transition, UseInViewOptions} from "motion/react";
-import {
-  motion,
-  useInView
-} from "motion/react";
+import type { MotionValue, Transition, UseInViewOptions } from "motion/react";
+import { motion, useInView } from "motion/react";
 
 const ENTRY_ANIMATION = {
   initial: { rotateX: 0 },
@@ -87,7 +84,7 @@ function RollingText({
         <span
           key={idx}
           aria-hidden="true"
-          className="relative inline-block w-auto transform-3d perspective-[9999999px]"
+          className="relative inline-block w-auto perspective-[9999999px] transform-3d"
         >
           <motion.span
             animate={isInView ? ENTRY_ANIMATION.animate : undefined}
