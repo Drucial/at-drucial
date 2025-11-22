@@ -10,7 +10,8 @@ import {
   useTransform,
 } from "motion/react";
 
-import { HEADER_HEIGHT } from "@/components/layout/header";
+import { SMALL_HEADER_HEIGHT } from "@/components/layout/header";
+import { useViewport } from "@/components/providers/viewport-provider";
 import {
   Accordion,
   AccordionContent,
@@ -105,6 +106,7 @@ function AnimatedAccordionItem({
 export function FullStackUnicorn() {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeItem, setActiveItem] = useState("research");
+  const { viewportHeight } = useViewport();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -158,18 +160,21 @@ export function FullStackUnicorn() {
   // Progress indicator container animation (from left)
   const progressX = useTransform(scrollYProgress, [0.05, 0.2], [-50, 0]);
 
+  // Three sections of scroll
+  const sectionScrollHeight = viewportHeight * 3 - SMALL_HEADER_HEIGHT * 3;
+
   return (
     <section
       ref={sectionRef}
-      className="relative"
-      style={{ height: `calc(300svh - ${HEADER_HEIGHT * 3}px)` }}
+      className="relative overflow-x-hidden"
+      style={{ height: sectionScrollHeight }}
     >
       {/* Sticky container that stays in view */}
       <div
         className="border-border sticky grid grid-cols-12 gap-x-8 border-b px-6 md:px-8 lg:gap-x-12 lg:px-12"
         style={{
-          top: HEADER_HEIGHT / 2,
-          height: `calc(100svh - ${HEADER_HEIGHT}px)`,
+          top: SMALL_HEADER_HEIGHT,
+          height: viewportHeight - SMALL_HEADER_HEIGHT,
         }}
       >
         {/* Left column - Accordion */}

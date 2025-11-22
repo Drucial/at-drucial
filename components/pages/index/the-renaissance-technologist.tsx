@@ -57,7 +57,7 @@ export function TheRenaissanceTechnologist() {
   return (
     <section
       ref={sectionRef}
-      className="bg-background text-foreground relative flex items-center justify-center px-6 py-32 md:px-8 lg:px-12"
+      className="bg-background text-foreground relative flex items-center justify-center overflow-x-hidden px-6 py-32 md:px-8 lg:px-12"
       style={{ minHeight: `calc(100svh - ${HEADER_HEIGHT / 2}px)` }}
     >
       {/* Light mode overlay */}

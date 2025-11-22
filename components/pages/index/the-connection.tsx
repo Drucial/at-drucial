@@ -168,7 +168,7 @@ export function TheConnection() {
   return (
     <section
       ref={sectionRef}
-      className="bg-background text-foreground relative grid grid-cols-12"
+      className="bg-background text-foreground relative grid grid-cols-12 overflow-x-hidden"
       style={{ minHeight: `calc(100svh - ${HEADER_HEIGHT / 2}px)` }}
     >
       {/* Left column - Form */}

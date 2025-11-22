@@ -1,6 +1,7 @@
 "use client";
 
 import type { MotionValue } from "motion/react";
+import { useViewport } from "@/components/providers/viewport-provider";
 import { motion, useScroll, useTransform } from "motion/react";
 
 const SCROLL_THRESHOLD = 200;
@@ -100,7 +101,7 @@ function AnimatedLetter({
   );
 }
 
-export function Logo() {
+function LogoDesktop() {
   const { scrollY } = useScroll();
 
   // Scale logo height from 96px (h-24) down to 48px (h-12)
@@ -224,4 +225,136 @@ export function Logo() {
       </defs>
     </motion.svg>
   );
+}
+
+function LogoMobile() {
+  const { scrollY } = useScroll();
+
+  // Fixed height on mobile - no scaling
+  const logoHeight = 48;
+
+  // Morph the background rectangle from chip (narrow) to mark (square)
+  const markRectWidth = useTransform(scrollY, [0, SCROLL_THRESHOLD], [18, 34]);
+  const markRectHeight = useTransform(scrollY, [0, SCROLL_THRESHOLD], [33, 34]);
+
+  // Shift the @ character to stay centered as the mark morphs
+  const atCharX = useTransform(scrollY, [0, SCROLL_THRESHOLD], [0, 8]);
+  const atCharY = useTransform(scrollY, [0, SCROLL_THRESHOLD], [0, -1.5]);
+
+  // Shift the wordmark letters to maintain gap as mark expands
+  const wordmarkX = useTransform(scrollY, [0, SCROLL_THRESHOLD], [0, 16]);
+
+  // Create animations for each letter (right to left: l, a, i, c, u, r, d)
+  const letterAnimations = [
+    useLetterAnimation(scrollY, 0), // l
+    useLetterAnimation(scrollY, 1), // a
+    useLetterAnimation(scrollY, 2), // i
+    useLetterAnimation(scrollY, 3), // c
+    useLetterAnimation(scrollY, 4), // u
+    useLetterAnimation(scrollY, 5), // r
+    useLetterAnimation(scrollY, 6), // d
+  ];
+
+  return (
+    <motion.svg
+      className="overflow-visible"
+      fill="none"
+      style={{ height: logoHeight, perspective: "800px" }}
+      viewBox="0 0 72 40"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Mark portion - morphs from chip to mark as letters disappear */}
+      <g filter="url(#filter0_dd_6709_24422_mobile)">
+        <motion.rect
+          className="fill-foreground"
+          height={markRectHeight}
+          rx="1"
+          style={{ width: markRectWidth, height: markRectHeight }}
+          width={markRectWidth}
+          x="3"
+          y="2"
+        />
+        <motion.g style={{ translateX: atCharX, translateY: atCharY }}>
+          <path
+            className="fill-muted"
+            d="M17.1601 32.9428H10.9601C8.2801 32.9428 6.6001 31.1428 6.6001 28.2628V13.5828C6.6001 10.7028 8.2801 8.90283 10.9601 8.90283H13.0401C15.7201 8.90283 17.4001 10.7028 17.4001 13.5828V30.7428C17.4001 31.1028 17.1601 31.3428 16.7601 31.3428H13.0001C12.6001 31.3428 12.4001 31.1028 12.4001 30.7428V11.1028C12.4001 10.7028 12.6001 10.5028 13.0001 10.5028H13.0401C14.6401 10.5028 15.8001 11.3828 15.8001 13.5828V30.2628C15.8001 30.4228 15.8801 30.5428 16.0401 30.5428H16.3201C16.4801 30.5428 16.6001 30.4628 16.6001 30.2628V13.5828C16.6001 11.1428 15.2801 9.70283 13.0401 9.70283H10.9601C8.7201 9.70283 7.4001 11.1428 7.4001 13.5828V28.2628C7.4001 30.7028 8.7201 32.1428 10.9601 32.1428H17.1601C17.3201 32.1428 17.4001 32.2228 17.4001 32.3828V32.7028C17.4001 32.8628 17.3201 32.9428 17.1601 32.9428ZM11.0001 18.1428H8.8001C8.4401 18.1428 8.2001 17.9028 8.2001 17.5428V13.5828C8.2001 11.3828 9.3601 10.5028 10.9601 10.5028H11.0001C11.3601 10.5028 11.6001 10.7028 11.6001 11.1028V17.5428C11.6001 17.9428 11.3601 18.1428 11.0001 18.1428ZM11.0001 31.3428H10.9601C9.3601 31.3428 8.2001 30.4228 8.2001 28.2628V22.0228C8.2001 19.8228 9.3601 18.9428 10.9601 18.9428H11.0001C11.3601 18.9428 11.6001 19.1428 11.6001 19.5428V30.7428C11.6001 31.1428 11.3601 31.3428 11.0001 31.3428Z"
+          />
+        </motion.g>
+      </g>
+
+      {/* Wordmark letters - each animates sequentially from right to left */}
+      {LETTERS.map((letter, index) => (
+        <AnimatedLetter
+          key={letter.id}
+          animations={letterAnimations[index]}
+          letter={letter}
+          wordmarkX={wordmarkX}
+        />
+      ))}
+
+      <defs>
+        <filter
+          colorInterpolationFilters="sRGB"
+          filterUnits="userSpaceOnUse"
+          id="filter0_dd_6709_24422_mobile"
+          x="0"
+          y="0"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feColorMatrix
+            in="SourceAlpha"
+            result="hardAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          />
+          <feMorphology
+            in="SourceAlpha"
+            operator="erode"
+            radius="1"
+            result="effect1_dropShadow_6709_24422"
+          />
+          <feOffset dy="2" />
+          <feGaussianBlur stdDeviation="2" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
+          />
+          <feBlend
+            in2="BackgroundImageFix"
+            mode="normal"
+            result="effect1_dropShadow_6709_24422"
+          />
+          <feColorMatrix
+            in="SourceAlpha"
+            result="hardAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          />
+          <feOffset dy="1" />
+          <feGaussianBlur stdDeviation="1.5" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
+          />
+          <feBlend
+            in2="effect1_dropShadow_6709_24422"
+            mode="normal"
+            result="effect2_dropShadow_6709_24422"
+          />
+          <feBlend
+            in="SourceGraphic"
+            in2="effect2_dropShadow_6709_24422"
+            mode="normal"
+            result="shape"
+          />
+        </filter>
+      </defs>
+    </motion.svg>
+  );
+}
+
+export function Logo() {
+  const { isMobile } = useViewport();
+
+  return isMobile ? <LogoMobile /> : <LogoDesktop />;
 }
