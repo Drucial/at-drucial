@@ -18,6 +18,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Separator } from "@/components/ui/separator";
 
 type AccordionData = {
   value: string;
@@ -59,10 +60,7 @@ function ProgressBar({
   );
 
   return (
-    <motion.div
-      className="bg-muted-foreground h-3 w-1"
-      style={{ opacity }}
-    />
+    <motion.div className="bg-muted-foreground h-3 w-1" style={{ opacity }} />
   );
 }
 
@@ -173,7 +171,7 @@ export function FullStackUnicorn() {
       >
         {/* Left column - Accordion */}
         <motion.div
-          className="flex items-center justify-center overflow-hidden p-6 md:p-8 lg:p-12"
+          className="relative flex flex-1 items-start justify-center overflow-hidden border-r p-6 md:flex-none md:items-center md:border-r-0 md:p-8 lg:p-12"
           style={{ x: leftColumnX }}
         >
           <Accordion
@@ -193,9 +191,11 @@ export function FullStackUnicorn() {
             ))}
           </Accordion>
 
+          <Separator className="absolute bottom-16 left-0 w-full md:hidden" />
+
           {/* Progress indicator */}
           <motion.div
-            className="absolute bottom-24 left-1/4 flex -translate-x-1/2 gap-1"
+            className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-1 md:bottom-24"
             style={{
               opacity: useTransform(scrollYProgress, [0, 0.2], [0, 1]),
             }}
@@ -210,9 +210,11 @@ export function FullStackUnicorn() {
           </motion.div>
         </motion.div>
 
+        <Separator className="md:hidden" />
+
         {/* Right column - Title with border sliding in from right */}
         <motion.div
-          className="flex items-center justify-center border-l p-6 md:p-8 lg:p-12"
+          className="flex items-start justify-center border-l p-6 md:items-center md:p-8 lg:p-12"
           style={{
             x: rightColumnX,
           }}
