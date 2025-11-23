@@ -13,8 +13,6 @@ export const metadata: Metadata = {
     "Expertly blurring the lines between artistry and engineering. UI/UX Designer, Full-Stack Developer, and Minimalist Savant.",
 };
 
-const MAX_WIDTH = 1920;
-
 export default function RootLayout({
   children,
   modal,
@@ -24,10 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning lang="en">
-      <body
-        className="mx-auto overflow-x-hidden border antialiased"
-        style={{ maxWidth: MAX_WIDTH }}
-      >
+      <body className="border antialiased">
         <ViewportProvider>
           <ThemeProvider
             disableTransitionOnChange

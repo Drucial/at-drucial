@@ -171,7 +171,7 @@ export function FullStackUnicorn() {
     >
       {/* Sticky container that stays in view */}
       <div
-        className="border-border sticky flex flex-col-reverse md:grid md:grid-cols-2"
+        className="border-border sticky flex flex-col-reverse overflow-hidden md:grid md:grid-cols-2"
         style={{
           top: SMALL_HEADER_HEIGHT,
           height: viewportHeight - SMALL_HEADER_HEIGHT,
@@ -213,7 +213,7 @@ export function FullStackUnicorn() {
 
         {/* Right column - Title with border sliding in from right */}
         <motion.div
-          className="flex items-center justify-center overflow-hidden border-l p-6 md:p-8 lg:p-12"
+          className="flex items-center justify-center border-l p-6 md:p-8 lg:p-12"
           style={{
             x: rightColumnX,
           }}
