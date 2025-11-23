@@ -30,13 +30,13 @@ function useAccordionItemAnimation(
   scrollYProgress: MotionValue<number>,
   index: number
 ) {
-  const stagger = 0.08;
-  const start = 0.05 + index * stagger;
-  const end = start + 0.12;
+  const stagger = 0.03;
+  const start = 0 + index * stagger;
+  const end = start + 0.1;
 
   return {
     opacity: useTransform(scrollYProgress, [start, end], [0, 1]),
-    x: useTransform(scrollYProgress, [start, end], [-300, 0]),
+    x: useTransform(scrollYProgress, [start, end], [-200, 0]),
   };
 }
 
@@ -48,29 +48,20 @@ function ProgressBar({
   index: number;
   scrollYProgress: MotionValue<number>;
 }) {
-  const entranceStagger = 0.02;
-  const entranceStart = 0.05 + index * entranceStagger;
-  const entranceEnd = entranceStart + 0.07;
+  // Progress fill timing - evenly distributed across 0.2 to 1.0
+  const progressStart = 0.2 + (index / 10) * 0.8;
+  const progressEnd = progressStart + 0.08;
 
-  // Progress fill timing - evenly distributed across 0.25 to 1.0
-  const progressStart = 0.25 + (index / 10) * 0.75;
-  const progressEnd = progressStart + 0.1;
-
-  const y = useTransform(
-    scrollYProgress,
-    [entranceStart, entranceEnd],
-    [-10, 0]
-  );
   const opacity = useTransform(
     scrollYProgress,
-    [entranceStart, entranceEnd, progressStart, progressEnd],
+    [0, 0.2, progressStart, progressEnd],
     [0, 0.2, 0.2, 1]
   );
 
   return (
     <motion.div
       className="bg-muted-foreground h-3 w-1"
-      style={{ opacity, y }}
+      style={{ opacity }}
     />
   );
 }
@@ -114,10 +105,13 @@ export function FullStackUnicorn() {
   });
 
   // Toggle accordion items based on scroll progress
+  // Accordions start opening after initial animation (0.2)
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (latest < 0.33) {
+    if (latest < 0.2) {
+      setActiveItem(""); // All collapsed during entrance animation
+    } else if (latest < 0.45) {
       setActiveItem("research");
-    } else if (latest < 0.66) {
+    } else if (latest < 0.7) {
       setActiveItem("design");
     } else {
       setActiveItem("build");
@@ -133,14 +127,14 @@ export function FullStackUnicorn() {
     const sectionHeight = sectionRef.current.offsetHeight;
     const viewportHeight = window.innerHeight;
 
-    // Target middle of each section
+    // Target middle of each section (adjusted for new progress ranges)
     let targetProgress = 0;
     if (value === "research") {
-      targetProgress = 0.3;
+      targetProgress = 0.35;
     } else if (value === "design") {
-      targetProgress = 0.5;
+      targetProgress = 0.6;
     } else if (value === "build") {
-      targetProgress = 0.8;
+      targetProgress = 0.85;
     }
 
     // Convert progress to scroll position (accounting for "start center" offset)
@@ -154,11 +148,11 @@ export function FullStackUnicorn() {
     });
   }
 
-  // Right column and border slide in from right together
-  const rightColumnX = useTransform(scrollYProgress, [0, 0.3], ["100%", "0%"]);
+  // Left column slides in from left
+  const leftColumnX = useTransform(scrollYProgress, [0, 0.2], ["-100%", "0%"]);
 
-  // Progress indicator container animation (from left)
-  const progressX = useTransform(scrollYProgress, [0.05, 0.2], [-50, 0]);
+  // Right column and border slide in from right together
+  const rightColumnX = useTransform(scrollYProgress, [0, 0.2], ["100%", "0%"]);
 
   // Three sections of scroll
   const sectionHeight = viewportHeight * 3 - SMALL_HEADER_HEIGHT * 3;
@@ -178,7 +172,10 @@ export function FullStackUnicorn() {
         }}
       >
         {/* Left column - Accordion */}
-        <div className="flex items-center justify-center overflow-hidden p-6 md:p-8 lg:p-12">
+        <motion.div
+          className="flex items-center justify-center overflow-hidden p-6 md:p-8 lg:p-12"
+          style={{ x: leftColumnX }}
+        >
           <Accordion
             collapsible
             className="w-full max-w-[65ch]"
@@ -199,7 +196,9 @@ export function FullStackUnicorn() {
           {/* Progress indicator */}
           <motion.div
             className="absolute bottom-24 left-1/4 flex -translate-x-1/2 gap-1"
-            style={{ x: progressX }}
+            style={{
+              opacity: useTransform(scrollYProgress, [0, 0.2], [0, 1]),
+            }}
           >
             {Array.from({ length: 10 }).map((_, i) => (
               <ProgressBar
@@ -209,7 +208,7 @@ export function FullStackUnicorn() {
               />
             ))}
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* Right column - Title with border sliding in from right */}
         <motion.div
