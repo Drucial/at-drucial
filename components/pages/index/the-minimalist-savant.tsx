@@ -12,7 +12,8 @@ import {
   useTransform,
 } from "motion/react";
 
-import { HEADER_HEIGHT } from "@/components/layout/header";
+import { SMALL_HEADER_HEIGHT } from "@/components/layout/header";
+import { useViewport } from "@/components/providers/viewport-provider";
 import { BlurText } from "@/components/ui/blur-text";
 import { MagnifiableArea } from "@/components/ui/magnifiable-area";
 
@@ -133,6 +134,7 @@ function AnimatedLetter({
 
 export function TheMinimalistSavant() {
   const sectionRef = useRef<HTMLElement>(null);
+  const { viewportHeight } = useViewport();
 
   // Scroll progress for this section
   const { scrollYProgress } = useScroll({
@@ -164,7 +166,7 @@ export function TheMinimalistSavant() {
     <section
       ref={sectionRef}
       className="bg-foreground text-background relative grid grid-cols-12 gap-x-8 px-6 md:px-8 lg:gap-x-12 lg:px-12"
-      style={{ minHeight: `calc(100svh - ${HEADER_HEIGHT}px)` }}
+      style={{ minHeight: viewportHeight - SMALL_HEADER_HEIGHT }}
     >
       {/* Normal background overlay that fades out to reveal inverted bg */}
       <motion.div
@@ -175,7 +177,6 @@ export function TheMinimalistSavant() {
       {/* Left column - Heading with letter animations */}
       <div className="col-span-12 flex items-center py-24 pr-8 md:col-span-5 md:py-32 lg:py-40">
         <h2 className="text-[clamp(3rem,12vw,12rem)] leading-[0.8] font-bold tracking-tighter">
-          {/* "The" = 3 letters */}
           <AnimatedWord
             baseExit={0.75}
             baseStart={0.2}
@@ -183,7 +184,6 @@ export function TheMinimalistSavant() {
             scrollYProgress={scrollYProgress}
             word="The"
           />
-          {/* "Minimalist" = 10 letters */}
           <AnimatedWord
             baseExit={0.71}
             baseStart={0.24}
@@ -191,7 +191,6 @@ export function TheMinimalistSavant() {
             scrollYProgress={scrollYProgress}
             word="Minimalist"
           />
-          {/* "Savant" = 6 letters */}
           <AnimatedWord
             baseExit={0.77}
             baseStart={0.35}

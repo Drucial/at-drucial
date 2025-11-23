@@ -2,16 +2,15 @@
 
 import { motion, useScroll, useTransform } from "motion/react";
 
-import { HEADER_HEIGHT } from "@/components/layout/header";
+import { HEADER_HEIGHT, SMALL_HEADER_HEIGHT } from "@/components/layout/header";
 import { useViewport } from "@/components/providers/viewport-provider";
 import { Keyboard } from "@/components/svgs/keyboard";
 
 export function TheAlchemist() {
-  const { viewportHeight } = useViewport();
+  const { viewportHeight, isMobile } = useViewport();
   const { scrollY } = useScroll();
 
   // Parallax effect: keyboard moves up as you scroll down (opposite direction)
-  // This creates the effect of revealing the bottom of the keyboard
   const keyboardY = useTransform(scrollY, [0, 800], [0, -600]);
 
   // Pseudo-sticky parallax for subtitle text (moves down at similar rate to keyboard)
@@ -20,7 +19,11 @@ export function TheAlchemist() {
   return (
     <section
       className="grid-auto-rows-[minmax(auto,1fr)] grid grid-cols-12 gap-x-8 px-6 md:px-8 lg:gap-x-12 lg:px-12"
-      style={{ height: viewportHeight - HEADER_HEIGHT }}
+      style={{
+        height: isMobile
+          ? viewportHeight - SMALL_HEADER_HEIGHT
+          : viewportHeight - HEADER_HEIGHT,
+      }}
     >
       {/* Subtitle: top-right two columns of the left main column */}
       <motion.p
