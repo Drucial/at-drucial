@@ -29,7 +29,6 @@ export function Keyboard({
   const baseWidth = 14.5 * keySize + 14 * keyGap + padding * 2;
   const baseHeight = 6 * keySize + 5 * rowGap + padding * 2;
 
-  // Swap dimensions for vertical orientation
   const width = orientation === "vertical" ? baseHeight : baseWidth;
   const height = orientation === "vertical" ? baseWidth : baseHeight;
 

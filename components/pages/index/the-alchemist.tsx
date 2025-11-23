@@ -25,7 +25,7 @@ export function TheAlchemist() {
           : viewportHeight - HEADER_HEIGHT,
       }}
     >
-      {/* Subtitle: top-right two columns of the left main column */}
+      {/* Heading Column */}
       <div className="flex flex-col p-6 md:p-8 lg:p-12">
         <motion.p
           animate={{ opacity: 1, y: 0 }}
@@ -37,7 +37,6 @@ export function TheAlchemist() {
           Expertly Blurring the Lines Between <br /> Artistry and Engineering
         </motion.p>
 
-        {/* Title: centered vertically within left 7 columns, with inner left offset */}
         <motion.h1
           animate={{ opacity: 1, y: 0 }}
           className="mt-auto leading-[0.7] tracking-tighter"
@@ -50,10 +49,10 @@ export function TheAlchemist() {
         </motion.h1>
       </div>
 
-      {/* Right whitespace / image column spanning both rows */}
+      {/* Keyboard Column */}
       <motion.div
         animate={{ x: 0 }}
-        className="hidden overflow-hidden lg:block lg:p-12"
+        className="hidden h-full overflow-hidden lg:block lg:p-12"
         initial={{ x: "100%" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
