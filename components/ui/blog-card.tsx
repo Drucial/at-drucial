@@ -26,8 +26,8 @@ export function BlogCard({ post, index, onClick }: BlogCardProps) {
       className="group hover:bg-muted/50 flex h-full cursor-pointer flex-col p-8 transition-colors"
       onClick={handleClick}
     >
-      {/* Image placeholder - 3:2 aspect ratio */}
-      <div className="bg-muted aspect-[3/2] w-full overflow-hidden">
+      {/* Image placeholder - flexible height on mobile, 3:2 on desktop */}
+      <div className="bg-muted w-full flex-1 overflow-hidden md:aspect-[3/2] md:flex-none">
         {/* Replace with actual image */}
         <div className="flex h-full w-full items-center justify-center transition-transform duration-300 group-hover:scale-105">
           <span className="text-muted-foreground text-sm">
@@ -37,11 +37,11 @@ export function BlogCard({ post, index, onClick }: BlogCardProps) {
       </div>
 
       {/* Content */}
-      <div className="flex flex-1 flex-col pt-4">
+      <div className="flex flex-1 flex-col pt-4 md:flex-none">
         <h3 className="font-teko group-hover:text-primary text-xl leading-tight font-semibold transition-colors">
           {post.title}
         </h3>
-        <p className="text-muted-foreground mt-2 line-clamp-2 text-sm">
+        <p className="text-muted-foreground mt-2 line-clamp-5 text-sm md:line-clamp-2">
           {post.excerpt}
         </p>
         <div className="text-muted-foreground mt-auto flex gap-2 pt-4 text-xs">

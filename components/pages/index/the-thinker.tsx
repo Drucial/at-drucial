@@ -6,7 +6,9 @@ import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
 
+import { SMALL_HEADER_HEIGHT } from "@/components/layout/header";
 import { useBlogModal } from "@/components/providers/blog-modal-provider";
+import { useViewport } from "@/components/providers/viewport-provider";
 import { BlogCard } from "@/components/ui/blog-card";
 import { NavButton } from "@/components/ui/nav-button";
 import type { BlogPost } from "@/data/blog-posts";
@@ -17,6 +19,7 @@ export function TheThinker() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { setCardBounds } = useBlogModal();
+  const { viewportHeight } = useViewport();
 
   function handleCardClick(post: BlogPost, bounds: DOMRect) {
     setCardBounds({
@@ -36,11 +39,18 @@ export function TheThinker() {
   // Section grows by adding vertical padding
   const paddingY = useTransform(scrollYProgress, [0, 0.3], [0, 200]);
 
-  // Header grows from 0 to full width
+  // Header grows from 0 to full width (desktop)
   const headerWidth = useTransform(
     scrollYProgress,
     [0.25, 0.45],
     [0, 128] // 0 to 8rem (w-32)
+  );
+
+  // Mobile heading slides down from top
+  const mobileHeaderY = useTransform(
+    scrollYProgress,
+    [0.25, 0.45],
+    ["-100%", "0%"]
   );
 
   // Stagger first 4 blog cards opacity, rest are always visible
@@ -57,7 +67,11 @@ export function TheThinker() {
 
   function scrollLeft() {
     if (!scrollContainerRef.current) return;
-    const cardWidth = scrollContainerRef.current.offsetWidth / 3;
+    // Get viewport width to determine if mobile
+    const isMobile = window.innerWidth < 768; // md breakpoint
+    const cardWidth = isMobile
+      ? scrollContainerRef.current.offsetWidth
+      : scrollContainerRef.current.offsetWidth / 3;
     scrollContainerRef.current.scrollBy({
       left: -cardWidth,
       behavior: "smooth",
@@ -66,7 +80,11 @@ export function TheThinker() {
 
   function scrollRight() {
     if (!scrollContainerRef.current) return;
-    const cardWidth = scrollContainerRef.current.offsetWidth / 3;
+    // Get viewport width to determine if mobile
+    const isMobile = window.innerWidth < 768; // md breakpoint
+    const cardWidth = isMobile
+      ? scrollContainerRef.current.offsetWidth
+      : scrollContainerRef.current.offsetWidth / 3;
     scrollContainerRef.current.scrollBy({
       left: cardWidth,
       behavior: "smooth",
@@ -76,14 +94,31 @@ export function TheThinker() {
   return (
     <motion.section
       ref={sectionRef}
-      className="border-border relative flex flex-col justify-center"
-      style={{ paddingTop: paddingY, paddingBottom: paddingY }}
+      className="border-border relative flex flex-col justify-center md:h-auto"
+      style={{
+        height: `${viewportHeight - SMALL_HEADER_HEIGHT}px`,
+      }}
     >
-      <div className="border-border flex flex-col border-y">
-        <div className="flex">
-          {/* Left column - Vertical heading (sticky) */}
+      <div className="border-border flex h-full flex-col overflow-hidden border-y md:h-auto">
+        {/* Mobile heading - horizontal at top */}
+        <motion.div
+          className="border-border flex items-center justify-center border-b p-6 md:hidden"
+          style={{ y: mobileHeaderY }}
+        >
+          <div className="relative">
+            <span className="font-teko text-muted-foreground text-8xl leading-none font-bold uppercase">
+              Thinker
+            </span>
+            <span className="font-teko text-muted-foreground absolute -top-2.5 left-1.5 text-lg font-black tracking-widest uppercase">
+              The
+            </span>
+          </div>
+        </motion.div>
+
+        <div className="flex flex-1 md:flex-none">
+          {/* Left column - Vertical heading (sticky) - Desktop only */}
           <motion.div
-            className="bg-background border-border sticky left-0 z-10 flex shrink-0 items-center justify-center overflow-hidden border-r pt-4 pb-2 leading-none"
+            className="bg-background border-border sticky left-0 z-10 hidden shrink-0 items-center justify-center overflow-hidden border-r pt-4 pb-2 leading-none md:flex"
             style={{ width: headerWidth }}
           >
             <div className="relative">
@@ -111,12 +146,12 @@ export function TheThinker() {
           {/* Blog posts - horizontal scroll with snap */}
           <div
             ref={scrollContainerRef}
-            className="flex snap-x snap-mandatory divide-x overflow-x-auto"
+            className="flex flex-1 snap-x snap-mandatory divide-x overflow-x-auto md:flex-none"
           >
             {blogPosts.map((post, index) => (
               <motion.div
                 key={post.id}
-                className="w-[calc((100vw-8rem)/3)] shrink-0 snap-start"
+                className="w-full shrink-0 snap-start md:w-[calc((100vw-8rem)/3)]"
                 style={
                   index < 4
                     ? {
@@ -136,16 +171,16 @@ export function TheThinker() {
         </div>
 
         {/* Footer with nav controls */}
-        <div className="border-border flex h-12 items-center justify-between border-t">
+        <div className="border-border flex h-16 shrink-0 items-center justify-between border-t md:h-12">
           <span className="text-muted-foreground pl-4 font-mono text-sm">
             {blogPosts.length} articles
           </span>
           <div className="border-border flex h-full divide-x border-l">
             <NavButton label="Previous" onClick={scrollLeft}>
-              <ChevronLeft className="h-4 w-4" />
+              <ChevronLeft className="h-5 w-5 md:h-4 md:w-4" />
             </NavButton>
             <NavButton label="Next" onClick={scrollRight}>
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRight className="h-5 w-5 md:h-4 md:w-4" />
             </NavButton>
           </div>
         </div>
