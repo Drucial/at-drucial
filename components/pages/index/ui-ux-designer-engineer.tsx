@@ -51,7 +51,7 @@ export function UiUxDesignerEngineer() {
   });
 
   // Horizontal parallax: moves right to left as section enters viewport
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["-10%", "-35%"]);
 
   const { containerRef, registerLetter } = useVariableProximity<HTMLDivElement>(
     {
@@ -66,7 +66,7 @@ export function UiUxDesignerEngineer() {
   return (
     <section
       ref={sectionRef}
-      className="flex items-center overflow-hidden px-6 py-6 md:px-8 md:py-8 lg:px-12 lg:py-12"
+      className="flex items-center overflow-hidden p-6 md:p-8"
     >
       <motion.div
         ref={containerRef}
@@ -94,6 +94,33 @@ export function UiUxDesignerEngineer() {
         <ProximityText
           registerLetter={registerLetter}
           startIndex={TEXT.length * 2}
+          text={TEXT}
+        />
+        <Separator
+          className="h-[clamp(12rem,35vw,28rem)]"
+          orientation="vertical"
+        />
+        <ProximityText
+          registerLetter={registerLetter}
+          startIndex={TEXT.length * 3}
+          text={TEXT}
+        />
+        <Separator
+          className="h-[clamp(12rem,35vw,28rem)]"
+          orientation="vertical"
+        />
+        <ProximityText
+          registerLetter={registerLetter}
+          startIndex={TEXT.length * 4}
+          text={TEXT}
+        />
+        <Separator
+          className="h-[clamp(12rem,35vw,28rem)]"
+          orientation="vertical"
+        />
+        <ProximityText
+          registerLetter={registerLetter}
+          startIndex={TEXT.length * 5}
           text={TEXT}
         />
       </motion.div>
