@@ -23,6 +23,7 @@ function ProximityText({
   return (
     <h2
       className="text-background text-[clamp(12rem,35vw,28rem)] leading-none font-bold tracking-tighter whitespace-nowrap"
+      // faux outline
       style={{ textShadow: "0px 0px 2px var(--muted-foreground)" }}
     >
       {text.split("").map((char, i) => (

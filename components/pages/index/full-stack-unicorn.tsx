@@ -161,24 +161,24 @@ export function FullStackUnicorn() {
   const progressX = useTransform(scrollYProgress, [0.05, 0.2], [-50, 0]);
 
   // Three sections of scroll
-  const sectionScrollHeight = viewportHeight * 3 - SMALL_HEADER_HEIGHT * 3;
+  const sectionHeight = viewportHeight * 3 - SMALL_HEADER_HEIGHT * 3;
 
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-x-hidden"
-      style={{ height: sectionScrollHeight }}
+      className="relative border-b"
+      style={{ height: sectionHeight }}
     >
       {/* Sticky container that stays in view */}
       <div
-        className="border-border sticky grid grid-cols-12 gap-x-8 border-b px-6 md:px-8 lg:gap-x-12 lg:px-12"
+        className="border-border sticky flex flex-col-reverse md:grid md:grid-cols-2"
         style={{
           top: SMALL_HEADER_HEIGHT,
           height: viewportHeight - SMALL_HEADER_HEIGHT,
         }}
       >
         {/* Left column - Accordion */}
-        <div className="col-span-12 flex items-center justify-center overflow-hidden py-12 md:col-span-6">
+        <div className="flex items-center justify-center overflow-hidden p-6 md:p-8 lg:p-12">
           <Accordion
             collapsible
             className="w-full max-w-[65ch]"
@@ -195,39 +195,37 @@ export function FullStackUnicorn() {
               />
             ))}
           </Accordion>
+
+          {/* Progress indicator */}
+          <motion.div
+            className="absolute bottom-24 left-1/4 flex -translate-x-1/2 gap-1"
+            style={{ x: progressX }}
+          >
+            {Array.from({ length: 10 }).map((_, i) => (
+              <ProgressBar
+                key={i}
+                index={i}
+                scrollYProgress={scrollYProgress}
+              />
+            ))}
+          </motion.div>
         </div>
 
         {/* Right column - Title with border sliding in from right */}
         <motion.div
-          className="relative col-span-12 flex items-center justify-center py-12 md:col-span-6"
+          className="flex items-center justify-center overflow-hidden border-l p-6 md:p-8 lg:p-12"
           style={{
             x: rightColumnX,
           }}
         >
-          {/* Border */}
-          <div className="bg-border absolute top-0 bottom-0 left-0 w-px" />
-
-          <div className="font-teko text-border mt-12 flex flex-col items-center p-6 font-black uppercase tabular-nums md:p-8 lg:p-12">
-            <span className="text-[15vw] leading-40 tracking-tighter">
-              Full-
-            </span>
-            <span className="text-[12.5vw] leading-36 tracking-tighter">
-              Stack
-            </span>
-            <span className="text-[9.5vw] leading-24 tracking-tighter">
+          <div className="font-teko text-border tracking-tightest flex flex-col font-black uppercase tabular-nums">
+            <span className="text-[9.5vw] leading-[7vw]">The</span>
+            <span className="text-[12.5vw] leading-[9vw]">Full-</span>
+            <span className="text-[12.5vw] leading-[9vw]">Stack</span>
+            <span className="text-accent text-[9.5vw] leading-[7vw]">
               Unicorn
             </span>
           </div>
-        </motion.div>
-
-        {/* Progress indicator */}
-        <motion.div
-          className="absolute bottom-24 left-1/4 flex -translate-x-1/2 gap-1"
-          style={{ x: progressX }}
-        >
-          {Array.from({ length: 10 }).map((_, i) => (
-            <ProgressBar key={i} index={i} scrollYProgress={scrollYProgress} />
-          ))}
         </motion.div>
       </div>
     </section>
