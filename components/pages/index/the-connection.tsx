@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform, useMotionValue } from "motion/react";
 
 import { ContactForm, EmailPreview } from "@/components/pages/index";
 import type { ContactFormData } from "@/components/pages/index/contact-form";
@@ -27,14 +27,27 @@ export function TheConnection() {
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "end start"],
+    offset: ["start end", "start start"],
   });
 
-  // Scroll animations
-  const rightOpacity = useTransform(scrollYProgress, [0.2, 0.35], [0, 1]);
-  const rightX = useTransform(scrollYProgress, [0.2, 0.35], [100, 0]);
-  const formOpacity = useTransform(scrollYProgress, [0.25, 0.4], [0, 1]);
-  const formY = useTransform(scrollYProgress, [0.25, 0.4], [60, 0]);
+  // Scroll animations - complete when section reaches top
+  // Preview slides in 100% from the right
+  const rightOpacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+  const rightX = useTransform(scrollYProgress, [0, 0.5], ["100%", "0%"]);
+
+  // Form slides up more dramatically on desktop, from left on mobile
+  const formOpacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+  const formY = useTransform(scrollYProgress, [0, 0.5], [150, 0]);
+  const formX = useTransform(scrollYProgress, [0, 0.5], ["-100%", "0%"]);
+
+  // Check if mobile
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   return (
     <section
@@ -45,8 +58,12 @@ export function TheConnection() {
       <div className="relative md:grid md:grid-cols-[2fr_1fr] lg:grid-cols-[4fr_3fr]">
         {/* Left column - Form */}
         <motion.div
-          className="flex flex-col justify-center gap-6 p-6 md:p-8 lg:p-12"
-          style={{ opacity: formOpacity, y: formY }}
+          className="border-border flex flex-col justify-center gap-6 border-r p-6 md:border-r-0 md:p-8 lg:p-12"
+          style={{
+            opacity: formOpacity,
+            y: isMobile ? 0 : formY,
+            x: isMobile ? formX : 0,
+          }}
         >
           {/* Header */}
           <h3 className="text-[clamp(4rem,7vw,8rem)] leading-12 font-bold tracking-tight lg:leading-24">

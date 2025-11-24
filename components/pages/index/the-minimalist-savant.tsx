@@ -134,7 +134,7 @@ function AnimatedLetter({
 
 export function TheMinimalistSavant() {
   const sectionRef = useRef<HTMLElement>(null);
-  const { viewportHeight } = useViewport();
+  const { viewportHeight, isMobile } = useViewport();
 
   // Scroll progress for this section
   const { scrollYProgress } = useScroll({
@@ -161,6 +161,8 @@ export function TheMinimalistSavant() {
       normalBgOpacityValue.set(1);
     }
   });
+
+  if (isMobile) return;
 
   return (
     <section
