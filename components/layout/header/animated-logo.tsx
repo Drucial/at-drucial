@@ -1,8 +1,9 @@
 "use client";
 
 import type { MotionValue } from "motion/react";
-import { useViewport } from "@/components/providers/viewport-provider";
 import { motion, useScroll, useTransform } from "motion/react";
+
+import { useViewport } from "@/components/providers/viewport-provider";
 
 const SCROLL_THRESHOLD = 200;
 const ANIMATION_DURATION = 80;
