@@ -4,7 +4,6 @@ import { useRef, useState } from "react";
 
 import { motion, useScroll, useTransform } from "motion/react";
 
-import { SMALL_HEADER_HEIGHT } from "@/components/layout/header";
 import { ContactForm, EmailPreview } from "@/components/pages/index";
 import type { ContactFormData } from "@/components/pages/index/contact-form";
 import { useViewport } from "@/components/providers/viewport-provider";
@@ -41,16 +40,16 @@ export function TheConnection() {
     <section
       ref={sectionRef}
       className="overflow-x-hidden"
-      style={{ minHeight: viewportHeight - SMALL_HEADER_HEIGHT }}
+      // style={{ minHeight: viewportHeight - SMALL_HEADER_HEIGHT }}
     >
-      <div className="relative md:grid md:grid-cols-[2fr_1fr]">
+      <div className="relative md:grid md:grid-cols-[2fr_1fr] lg:grid-cols-[4fr_3fr]">
         {/* Left column - Form */}
         <motion.div
           className="flex flex-col justify-center gap-6 p-6 md:p-8 lg:p-12"
           style={{ opacity: formOpacity, y: formY }}
         >
           {/* Header */}
-          <h3 className="text-[clamp(4rem,8vw,8rem)] leading-12 font-bold tracking-tight md:leading-none">
+          <h3 className="text-[clamp(4rem,7vw,8rem)] leading-12 font-bold tracking-tight lg:leading-24">
             The Conversation
           </h3>
 
@@ -62,6 +61,7 @@ export function TheConnection() {
 
         {/* Right column - Live message preview */}
         <motion.div
+          className="flex border-t border-l md:border-t-0"
           style={{ opacity: rightOpacity, x: rightX }}
         >
           <EmailPreview formData={formData} />
@@ -69,9 +69,9 @@ export function TheConnection() {
       </div>
 
       {/* Full-width footer */}
-      <div className="border-border brid-cols-[2fr 1fr] grid border-t">
+      <div className="border-border grid border-t md:grid-cols-[2fr_1fr] lg:grid-cols-[4fr_3fr]">
         <div className="col-start-2 flex items-center justify-center px-8 py-4">
-          <p className="text-foreground/40 text-xs">
+          <p className="text-foreground/40 text-center text-xs">
             I&apos;ll respond within 24 hours. For urgent inquiries, reach out
             directly at{" "}
             <a

@@ -32,23 +32,23 @@ export const EmailPreview = forwardRef<HTMLDivElement, EmailPreviewProps>(
     } = useDirectionalHover<HTMLButtonElement>();
 
     return (
-      <div ref={ref} className="border-border flex flex-col border-t border-l md:border-t-0">
+      <div ref={ref} className="flex flex-1 flex-col">
         <div className="flex-1">
           {/* Email header */}
           <div className="border-border space-y-2 border-b p-6 md:p-8">
             <div className="flex gap-2 text-xs">
               <span className="text-foreground/40">From:</span>
-              <span className="text-foreground/80">
+              <span className="text-muted-foreground">
                 {name || "Your Name"} &lt;{email || "your@email.com"}&gt;
               </span>
             </div>
             <div className="flex gap-2 text-xs">
               <span className="text-foreground/40">To:</span>
-              <span className="text-foreground/80">hello@drucial.com</span>
+              <span className="text-muted-foreground">hello@drucial.com</span>
             </div>
             <div className="flex gap-2 text-xs">
               <span className="text-foreground/40">Subject:</span>
-              <span className="text-foreground/80">
+              <span className="text-muted-foreground">
                 {projectType
                   ? `${projectType} Project Inquiry`
                   : "New Project Inquiry"}
@@ -57,12 +57,11 @@ export const EmailPreview = forwardRef<HTMLDivElement, EmailPreviewProps>(
           </div>
 
           {/* Email body */}
-          <div className="text-muted-foreground p-6 leading-relaxed md:p-8">
+          <div className="text-muted-foreground flex-1 p-6 leading-relaxed md:p-8">
             <p className="mb-4">Hi Drucial,</p>
 
-            <p className="mb-4">
-              {message ||
-                "I'd like to discuss a potential project with you..."}
+            <p className="mb-4 whitespace-pre">
+              {message || "I'd like to discuss a potential project with you..."}
             </p>
 
             {(selectedDate || selectedTime) && (
@@ -95,7 +94,7 @@ export const EmailPreview = forwardRef<HTMLDivElement, EmailPreviewProps>(
         <div className="mt-auto">
           <button
             ref={submitRef}
-            className="hover:bg-foreground hover:text-background border-border relative w-full overflow-hidden border-t py-4 text-sm font-medium uppercase tracking-widest transition-colors"
+            className="hover:bg-foreground hover:text-background border-border relative w-full overflow-hidden border-t py-4 text-sm font-medium tracking-widest uppercase transition-colors"
             type="submit"
             onClick={onSubmit}
             onMouseEnter={handlers.onMouseEnter}

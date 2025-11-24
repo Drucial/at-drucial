@@ -2,23 +2,11 @@
 
 import { CalendarGrid } from "@/components/ui/calendar-grid";
 import { FormInput } from "@/components/ui/form-input";
-
-const PROJECT_TYPES = ["Design", "Development", "Both", "Other"] as const;
-
-const TIME_SLOTS = [
-  "9:00 AM",
-  "10:00 AM",
-  "11:00 AM",
-  "12:00 PM",
-  "1:00 PM",
-  "2:00 PM",
-  "3:00 PM",
-  "4:00 PM",
-] as const;
-
-type ProjectType = (typeof PROJECT_TYPES)[number];
-
-type TimeSlot = (typeof TIME_SLOTS)[number];
+import { FormTextarea } from "@/components/ui/form-textarea";
+import type { ProjectType } from "@/components/ui/project-type-selector";
+import { ProjectTypeSelector } from "@/components/ui/project-type-selector";
+import type { TimeSlot } from "@/components/ui/time-slot-picker";
+import { TimeSlotPicker } from "@/components/ui/time-slot-picker";
 
 export type ContactFormData = {
   name: string;
@@ -66,29 +54,10 @@ export function ContactForm({ formData, onFormDataChange }: ContactFormProps) {
       </div>
 
       {/* Project Type */}
-      <div className="border">
-        <div className="text-muted-foreground border-b px-4 py-2 text-xs uppercase tracking-widest">
-          Project Type
-        </div>
-        <div className="flex md:grid md:grid-cols-4">
-          {PROJECT_TYPES.map((type, i) => (
-            <button
-              key={type}
-              type="button"
-              className={`border-border relative overflow-hidden px-4 py-3 text-sm transition-colors ${
-                i < PROJECT_TYPES.length - 1 ? "border-r" : ""
-              } ${
-                projectType === type
-                  ? "bg-foreground text-background"
-                  : "hover:text-foreground text-muted-foreground"
-              }`}
-              onClick={() => onFormDataChange({ projectType: type })}
-            >
-              {type}
-            </button>
-          ))}
-        </div>
-      </div>
+      <ProjectTypeSelector
+        projectType={projectType}
+        onSelectProjectType={(type) => onFormDataChange({ projectType: type })}
+      />
 
       {/* Date & Time row */}
       <div className="grid gap-8 md:grid-cols-2">
@@ -99,48 +68,19 @@ export function ContactForm({ formData, onFormDataChange }: ContactFormProps) {
         />
 
         {/* Time slots */}
-        <div className="border-border self-start border-t border-r border-l">
-          <div className="border-border text-muted-foreground border-b px-4 py-2 text-xs uppercase tracking-widest">
-            Select Time
-          </div>
-          <div className="grid grid-cols-2">
-            {TIME_SLOTS.map((time, i) => {
-              const isLastCol = i % 2 === 1;
-
-              return (
-                <button
-                  key={time}
-                  type="button"
-                  className={`border-border relative overflow-hidden border-b px-4 py-3 text-sm transition-colors ${
-                    !isLastCol ? "border-r" : ""
-                  } ${
-                    selectedTime === time
-                      ? "bg-foreground text-background"
-                      : "hover:text-foreground text-muted-foreground"
-                  }`}
-                  onClick={() => onFormDataChange({ selectedTime: time })}
-                >
-                  {time}
-                </button>
-              );
-            })}
-          </div>
-        </div>
+        <TimeSlotPicker
+          selectedTime={selectedTime}
+          onSelectTime={(time) => onFormDataChange({ selectedTime: time })}
+        />
       </div>
 
       {/* Message */}
-      <div className="border-border flex flex-col border">
-        <label className="border-border text-muted-foreground border-b px-4 py-2 text-xs uppercase tracking-widest">
-          Message
-        </label>
-        <textarea
-          className="text-foreground placeholder:text-foreground/40 min-h-32 resize-none bg-transparent px-4 py-3 text-sm focus:outline-none"
-          placeholder="Tell me about your project..."
-          rows={4}
-          value={message}
-          onChange={(e) => onFormDataChange({ message: e.target.value })}
-        />
-      </div>
+      <FormTextarea
+        label="Message"
+        placeholder="Tell me about your project..."
+        value={message}
+        onChange={(e) => onFormDataChange({ message: e.target.value })}
+      />
     </form>
   );
 }

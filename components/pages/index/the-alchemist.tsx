@@ -50,16 +50,18 @@ export function TheAlchemist() {
       </div>
 
       {/* Keyboard Column */}
-      <motion.div
-        animate={{ x: 0 }}
-        className="hidden h-full overflow-hidden lg:block lg:p-12"
-        initial={{ x: "100%" }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <motion.div style={{ translateY: keyboardY }}>
-          <Keyboard orientation="vertical" />
+      <div className="h-full overflow-hidden">
+        <motion.div
+          animate={{ x: 0 }}
+          className="hidden h-full overflow-hidden lg:block lg:p-12"
+          initial={{ x: "100%" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <motion.div style={{ translateY: keyboardY }}>
+            <Keyboard orientation="vertical" />
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }
