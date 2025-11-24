@@ -4,7 +4,8 @@ import { useRef, useState } from "react";
 
 import { motion, useScroll, useTransform } from "motion/react";
 
-import { HEADER_HEIGHT } from "@/components/layout/header";
+import { SMALL_HEADER_HEIGHT } from "@/components/layout/header";
+import { useViewport } from "@/components/providers/viewport-provider";
 import { useDirectionalHover } from "@/hooks/use-directional-hover";
 
 const PROJECT_TYPES = ["Design", "Development", "Both", "Other"] as const;
@@ -133,6 +134,7 @@ function CalendarGrid({
 }
 
 export function TheConnection() {
+  const { viewportHeight } = useViewport();
   const sectionRef = useRef<HTMLElement>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -168,202 +170,204 @@ export function TheConnection() {
   return (
     <section
       ref={sectionRef}
-      className="bg-background text-foreground relative grid grid-cols-12 overflow-x-hidden"
-      style={{ minHeight: `calc(100svh - ${HEADER_HEIGHT / 2}px)` }}
+      className="overflow-x-hidden"
+      style={{ minHeight: viewportHeight - SMALL_HEADER_HEIGHT }}
     >
-      {/* Left column - Form */}
-      <motion.div
-        className="col-span-7 flex flex-col justify-center p-8"
-        style={{ opacity: formOpacity, y: formY }}
-      >
-        {/* Header */}
-        <h3 className="text-8xl leading-none font-bold tracking-tight">
-          The Conversation
-        </h3>
+      <div className="relative md:grid md:grid-cols-[2fr_1fr]">
+        {/* Left column - Form */}
+        <motion.div
+          className="flex flex-col justify-center gap-6 p-6 md:p-8 lg:p-12"
+          style={{ opacity: formOpacity, y: formY }}
+        >
+          {/* Header */}
+          <h3 className="text-[clamp(4rem,8vw,8rem)] leading-12 font-bold tracking-tight md:leading-none">
+            The Conversation
+          </h3>
 
-        <form className="space-y-8">
-          {/* Name & Email row */}
-          <div className="grid grid-cols-2 gap-0">
-            <FormInput
-              required
-              label="Name"
-              placeholder="Your name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <FormInput
-              required
-              label="Email"
-              placeholder="your@email.com"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-
-          {/* Project Type */}
-          <div className="border-border border">
-            <div className="border-border text-muted-foreground border-b px-4 py-2 text-xs tracking-widest uppercase">
-              Project Type
+          <form className="space-y-8">
+            {/* Name & Email row */}
+            <div className="grid gap-8 md:grid-cols-2 md:gap-0">
+              <FormInput
+                required
+                label="Name"
+                placeholder="Your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <FormInput
+                required
+                label="Email"
+                placeholder="your@email.com"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
-            <div className="grid grid-cols-4">
-              {PROJECT_TYPES.map((type, i) => (
-                <button
-                  key={type}
-                  type="button"
-                  className={`border-border relative overflow-hidden px-4 py-3 text-sm transition-colors ${
-                    i < PROJECT_TYPES.length - 1 ? "border-r" : ""
-                  } ${
-                    projectType === type
-                      ? "bg-foreground text-background"
-                      : "hover:text-foreground text-muted-foreground"
-                  }`}
-                  onClick={() => setProjectType(type)}
-                >
-                  {type}
-                </button>
-              ))}
-            </div>
-          </div>
 
-          {/* Date & Time row */}
-          <div className="grid grid-cols-2 gap-8">
-            {/* Calendar */}
-            <CalendarGrid
-              selectedDate={selectedDate}
-              onSelectDate={setSelectedDate}
-            />
-
-            {/* Time slots */}
-            <div className="border-border self-start border-t border-r border-l">
-              <div className="border-border text-muted-foreground border-b px-4 py-2 text-xs tracking-widest uppercase">
-                Select Time
+            {/* Project Type */}
+            <div className="border">
+              <div className="text-muted-foreground border-b px-4 py-2 text-xs tracking-widest uppercase">
+                Project Type
               </div>
-              <div className="grid grid-cols-2">
-                {TIME_SLOTS.map((time, i) => {
-                  const isLastCol = i % 2 === 1;
-
-                  return (
-                    <button
-                      key={time}
-                      type="button"
-                      className={`border-border relative overflow-hidden border-b px-4 py-3 text-sm transition-colors ${
-                        !isLastCol ? "border-r" : ""
-                      } ${
-                        selectedTime === time
-                          ? "bg-foreground text-background"
-                          : "hover:text-foreground text-muted-foreground"
-                      }`}
-                      onClick={() => setSelectedTime(time)}
-                    >
-                      {time}
-                    </button>
-                  );
-                })}
+              <div className="flex md:grid md:grid-cols-4">
+                {PROJECT_TYPES.map((type, i) => (
+                  <button
+                    key={type}
+                    type="button"
+                    className={`border-border relative overflow-hidden px-4 py-3 text-sm transition-colors ${
+                      i < PROJECT_TYPES.length - 1 ? "border-r" : ""
+                    } ${
+                      projectType === type
+                        ? "bg-foreground text-background"
+                        : "hover:text-foreground text-muted-foreground"
+                    }`}
+                    onClick={() => setProjectType(type)}
+                  >
+                    {type}
+                  </button>
+                ))}
               </div>
             </div>
-          </div>
 
-          {/* Message */}
-          <div className="border-border flex flex-col border">
-            <label className="border-border text-muted-foreground border-b px-4 py-2 text-xs tracking-widest uppercase">
-              Message
-            </label>
-            <textarea
-              className="text-foreground placeholder:text-foreground/40 min-h-32 resize-none bg-transparent px-4 py-3 text-sm focus:outline-none"
-              placeholder="Tell me about your project..."
-              rows={4}
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            />
-          </div>
-        </form>
-      </motion.div>
+            {/* Date & Time row */}
+            <div className="grid gap-8 md:grid-cols-2">
+              {/* Calendar */}
+              <CalendarGrid
+                selectedDate={selectedDate}
+                onSelectDate={setSelectedDate}
+              />
 
-      {/* Right column - Live message preview */}
-      <motion.div
-        className="border-border col-span-5 flex flex-col border-l"
-        style={{ opacity: rightOpacity, x: rightX }}
-      >
-        <div className="flex-1">
-          {/* Email header */}
-          <div className="border-border space-y-2 border-b p-4">
-            <div className="flex gap-2 text-xs">
-              <span className="text-foreground/40">From:</span>
-              <span className="text-foreground/80">
-                {name || "Your Name"} &lt;{email || "your@email.com"}&gt;
-              </span>
+              {/* Time slots */}
+              <div className="border-border self-start border-t border-r border-l">
+                <div className="border-border text-muted-foreground border-b px-4 py-2 text-xs tracking-widest uppercase">
+                  Select Time
+                </div>
+                <div className="grid grid-cols-2">
+                  {TIME_SLOTS.map((time, i) => {
+                    const isLastCol = i % 2 === 1;
+
+                    return (
+                      <button
+                        key={time}
+                        type="button"
+                        className={`border-border relative overflow-hidden border-b px-4 py-3 text-sm transition-colors ${
+                          !isLastCol ? "border-r" : ""
+                        } ${
+                          selectedTime === time
+                            ? "bg-foreground text-background"
+                            : "hover:text-foreground text-muted-foreground"
+                        }`}
+                        onClick={() => setSelectedTime(time)}
+                      >
+                        {time}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
-            <div className="flex gap-2 text-xs">
-              <span className="text-foreground/40">To:</span>
-              <span className="text-foreground/80">hello@drucial.com</span>
+
+            {/* Message */}
+            <div className="border-border flex flex-col border">
+              <label className="border-border text-muted-foreground border-b px-4 py-2 text-xs tracking-widest uppercase">
+                Message
+              </label>
+              <textarea
+                className="text-foreground placeholder:text-foreground/40 min-h-32 resize-none bg-transparent px-4 py-3 text-sm focus:outline-none"
+                placeholder="Tell me about your project..."
+                rows={4}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+              />
             </div>
-            <div className="flex gap-2 text-xs">
-              <span className="text-foreground/40">Subject:</span>
-              <span className="text-foreground/80">
-                {projectType
-                  ? `${projectType} Project Inquiry`
-                  : "New Project Inquiry"}
-              </span>
-            </div>
-          </div>
+          </form>
+        </motion.div>
 
-          {/* Email body */}
-          <div className="text-foreground/60 p-4 text-sm leading-relaxed">
-            <p className="mb-4">Hi Drucial,</p>
-
-            <p className="mb-4">
-              {message || "I'd like to discuss a potential project with you..."}
-            </p>
-
-            {(selectedDate || selectedTime) && (
-              <p className="mb-4">
-                I&apos;m available to chat on{" "}
-                <span className="text-foreground">
-                  {formattedDate || "___"}
+        {/* Right column - Live message preview */}
+        <motion.div
+          className="border-border flex flex-col border-t border-l md:border-t-0"
+          style={{ opacity: rightOpacity, x: rightX }}
+        >
+          <div className="flex-1">
+            {/* Email header */}
+            <div className="border-border space-y-2 border-b p-6 md:p-8">
+              <div className="flex gap-2 text-xs">
+                <span className="text-foreground/40">From:</span>
+                <span className="text-foreground/80">
+                  {name || "Your Name"} &lt;{email || "your@email.com"}&gt;
                 </span>
-                {selectedTime && (
-                  <>
-                    {" "}
-                    at <span className="text-foreground">{selectedTime}</span>
-                  </>
-                )}
-                .
+              </div>
+              <div className="flex gap-2 text-xs">
+                <span className="text-foreground/40">To:</span>
+                <span className="text-foreground/80">hello@drucial.com</span>
+              </div>
+              <div className="flex gap-2 text-xs">
+                <span className="text-foreground/40">Subject:</span>
+                <span className="text-foreground/80">
+                  {projectType
+                    ? `${projectType} Project Inquiry`
+                    : "New Project Inquiry"}
+                </span>
+              </div>
+            </div>
+
+            {/* Email body */}
+            <div className="text-muted-foreground p-6 leading-relaxed md:p-8">
+              <p className="mb-4">Hi Drucial,</p>
+
+              <p className="mb-4">
+                {message ||
+                  "I'd like to discuss a potential project with you..."}
               </p>
-            )}
 
-            <p className="mb-4">Looking forward to hearing from you.</p>
+              {(selectedDate || selectedTime) && (
+                <p className="mb-4">
+                  I&apos;m available to chat on{" "}
+                  <span className="text-foreground">
+                    {formattedDate || "___"}
+                  </span>
+                  {selectedTime && (
+                    <>
+                      {" "}
+                      at <span className="text-foreground">{selectedTime}</span>
+                    </>
+                  )}
+                  .
+                </p>
+              )}
 
-            <p>
-              Best,
-              <br />
-              <span className="text-foreground">{name || "___"}</span>
-            </p>
+              <p className="mb-4">Looking forward to hearing from you.</p>
+
+              <p>
+                Best,
+                <br />
+                <span className="text-foreground">{name || "___"}</span>
+              </p>
+            </div>
           </div>
-        </div>
 
-        {/* Submit */}
-        <div className="mt-auto">
-          <button
-            ref={submitRef}
-            className="hover:bg-foreground hover:text-background border-border relative w-full overflow-hidden border-t py-4 text-sm font-medium tracking-widest uppercase transition-colors"
-            type="submit"
-            onMouseEnter={handlers.onMouseEnter}
-            onMouseLeave={handlers.onMouseLeave}
-          >
-            <motion.div
-              className="bg-foreground absolute inset-0"
-              style={{ translateX: bgX, translateY: bgY }}
-            />
-            <span className="relative z-10">Send Request</span>
-          </button>
-        </div>
-      </motion.div>
+          {/* Submit */}
+          <div className="mt-auto">
+            <button
+              ref={submitRef}
+              className="hover:bg-foreground hover:text-background border-border relative w-full overflow-hidden border-t py-4 text-sm font-medium tracking-widest uppercase transition-colors"
+              type="submit"
+              onMouseEnter={handlers.onMouseEnter}
+              onMouseLeave={handlers.onMouseLeave}
+            >
+              <motion.div
+                className="bg-foreground absolute inset-0"
+                style={{ translateX: bgX, translateY: bgY }}
+              />
+              <span className="relative z-10">Send Request</span>
+            </button>
+          </div>
+        </motion.div>
+      </div>
 
       {/* Full-width footer */}
-      <div className="border-border col-span-12 grid grid-cols-12 border-t">
-        <div className="col-span-7 px-8 py-4"></div>
-        <div className="col-span-5 flex items-center justify-center px-8 py-4">
+      <div className="border-border brid-cols-[2fr 1fr] grid border-t">
+        <div className="col-start-2 flex items-center justify-center px-8 py-4">
           <p className="text-foreground/40 text-xs">
             I&apos;ll respond within 24 hours. For urgent inquiries, reach out
             directly at{" "}
