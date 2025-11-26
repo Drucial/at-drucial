@@ -185,7 +185,7 @@ export function FullStackUnicorn() {
         className="flex items-center justify-center overflow-hidden border-l p-6 md:hidden"
         style={{ x: rightColumnX }}
       >
-        <div className="font-teko text-border tracking-tightest flex flex-col font-black uppercase tabular-nums">
+        <div className="font-teko text-foreground/50 tracking-tightest flex flex-col font-black uppercase tabular-nums">
           <motion.span
             className="text-[9.5vw] leading-[7vw]"
             style={{ opacity: row1Opacity, y: row1Y }}
@@ -193,19 +193,19 @@ export function FullStackUnicorn() {
             The
           </motion.span>
           <motion.span
-            className="text-[12.5vw] leading-[9vw]"
+            className="text-foreground text-[12.5vw] leading-[9vw]"
             style={{ opacity: row2Opacity, y: row2Y }}
           >
             Full-
           </motion.span>
           <motion.span
-            className="text-[12.5vw] leading-[9vw]"
+            className="text-foreground text-[12.5vw] leading-[9vw]"
             style={{ opacity: row3Opacity, y: row3Y }}
           >
             Stack
           </motion.span>
           <motion.span
-            className="text-accent text-[9.5vw] leading-[7vw]"
+            className="text-[9.5vw] leading-[7vw]"
             style={{ opacity: row4Opacity, y: row4Y }}
           >
             Unicorn
@@ -306,7 +306,7 @@ export function FullStackUnicorn() {
           className="flex items-center justify-center overflow-hidden border-l p-8 lg:p-12"
           style={{ x: rightColumnX }}
         >
-          <div className="font-teko text-border tracking-tightest flex flex-col font-black uppercase tabular-nums">
+          <div className="font-teko text-foreground/50 tracking-tightest flex flex-col font-black uppercase tabular-nums">
             <motion.span
               className="text-[9.5vw] leading-[7vw]"
               style={{ opacity: row1Opacity, y: row1Y }}
@@ -314,19 +314,19 @@ export function FullStackUnicorn() {
               The
             </motion.span>
             <motion.span
-              className="text-[12.5vw] leading-[9vw]"
+              className="text-foreground text-[12.5vw] leading-[9vw]"
               style={{ opacity: row2Opacity, y: row2Y }}
             >
               Full-
             </motion.span>
             <motion.span
-              className="text-[12.5vw] leading-[9vw]"
+              className="text-foreground text-[12.5vw] leading-[9vw]"
               style={{ opacity: row3Opacity, y: row3Y }}
             >
               Stack
             </motion.span>
             <motion.span
-              className="text-accent text-[9.5vw] leading-[7vw]"
+              className="text-[9.5vw] leading-[7vw]"
               style={{ opacity: row4Opacity, y: row4Y }}
             >
               Unicorn
