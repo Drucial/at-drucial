@@ -10,7 +10,7 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
   return (
     <ReactLenis
       root
-      options={{ syncTouch: true }}
+      options={{ syncTouch: true, touchMultiplier: 1.25 }}
     >
       {children}
     </ReactLenis>
