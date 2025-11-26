@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 
 import { Header } from "@/components/layout/header";
 import { BlogModalProvider } from "@/components/providers/blog-modal-provider";
+import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ViewportProvider } from "@/components/providers/viewport-provider";
 
@@ -30,11 +31,13 @@ export default function RootLayout({
             attribute="class"
             defaultTheme="system"
           >
-            <BlogModalProvider>
-              <Header />
-              {children}
-              {modal}
-            </BlogModalProvider>
+            <SmoothScrollProvider>
+              <BlogModalProvider>
+                <Header />
+                {children}
+                {modal}
+              </BlogModalProvider>
+            </SmoothScrollProvider>
           </ThemeProvider>
         </ViewportProvider>
       </body>

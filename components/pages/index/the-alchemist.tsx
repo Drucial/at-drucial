@@ -19,17 +19,11 @@ export function TheAlchemist() {
     offset: ["start start", `end ${SMALL_HEADER_HEIGHT}px`],
   });
 
-  // Track from section bottom at viewport bottom to section bottom at header
-  const { scrollYProgress: subtitleProgress } = useScroll({
-    target: sectionRef,
-    offset: ["end end", `end ${SMALL_HEADER_HEIGHT}px`],
-  });
-
   // Parallax effect: keyboard moves up as you scroll down (opposite direction)
   const keyboardY = useTransform(scrollY, [0, 800], [0, -600]);
 
-  // Pseudo-sticky parallax for subtitle text (moves down to stay in frame longer)
-  const subtitleY = useTransform(subtitleProgress, [0, 1], [0, 600]);
+  // Subtitle parallax - starts when section enters viewport, ends when section leaves (desktop only)
+  const subtitleY = useTransform(scrollY, [0, 800], [0, isMobile ? 0 : 500]);
 
   // Main heading translates down and fades out on scroll
   const headingY = useTransform(scrollYProgress, [0, 1], ["0%", "115%"]);

@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 
+import { useLenis } from "lenis/react";
 import type { MotionValue } from "motion/react";
 import {
   motion,
@@ -94,6 +95,7 @@ function AnimatedAccordionItem({
 export function FullStackUnicorn() {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeItem, setActiveItem] = useState("");
+  const lenis = useLenis();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -144,10 +146,7 @@ export function FullStackUnicorn() {
     const targetScroll =
       sectionTop - viewportHeight / 2 + scrollRange * targetProgress;
 
-    window.scrollTo({
-      top: targetScroll,
-      behavior: "smooth",
-    });
+    lenis?.scrollTo(targetScroll);
   }
 
   // Left column slides in from left
