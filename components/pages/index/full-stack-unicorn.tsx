@@ -31,9 +31,9 @@ function useAccordionItemAnimation(
   scrollYProgress: MotionValue<number>,
   index: number
 ) {
-  const stagger = 0.03;
+  const stagger = 0.05;
   const start = 0 + index * stagger;
-  const end = start + 0.1;
+  const end = start + 0.15;
 
   return {
     opacity: useTransform(scrollYProgress, [start, end], [0, 1]),
@@ -49,13 +49,13 @@ function ProgressBar({
   index: number;
   scrollYProgress: MotionValue<number>;
 }) {
-  // Progress fill timing - evenly distributed across 0.2 to 1.0
-  const progressStart = 0.2 + (index / 10) * 0.8;
-  const progressEnd = progressStart + 0.08;
+  // Progress fill timing - evenly distributed across 0.3 to 1.0
+  const progressStart = 0.3 + (index / 10) * 0.7;
+  const progressEnd = progressStart + 0.07;
 
   const opacity = useTransform(
     scrollYProgress,
-    [0, 0.2, progressStart, progressEnd],
+    [0, 0.3, progressStart, progressEnd],
     [0, 0.2, 0.2, 1]
   );
 
@@ -103,13 +103,13 @@ export function FullStackUnicorn() {
   });
 
   // Toggle accordion items based on scroll progress
-  // Accordions start opening after initial animation (0.2)
+  // Accordions start opening after initial animation (0.3)
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (latest < 0.2) {
+    if (latest < 0.3) {
       setActiveItem(""); // All collapsed during entrance animation
-    } else if (latest < 0.45) {
+    } else if (latest < 0.55) {
       setActiveItem("research");
-    } else if (latest < 0.7) {
+    } else if (latest < 0.8) {
       setActiveItem("design");
     } else {
       setActiveItem("build");
@@ -128,11 +128,11 @@ export function FullStackUnicorn() {
     // Target middle of each section (adjusted for new progress ranges)
     let targetProgress = 0;
     if (value === "research") {
-      targetProgress = 0.35;
+      targetProgress = 0.42;
     } else if (value === "design") {
-      targetProgress = 0.6;
+      targetProgress = 0.67;
     } else if (value === "build") {
-      targetProgress = 0.85;
+      targetProgress = 0.9;
     }
 
     // Convert progress to scroll position (accounting for "start center" offset)
@@ -147,26 +147,26 @@ export function FullStackUnicorn() {
   }
 
   // Left column slides in from left
-  const leftColumnX = useTransform(scrollYProgress, [0, 0.2], ["-100%", "0%"]);
+  const leftColumnX = useTransform(scrollYProgress, [0, 0.3], ["-100%", "0%"]);
 
   // Right column and border slide in from right together
-  const rightColumnX = useTransform(scrollYProgress, [0, 0.2], ["100%", "0%"]);
+  const rightColumnX = useTransform(scrollYProgress, [0, 0.3], ["100%", "0%"]);
 
   // Staggered text row animations for right column
-  const row1Opacity = useTransform(scrollYProgress, [0.05, 0.12], [0, 1]);
-  const row1Y = useTransform(scrollYProgress, [0.05, 0.12], [30, 0]);
+  const row1Opacity = useTransform(scrollYProgress, [0.08, 0.18], [0, 1]);
+  const row1Y = useTransform(scrollYProgress, [0.08, 0.18], [30, 0]);
 
-  const row2Opacity = useTransform(scrollYProgress, [0.08, 0.15], [0, 1]);
-  const row2Y = useTransform(scrollYProgress, [0.08, 0.15], [40, 0]);
+  const row2Opacity = useTransform(scrollYProgress, [0.12, 0.22], [0, 1]);
+  const row2Y = useTransform(scrollYProgress, [0.12, 0.22], [40, 0]);
 
-  const row3Opacity = useTransform(scrollYProgress, [0.11, 0.18], [0, 1]);
-  const row3Y = useTransform(scrollYProgress, [0.11, 0.18], [50, 0]);
+  const row3Opacity = useTransform(scrollYProgress, [0.16, 0.26], [0, 1]);
+  const row3Y = useTransform(scrollYProgress, [0.16, 0.26], [50, 0]);
 
-  const row4Opacity = useTransform(scrollYProgress, [0.14, 0.21], [0, 1]);
-  const row4Y = useTransform(scrollYProgress, [0.14, 0.21], [60, 0]);
+  const row4Opacity = useTransform(scrollYProgress, [0.2, 0.3], [0, 1]);
+  const row4Y = useTransform(scrollYProgress, [0.2, 0.3], [60, 0]);
 
-  // Three sections of scroll
-  const sectionHeight = viewportHeight * 3 - SMALL_HEADER_HEIGHT * 3;
+  // Two sections of scroll
+  const sectionHeight = viewportHeight * 2 - SMALL_HEADER_HEIGHT * 2;
 
   return (
     <section
@@ -210,7 +210,7 @@ export function FullStackUnicorn() {
           <motion.div
             className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-1 md:bottom-24"
             style={{
-              opacity: useTransform(scrollYProgress, [0, 0.2], [0, 1]),
+              opacity: useTransform(scrollYProgress, [0, 0.3], [0, 1]),
             }}
           >
             {Array.from({ length: 10 }).map((_, i) => (
