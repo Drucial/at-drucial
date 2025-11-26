@@ -94,9 +94,10 @@ export function TheThinker() {
   return (
     <motion.section
       ref={sectionRef}
-      className="border-border relative flex flex-col justify-center md:h-auto"
+      className="border-border relative flex flex-col justify-center"
       style={{
-        height: `${viewportHeight - SMALL_HEADER_HEIGHT}px`,
+        paddingTop: paddingY,
+        paddingBottom: paddingY,
       }}
     >
       <div className="border-border flex h-full flex-col overflow-hidden border-y md:h-auto">

@@ -30,6 +30,10 @@ export function TheRenaissanceTechnologist() {
   // Text fade out on scroll through
   const textOpacity = useTransform(scrollYProgress, [0.8, 0.95], [1, 0]);
 
+  // Parallax X motion - columns move in opposing directions
+  const leftColumnX = useTransform(scrollYProgress, [0.1, 0.5], ["-100%", "0%"]);
+  const rightColumnX = useTransform(scrollYProgress, [0.1, 0.5], ["100%", "0%"]);
+
   return (
     <section
       ref={sectionRef}
@@ -41,7 +45,7 @@ export function TheRenaissanceTechnologist() {
         className="grid grid-cols-[1fr_5fr] md:grid-cols-[1fr_2fr]"
         style={{ opacity: textOpacity }}
       >
-        <div className="overflow-hidden">
+        <motion.div className="overflow-hidden" style={{ x: leftColumnX }}>
           <Image
             alt="Drucial - Renaissance Technologist"
             className="h-full w-auto origin-[50%_60%] scale-300 md:hidden"
@@ -50,30 +54,36 @@ export function TheRenaissanceTechnologist() {
             src="/images/drew-bike.webp"
             width={1280}
           />
-        </div>
+        </motion.div>
 
-        <div className="col-start-2 border-l p-6 md:p-8 lg:p-12">
+        <motion.div
+          className="col-start-2 border-l p-6 md:p-8 lg:p-12"
+          style={{ x: rightColumnX }}
+        >
           <h2 className="relative text-[clamp(3rem,12vw,10rem)] leading-[7.5vw] font-bold tracking-tighter">
             <RollingText
+              scrollDuration={0.15}
               scrollTrigger={0.2}
               scrollYProgress={scrollYProgress}
               text="The"
-              transition={{ duration: 0.5, delay: 0.03, ease: "easeOut" }}
             />
             <br />
             <RollingText
-              scrollTrigger={0.25}
+              scrollDuration={0.25}
+              scrollTrigger={0.24}
               scrollYProgress={scrollYProgress}
               text="Technologist"
-              transition={{ duration: 0.5, delay: 0.03, ease: "easeOut" }}
             />
           </h2>
-        </div>
+        </motion.div>
       </motion.div>
 
       <motion.div className="grid overflow-hidden md:grid-cols-2">
         {/* Image */}
-        <div className="relative hidden overflow-hidden md:block">
+        <motion.div
+          className="relative hidden overflow-hidden md:block"
+          style={{ x: leftColumnX }}
+        >
           <motion.div
             className="absolute inset-x-0 top-0 w-full"
             style={{ y: imageY, opacity: imageOpacity }}
@@ -87,10 +97,13 @@ export function TheRenaissanceTechnologist() {
               width={1280}
             />
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* Description text */}
-        <div className="col-start-2 max-w-lg space-y-6 border-l p-6 md:p-8 lg:p-12">
+        <motion.div
+          className="col-start-2 max-w-lg space-y-6 border-l p-6 md:p-8 lg:p-12"
+          style={{ x: rightColumnX, opacity: textOpacity }}
+        >
           <BlurText
             animateBy="words"
             animationFrom={{ filter: "blur(8px)", opacity: 0 }}
@@ -139,7 +152,7 @@ export function TheRenaissanceTechnologist() {
             stepDuration={0.2}
             text="Beyond developing world-class products, I'm a devoted dad, a collector of motorcycles and bicycles, and a culinary enthusiast who believes in the magic of a delectable meal with good company."
           />
-        </div>
+        </motion.div>
       </motion.div>
     </section>
   );

@@ -1,5 +1,8 @@
 "use client";
 
+import type { MotionValue } from "motion/react";
+import { motion, useTransform } from "motion/react";
+
 import { CalendarGrid } from "@/components/ui/calendar-grid";
 import { FormInput } from "@/components/ui/form-input";
 import { FormTextarea } from "@/components/ui/form-textarea";
@@ -20,9 +23,14 @@ export type ContactFormData = {
 type ContactFormProps = {
   formData: ContactFormData;
   onFormDataChange: (data: Partial<ContactFormData>) => void;
+  scrollYProgress?: MotionValue<number>;
 };
 
-export function ContactForm({ formData, onFormDataChange }: ContactFormProps) {
+export function ContactForm({
+  formData,
+  onFormDataChange,
+  scrollYProgress,
+}: ContactFormProps) {
   const {
     name,
     email,
@@ -32,10 +40,58 @@ export function ContactForm({ formData, onFormDataChange }: ContactFormProps) {
     message,
   } = formData;
 
+  // Staggered row animations with exponential Y offset
+  const row1Opacity = useTransform(
+    scrollYProgress ?? { get: () => 1 },
+    [0.15, 0.35],
+    [0, 1]
+  );
+  const row1Y = useTransform(
+    scrollYProgress ?? { get: () => 0 },
+    [0.15, 0.35],
+    [80, 0]
+  );
+
+  const row2Opacity = useTransform(
+    scrollYProgress ?? { get: () => 1 },
+    [0.2, 0.4],
+    [0, 1]
+  );
+  const row2Y = useTransform(
+    scrollYProgress ?? { get: () => 0 },
+    [0.2, 0.4],
+    [120, 0]
+  );
+
+  const row3Opacity = useTransform(
+    scrollYProgress ?? { get: () => 1 },
+    [0.25, 0.45],
+    [0, 1]
+  );
+  const row3Y = useTransform(
+    scrollYProgress ?? { get: () => 0 },
+    [0.25, 0.45],
+    [160, 0]
+  );
+
+  const row4Opacity = useTransform(
+    scrollYProgress ?? { get: () => 1 },
+    [0.3, 0.5],
+    [0, 1]
+  );
+  const row4Y = useTransform(
+    scrollYProgress ?? { get: () => 0 },
+    [0.3, 0.5],
+    [200, 0]
+  );
+
   return (
     <form className="space-y-8">
       {/* Name & Email row */}
-      <div className="grid gap-8 md:grid-cols-2 md:gap-0">
+      <motion.div
+        className="grid gap-8 md:grid-cols-2 md:gap-0"
+        style={{ opacity: row1Opacity, y: row1Y }}
+      >
         <FormInput
           required
           label="Name"
@@ -51,16 +107,23 @@ export function ContactForm({ formData, onFormDataChange }: ContactFormProps) {
           value={email}
           onChange={(e) => onFormDataChange({ email: e.target.value })}
         />
-      </div>
+      </motion.div>
 
       {/* Project Type */}
-      <ProjectTypeSelector
-        projectType={projectType}
-        onSelectProjectType={(type) => onFormDataChange({ projectType: type })}
-      />
+      <motion.div style={{ opacity: row2Opacity, y: row2Y }}>
+        <ProjectTypeSelector
+          projectType={projectType}
+          onSelectProjectType={(type) =>
+            onFormDataChange({ projectType: type })
+          }
+        />
+      </motion.div>
 
       {/* Date & Time row */}
-      <div className="grid gap-8 md:grid-cols-2">
+      <motion.div
+        className="grid gap-8 md:grid-cols-2"
+        style={{ opacity: row3Opacity, y: row3Y }}
+      >
         {/* Calendar */}
         <CalendarGrid
           selectedDate={selectedDate}
@@ -72,15 +135,17 @@ export function ContactForm({ formData, onFormDataChange }: ContactFormProps) {
           selectedTime={selectedTime}
           onSelectTime={(time) => onFormDataChange({ selectedTime: time })}
         />
-      </div>
+      </motion.div>
 
       {/* Message */}
-      <FormTextarea
-        label="Message"
-        placeholder="Tell me about your project..."
-        value={message}
-        onChange={(e) => onFormDataChange({ message: e.target.value })}
-      />
+      <motion.div style={{ opacity: row4Opacity, y: row4Y }}>
+        <FormTextarea
+          label="Message"
+          placeholder="Tell me about your project..."
+          value={message}
+          onChange={(e) => onFormDataChange({ message: e.target.value })}
+        />
+      </motion.div>
     </form>
   );
 }

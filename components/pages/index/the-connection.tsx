@@ -1,15 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import { motion, useScroll, useTransform } from "motion/react";
 
 import { ContactForm, EmailPreview } from "@/components/pages/index";
 import type { ContactFormData } from "@/components/pages/index/contact-form";
-import { useViewport } from "@/components/providers/viewport-provider";
 
 export function TheConnection() {
-  const { viewportHeight } = useViewport();
   const sectionRef = useRef<HTMLElement>(null);
 
   const [formData, setFormData] = useState<ContactFormData>({
@@ -35,47 +33,44 @@ export function TheConnection() {
   const rightOpacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
   const rightX = useTransform(scrollYProgress, [0, 0.5], ["100%", "0%"]);
 
-  // Form slides up more dramatically on desktop, from left on mobile
-  const formOpacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
-  const formY = useTransform(scrollYProgress, [0, 0.5], [150, 0]);
-  const formX = useTransform(scrollYProgress, [0, 0.5], ["-100%", "0%"]);
+  // Staggered entrance for left column elements with exponential Y parallax
+  // Header - first to appear, smaller Y offset
+  const headerOpacity = useTransform(scrollYProgress, [0, 0.4], [0, 1]);
+  const headerY = useTransform(scrollYProgress, [0, 0.4], [60, 0]);
 
-  // Check if mobile
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  // Form - appears slightly later, larger Y offset (exponential feel)
+  const formOpacity = useTransform(scrollYProgress, [0.1, 0.5], [0, 1]);
+  const formY = useTransform(scrollYProgress, [0.1, 0.5], [150, 0]);
 
   return (
-    <section
-      ref={sectionRef}
-      className="overflow-x-hidden"
-      // style={{ minHeight: viewportHeight - SMALL_HEADER_HEIGHT }}
-    >
+    <section ref={sectionRef} className="overflow-x-hidden">
       <div className="relative md:grid md:grid-cols-[2fr_1fr] lg:grid-cols-[4fr_3fr]">
         {/* Left column - Form */}
-        <motion.div
-          className="border-border flex flex-col justify-center gap-6 border-r p-6 md:border-r-0 md:p-8"
-          style={{
-            opacity: formOpacity,
-            y: isMobile ? 0 : formY,
-            x: isMobile ? formX : 0,
-          }}
-        >
+        <div className="border-border flex flex-col justify-center gap-6 border-r p-6 md:border-r-0 md:p-8">
           {/* Header */}
-          <h3 className="text-[clamp(4rem,7vw,8rem)] leading-12 font-bold tracking-tight lg:leading-24">
+          <motion.h3
+            className="text-[clamp(4rem,7vw,8rem)] leading-12 font-bold tracking-tight lg:leading-24"
+            style={{
+              opacity: headerOpacity,
+              y: headerY,
+            }}
+          >
             The Conversation
-          </h3>
+          </motion.h3>
 
-          <ContactForm
-            formData={formData}
-            onFormDataChange={handleFormDataChange}
-          />
-        </motion.div>
+          <motion.div
+            style={{
+              opacity: formOpacity,
+              y: formY,
+            }}
+          >
+            <ContactForm
+              formData={formData}
+              scrollYProgress={scrollYProgress}
+              onFormDataChange={handleFormDataChange}
+            />
+          </motion.div>
+        </div>
 
         {/* Right column - Live message preview */}
         <motion.div
