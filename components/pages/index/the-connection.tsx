@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import { motion, useScroll, useTransform, useMotionValue } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 
 import { ContactForm, EmailPreview } from "@/components/pages/index";
 import type { ContactFormData } from "@/components/pages/index/contact-form";
@@ -46,6 +46,7 @@ export function TheConnection() {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
+
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
@@ -58,7 +59,7 @@ export function TheConnection() {
       <div className="relative md:grid md:grid-cols-[2fr_1fr] lg:grid-cols-[4fr_3fr]">
         {/* Left column - Form */}
         <motion.div
-          className="border-border flex flex-col justify-center gap-6 border-r p-6 md:border-r-0 md:p-8 lg:p-12"
+          className="border-border flex flex-col justify-center gap-6 border-r p-6 md:border-r-0 md:p-8"
           style={{
             opacity: formOpacity,
             y: isMobile ? 0 : formY,
