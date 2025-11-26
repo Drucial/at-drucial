@@ -80,7 +80,7 @@ export function MagnifiableArea({
         {isHovered && (
           <motion.div
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-foreground border-background/20 pointer-events-none absolute overflow-hidden rounded-full border-2"
+            className="bg-background border-foreground/20 pointer-events-none absolute overflow-hidden rounded-full border-2"
             exit={{ scale: 0, opacity: 0 }}
             initial={{ scale: 0, opacity: 0 }}
             transition={{ type: "spring", damping: 20, stiffness: 300 }}

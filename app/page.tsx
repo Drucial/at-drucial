@@ -16,6 +16,7 @@ export default function Home() {
       <Separator />
       <FullStackUnicorn />
       <TheMinimalistSavant />
+      <Separator />
       <TheThinker />
       <Separator />
       <TheRenaissanceTechnologist />

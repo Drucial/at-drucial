@@ -3,14 +3,7 @@
 import { useRef } from "react";
 
 import type { MotionValue } from "motion/react";
-import {
-  motion,
-  useMotionValue,
-  useMotionValueEvent,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 
 import { SMALL_HEADER_HEIGHT } from "@/components/layout/header";
 import { useViewport } from "@/components/providers/viewport-provider";
@@ -146,36 +139,15 @@ export function TheMinimalistSavant() {
   const quoteTranslateX = useTransform(scrollYProgress, [0.25, 0.45], [100, 0]);
   const quoteOpacity = useTransform(scrollYProgress, [0.25, 0.4], [0, 1]);
 
-  // Background color transition - spring-based at buffer point
-  const normalBgOpacityValue = useMotionValue(1);
-  const normalBgOpacity = useSpring(normalBgOpacityValue, {
-    stiffness: 300,
-    damping: 30,
-  });
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    // Transition to dark when entering (0.18), back to light when leaving (0.82)
-    if (latest >= 0.18 && latest <= 0.82) {
-      normalBgOpacityValue.set(0);
-    } else {
-      normalBgOpacityValue.set(1);
-    }
-  });
 
   if (isMobile) return;
 
   return (
     <section
       ref={sectionRef}
-      className="bg-foreground text-background relative grid grid-cols-12 gap-x-8 overflow-hidden px-6 md:px-8 lg:gap-x-12 lg:px-12"
+      className="bg-background text-foreground relative grid grid-cols-12 gap-x-8 overflow-hidden px-6 md:px-8 lg:gap-x-12 lg:px-12"
       style={{ minHeight: viewportHeight - SMALL_HEADER_HEIGHT }}
     >
-      {/* Normal background overlay that fades out to reveal inverted bg */}
-      <motion.div
-        className="bg-background pointer-events-none absolute inset-0"
-        style={{ opacity: normalBgOpacity }}
-      />
-
       {/* Left column - Heading with letter animations */}
       <div className="col-span-12 flex items-center py-24 pr-8 md:col-span-5 md:py-32 lg:py-40">
         <h2 className="text-[clamp(3rem,12vw,12rem)] leading-[0.8] font-bold tracking-tighter">
@@ -209,13 +181,13 @@ export function TheMinimalistSavant() {
           magnifiedContent={
             <div className="flex flex-col items-end text-right">
               {/* Static quote for magnification */}
-              <p className="text-background/50 font-teko text-3xl leading-tight font-medium md:text-4xl lg:text-5xl">
+              <p className="text-foreground/50 font-teko text-3xl leading-tight font-medium md:text-4xl lg:text-5xl">
                 In a world cluttered with complexity,{" "}
-                <span className="text-background">simplicity</span> stands out.
+                <span className="text-foreground">simplicity</span> stands out.
               </p>
 
               {/* Static description for magnification */}
-              <div className="text-background/50 mt-8 ml-auto max-w-md space-y-6 text-balance">
+              <div className="text-foreground/50 mt-8 ml-auto max-w-md space-y-6 text-balance">
                 <p className="leading-relaxed">
                   Less is more is not just a mantra; it&apos;s a disciplined
                   approach to design and life.
@@ -230,18 +202,18 @@ export function TheMinimalistSavant() {
         >
           {/* Quote */}
           <motion.p
-            className="text-background/50 font-teko text-3xl leading-tight font-medium md:text-4xl lg:text-5xl"
+            className="text-foreground/50 font-teko text-3xl leading-tight font-medium md:text-4xl lg:text-5xl"
             style={{
               x: quoteTranslateX,
               opacity: quoteOpacity,
             }}
           >
             In a world cluttered with complexity,{" "}
-            <span className="text-background">simplicity</span> stands out.
+            <span className="text-foreground">simplicity</span> stands out.
           </motion.p>
 
           {/* Description */}
-          <div className="text-background/50 mt-8 ml-auto max-w-md space-y-6">
+          <div className="text-foreground/50 mt-8 ml-auto max-w-md space-y-6">
             <BlurText
               className="justify-end leading-relaxed text-balance"
               delay={50}
