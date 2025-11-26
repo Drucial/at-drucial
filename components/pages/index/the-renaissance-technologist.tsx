@@ -14,30 +14,39 @@ export function TheRenaissanceTechnologist() {
   const sectionRef = useRef<HTMLElement>(null);
   const { viewportHeight } = useViewport();
 
-  const { scrollYProgress } = useScroll({
+  // Entrance animations - complete when section reaches header
+  const { scrollYProgress: entranceProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", `start ${SMALL_HEADER_HEIGHT}px`],
+  });
+
+  // Exit animations - full scroll through
+  const { scrollYProgress: exitProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Full scroll range for continuous parallax
+  const { scrollYProgress: fullProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
 
-  // Image fade in, parallax, and fade out
-  const imageY = useTransform(scrollYProgress, [0.2, 1], ["-30%", "-50%"]);
-  const imageOpacity = useTransform(
-    scrollYProgress,
-    [0.15, 0.3, 0.8, 0.95],
-    [0, 1, 1, 0]
-  );
+  // Image parallax continues through full scroll
+  const imageY = useTransform(fullProgress, [0, 1], ["-20%", "-50%"]);
+  const imageOpacity = useTransform(entranceProgress, [0.3, 0.8], [0, 1]);
 
   // Text fade out on scroll through
-  const textOpacity = useTransform(scrollYProgress, [0.8, 0.95], [1, 0]);
+  const textOpacity = useTransform(exitProgress, [0.3, 0.6], [1, 0]);
 
-  // Parallax X motion - columns move in opposing directions
-  const leftColumnX = useTransform(scrollYProgress, [0.1, 0.5], ["-100%", "0%"]);
-  const rightColumnX = useTransform(scrollYProgress, [0.1, 0.5], ["100%", "0%"]);
+  // Parallax X motion - columns move in opposing directions (entrance)
+  const leftColumnX = useTransform(entranceProgress, [0, 1], ["-100%", "0%"]);
+  const rightColumnX = useTransform(entranceProgress, [0, 1], ["100%", "0%"]);
 
   return (
     <section
       ref={sectionRef}
-      className="relative grid grid-rows-[auto_1fr] divide-y"
+      className="relative grid grid-rows-[auto_1fr] divide-y overflow-hidden"
       style={{ minHeight: viewportHeight - SMALL_HEADER_HEIGHT }}
     >
       {/* Heading + Description - overlapping image, pushed right */}
@@ -64,14 +73,14 @@ export function TheRenaissanceTechnologist() {
             <RollingText
               scrollDuration={0.15}
               scrollTrigger={0.2}
-              scrollYProgress={scrollYProgress}
+              scrollYProgress={fullProgress}
               text="The"
             />
             <br />
             <RollingText
               scrollDuration={0.25}
               scrollTrigger={0.24}
-              scrollYProgress={scrollYProgress}
+              scrollYProgress={fullProgress}
               text="Technologist"
             />
           </h2>
@@ -112,7 +121,7 @@ export function TheRenaissanceTechnologist() {
             delay={7}
             delayOffset={0}
             scrollTrigger={0.3}
-            scrollYProgress={scrollYProgress}
+            scrollYProgress={entranceProgress}
             stepDuration={0.2}
             text="As a seasoned UX/UI designer based in Charlotte's vibrant NoDa arts district, I thrive at the intersection of creativity and technology."
           />
@@ -124,7 +133,7 @@ export function TheRenaissanceTechnologist() {
             delay={7}
             delayOffset={161}
             scrollTrigger={0.3}
-            scrollYProgress={scrollYProgress}
+            scrollYProgress={entranceProgress}
             stepDuration={0.2}
             text="My journey from Seattle's startup scene to the aerospace industry and back has been marked by a self-taught mastery in research, design, and engineering, fueled by a relentless pursuit of creative excellence."
           />
@@ -136,7 +145,7 @@ export function TheRenaissanceTechnologist() {
             delay={7}
             delayOffset={399}
             scrollTrigger={0.3}
-            scrollYProgress={scrollYProgress}
+            scrollYProgress={entranceProgress}
             stepDuration={0.2}
             text="I've honed my skills through diverse experiences—from founding and selling a business to pioneering new products at Craftwork."
           />
@@ -148,7 +157,7 @@ export function TheRenaissanceTechnologist() {
             delay={7}
             delayOffset={532}
             scrollTrigger={0.3}
-            scrollYProgress={scrollYProgress}
+            scrollYProgress={entranceProgress}
             stepDuration={0.2}
             text="Beyond developing world-class products, I'm a devoted dad, a collector of motorcycles and bicycles, and a culinary enthusiast who believes in the magic of a delectable meal with good company."
           />

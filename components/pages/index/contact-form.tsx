@@ -1,7 +1,7 @@
 "use client";
 
 import type { MotionValue } from "motion/react";
-import { motion, useTransform } from "motion/react";
+import { motion, useMotionValue, useTransform } from "motion/react";
 
 import { CalendarGrid } from "@/components/ui/calendar-grid";
 import { FormInput } from "@/components/ui/form-input";
@@ -40,50 +40,22 @@ export function ContactForm({
     message,
   } = formData;
 
+  // Default motion value for when scrollYProgress isn't provided
+  const defaultProgress = useMotionValue(1);
+  const progress = scrollYProgress ?? defaultProgress;
+
   // Staggered row animations with exponential Y offset
-  const row1Opacity = useTransform(
-    scrollYProgress ?? { get: () => 1 },
-    [0.15, 0.35],
-    [0, 1]
-  );
-  const row1Y = useTransform(
-    scrollYProgress ?? { get: () => 0 },
-    [0.15, 0.35],
-    [80, 0]
-  );
+  const row1Opacity = useTransform(progress, [0.15, 0.35], [0, 1]);
+  const row1Y = useTransform(progress, [0.15, 0.35], [80, 0]);
 
-  const row2Opacity = useTransform(
-    scrollYProgress ?? { get: () => 1 },
-    [0.2, 0.4],
-    [0, 1]
-  );
-  const row2Y = useTransform(
-    scrollYProgress ?? { get: () => 0 },
-    [0.2, 0.4],
-    [120, 0]
-  );
+  const row2Opacity = useTransform(progress, [0.2, 0.4], [0, 1]);
+  const row2Y = useTransform(progress, [0.2, 0.4], [120, 0]);
 
-  const row3Opacity = useTransform(
-    scrollYProgress ?? { get: () => 1 },
-    [0.25, 0.45],
-    [0, 1]
-  );
-  const row3Y = useTransform(
-    scrollYProgress ?? { get: () => 0 },
-    [0.25, 0.45],
-    [160, 0]
-  );
+  const row3Opacity = useTransform(progress, [0.25, 0.45], [0, 1]);
+  const row3Y = useTransform(progress, [0.25, 0.45], [160, 0]);
 
-  const row4Opacity = useTransform(
-    scrollYProgress ?? { get: () => 1 },
-    [0.3, 0.5],
-    [0, 1]
-  );
-  const row4Y = useTransform(
-    scrollYProgress ?? { get: () => 0 },
-    [0.3, 0.5],
-    [200, 0]
-  );
+  const row4Opacity = useTransform(progress, [0.3, 0.5], [0, 1]);
+  const row4Y = useTransform(progress, [0.3, 0.5], [200, 0]);
 
   return (
     <form className="space-y-8">

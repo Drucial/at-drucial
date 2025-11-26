@@ -5,6 +5,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { Easing, MotionValue, Transition } from "motion/react";
 import { motion } from "motion/react";
 
+import { cn } from "@/lib/utils";
+
 type BlurTextProps = {
   text?: string;
   delay?: number;
@@ -136,7 +138,7 @@ export function BlurText({
   );
 
   return (
-    <p ref={ref} className={`blur-text ${className} flex flex-wrap`}>
+    <p ref={ref} className={cn("blur-text", className)}>
       {elements.map((segment, index) => {
         const animateKeyframes = buildKeyframes(fromSnapshot, toSnapshots);
         const spanTransition: Transition = {

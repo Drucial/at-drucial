@@ -18,8 +18,8 @@ export function TheThinker() {
   const sectionRef = useRef<HTMLElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const { isMobile, viewportHeight } = useViewport();
   const { setCardBounds } = useBlogModal();
-  const { viewportHeight } = useViewport();
 
   function handleCardClick(post: BlogPost, bounds: DOMRect) {
     setCardBounds({
@@ -96,11 +96,12 @@ export function TheThinker() {
       ref={sectionRef}
       className="border-border relative flex flex-col justify-center"
       style={{
-        paddingTop: paddingY,
-        paddingBottom: paddingY,
+        paddingTop: !isMobile ? paddingY : undefined,
+        paddingBottom: !isMobile ? paddingY : undefined,
+        height: isMobile ? viewportHeight - SMALL_HEADER_HEIGHT : undefined,
       }}
     >
-      <div className="border-border flex h-full flex-col overflow-hidden border-y md:h-auto">
+      <div className="border-border flex h-full flex-1 flex-col overflow-hidden border-y md:h-auto">
         {/* Mobile heading - horizontal at top */}
         <motion.div
           className="border-border flex items-center justify-center border-b p-6 md:hidden"

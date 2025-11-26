@@ -32,8 +32,8 @@ export const EmailPreview = forwardRef<HTMLDivElement, EmailPreviewProps>(
     } = useDirectionalHover<HTMLButtonElement>();
 
     return (
-      <div ref={ref} className="flex flex-1 flex-col">
-        <div className="flex-1">
+      <div ref={ref} className="flex flex-col md:flex-1">
+        <div className="md:flex-1">
           {/* Email header */}
           <div className="border-border space-y-2 border-b p-6 md:p-8">
             <div className="flex gap-2 text-xs">

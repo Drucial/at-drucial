@@ -6,9 +6,13 @@ import { motion, useScroll, useTransform } from "motion/react";
 
 import { ContactForm, EmailPreview } from "@/components/pages/index";
 import type { ContactFormData } from "@/components/pages/index/contact-form";
+import { useViewport } from "@/components/providers/viewport-provider";
 
 export function TheConnection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
+  const { isMobile } = useViewport();
 
   const [formData, setFormData] = useState<ContactFormData>({
     name: "",
@@ -42,11 +46,27 @@ export function TheConnection() {
   const formOpacity = useTransform(scrollYProgress, [0.1, 0.5], [0, 1]);
   const formY = useTransform(scrollYProgress, [0.1, 0.5], [150, 0]);
 
+  // Mobile-only: Email preview slides up and fades in (based on its own scroll position)
+  const { scrollYProgress: previewProgress } = useScroll({
+    target: previewRef,
+    offset: ["start end", "start 0.7"],
+  });
+  const previewOpacity = useTransform(previewProgress, [0, 1], [0, 1]);
+  const previewY = useTransform(previewProgress, [0, 1], [80, 0]);
+
+  // Mobile-only: Footer slides up and fades in (based on its own scroll position)
+  const { scrollYProgress: footerProgress } = useScroll({
+    target: footerRef,
+    offset: ["start end", "start 0.95"],
+  });
+  const footerOpacity = useTransform(footerProgress, [0, 0.5], [0, 1]);
+  const footerY = useTransform(footerProgress, [0, 0.5], [40, 0]);
+
   return (
-    <section ref={sectionRef} className="overflow-x-hidden">
+    <section ref={sectionRef} className="overflow-hidden">
       <div className="relative md:grid md:grid-cols-[2fr_1fr] lg:grid-cols-[4fr_3fr]">
         {/* Left column - Form */}
-        <div className="border-border flex flex-col justify-center gap-6 border-r p-6 md:border-r-0 md:p-8">
+        <div className="border-border flex flex-col gap-6 p-6 md:justify-center md:border-r-0 md:p-8">
           {/* Header */}
           <motion.h3
             className="text-[clamp(4rem,7vw,8rem)] leading-12 font-bold tracking-tight lg:leading-24"
@@ -74,15 +94,27 @@ export function TheConnection() {
 
         {/* Right column - Live message preview */}
         <motion.div
+          ref={previewRef}
           className="flex border-t border-l md:border-t-0"
-          style={{ opacity: rightOpacity, x: rightX }}
+          style={{
+            opacity: isMobile ? previewOpacity : rightOpacity,
+            x: isMobile ? undefined : rightX,
+            y: isMobile ? previewY : undefined,
+          }}
         >
           <EmailPreview formData={formData} />
         </motion.div>
       </div>
 
       {/* Full-width footer */}
-      <div className="border-border grid border-t md:grid-cols-[2fr_1fr] lg:grid-cols-[4fr_3fr]">
+      <motion.div
+        ref={footerRef}
+        className="border-border grid border-t md:grid-cols-[2fr_1fr] lg:grid-cols-[4fr_3fr]"
+        style={{
+          opacity: isMobile ? footerOpacity : undefined,
+          y: isMobile ? footerY : undefined,
+        }}
+      >
         <div className="col-start-2 flex items-center justify-center px-8 py-4">
           <p className="text-foreground/40 text-center text-xs">
             I&apos;ll respond within 24 hours. For urgent inquiries, reach out
@@ -95,7 +127,7 @@ export function TheConnection() {
             </a>
           </p>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

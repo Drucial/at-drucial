@@ -167,7 +167,7 @@ export function TheMinimalistSavant() {
   return (
     <section
       ref={sectionRef}
-      className="bg-foreground text-background relative grid grid-cols-12 gap-x-8 px-6 md:px-8 lg:gap-x-12 lg:px-12"
+      className="bg-foreground text-background relative grid grid-cols-12 gap-x-8 overflow-hidden px-6 md:px-8 lg:gap-x-12 lg:px-12"
       style={{ minHeight: viewportHeight - SMALL_HEADER_HEIGHT }}
     >
       {/* Normal background overlay that fades out to reveal inverted bg */}
@@ -241,9 +241,9 @@ export function TheMinimalistSavant() {
           </motion.p>
 
           {/* Description */}
-          <div className="text-background/50 mt-8 ml-auto max-w-md space-y-6 text-balance">
+          <div className="text-background/50 mt-8 ml-auto max-w-md space-y-6">
             <BlurText
-              className="justify-end leading-relaxed"
+              className="justify-end leading-relaxed text-balance"
               delay={50}
               direction="bottom"
               scrollTrigger={0.35}
@@ -251,7 +251,7 @@ export function TheMinimalistSavant() {
               text="Less is more is not just a mantra; it's a disciplined approach to design and life."
             />
             <BlurText
-              className="justify-end leading-relaxed"
+              className="justify-end leading-relaxed text-balance"
               delay={50}
               direction="bottom"
               scrollTrigger={0.4}

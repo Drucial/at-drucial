@@ -50,7 +50,7 @@ export function TheAlchemist() {
       </div>
 
       {/* Keyboard Column */}
-      <div className="h-full overflow-hidden">
+      <div className="hidden h-full overflow-hidden lg:block">
         <motion.div
           animate={{ x: 0 }}
           className="hidden h-full overflow-hidden lg:block lg:p-12"
