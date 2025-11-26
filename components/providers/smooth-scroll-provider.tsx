@@ -7,5 +7,12 @@ type SmoothScrollProviderProps = {
 };
 
 export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
-  return <ReactLenis root>{children}</ReactLenis>;
+  return (
+    <ReactLenis
+      root
+      options={{ syncTouch: true }}
+    >
+      {children}
+    </ReactLenis>
+  );
 }
