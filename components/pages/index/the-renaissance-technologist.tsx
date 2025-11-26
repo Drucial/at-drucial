@@ -14,11 +14,21 @@ export function TheRenaissanceTechnologist() {
   const sectionRef = useRef<HTMLElement>(null);
   const { viewportHeight, isMobile } = useViewport();
 
-  // Entrance animations - complete when section reaches header
-  const { scrollYProgress: entranceProgress } = useScroll({
+  // Entrance animations - complete when section reaches header (desktop)
+  const { scrollYProgress: desktopEntranceProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", `start ${SMALL_HEADER_HEIGHT}px`],
   });
+
+  // Mobile entrance - complete earlier (when section is 20% from top)
+  const { scrollYProgress: mobileEntranceProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "start 0.2"],
+  });
+
+  const entranceProgress = isMobile
+    ? mobileEntranceProgress
+    : desktopEntranceProgress;
 
   // Exit animations - full scroll through
   const { scrollYProgress: exitProgress } = useScroll({

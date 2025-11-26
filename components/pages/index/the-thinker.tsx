@@ -36,6 +36,12 @@ export function TheThinker() {
     offset: ["start end", "end start"],
   });
 
+  // Mobile entrance - from section entering viewport to reaching header
+  const { scrollYProgress: mobileProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", `start ${SMALL_HEADER_HEIGHT}px`],
+  });
+
   // Section grows by adding vertical padding
   const paddingY = useTransform(scrollYProgress, [0, 0.3], [0, 200]);
 
@@ -48,16 +54,32 @@ export function TheThinker() {
 
   // Mobile heading slides down from top
   const mobileHeaderY = useTransform(
-    scrollYProgress,
-    [0.25, 0.45],
+    mobileProgress,
+    [0, 1],
     ["-100%", "0%"]
   );
 
   // Stagger first 4 blog cards opacity, rest are always visible
-  const cardOpacity0 = useTransform(scrollYProgress, [0.35, 0.45], [0, 1]);
-  const cardOpacity1 = useTransform(scrollYProgress, [0.38, 0.48], [0, 1]);
-  const cardOpacity2 = useTransform(scrollYProgress, [0.41, 0.51], [0, 1]);
-  const cardOpacity3 = useTransform(scrollYProgress, [0.44, 0.54], [0, 1]);
+  const cardOpacity0 = useTransform(
+    isMobile ? mobileProgress : scrollYProgress,
+    isMobile ? [0.4, 0.8] : [0.35, 0.45],
+    [0, 1]
+  );
+  const cardOpacity1 = useTransform(
+    isMobile ? mobileProgress : scrollYProgress,
+    isMobile ? [0.5, 0.9] : [0.38, 0.48],
+    [0, 1]
+  );
+  const cardOpacity2 = useTransform(
+    isMobile ? mobileProgress : scrollYProgress,
+    isMobile ? [0.6, 1.0] : [0.41, 0.51],
+    [0, 1]
+  );
+  const cardOpacity3 = useTransform(
+    isMobile ? mobileProgress : scrollYProgress,
+    isMobile ? [0.7, 1.0] : [0.44, 0.54],
+    [0, 1]
+  );
   const cardOpacities = [
     cardOpacity0,
     cardOpacity1,

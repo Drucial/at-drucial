@@ -94,12 +94,18 @@ function AnimatedAccordionItem({
 
 export function FullStackUnicorn() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [activeItem, setActiveItem] = useState("research");
+  const [activeItem, setActiveItem] = useState("");
   const { viewportHeight } = useViewport();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start center", "end end"],
+  });
+
+  // Entrance animations - complete when section top reaches header
+  const { scrollYProgress: entranceProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", `start ${SMALL_HEADER_HEIGHT}px`],
   });
 
   // Toggle accordion items based on scroll progress
@@ -147,31 +153,31 @@ export function FullStackUnicorn() {
   }
 
   // Left column slides in from left
-  const leftColumnX = useTransform(scrollYProgress, [0, 0.3], ["-100%", "0%"]);
+  const leftColumnX = useTransform(entranceProgress, [0, 1], ["-100%", "0%"]);
 
   // Right column and border slide in from right together
-  const rightColumnX = useTransform(scrollYProgress, [0, 0.3], ["100%", "0%"]);
+  const rightColumnX = useTransform(entranceProgress, [0, 1], ["100%", "0%"]);
 
   // Staggered text row animations for right column
-  const row1Opacity = useTransform(scrollYProgress, [0.08, 0.18], [0, 1]);
-  const row1Y = useTransform(scrollYProgress, [0.08, 0.18], [30, 0]);
+  const row1Opacity = useTransform(entranceProgress, [0.2, 0.5], [0, 1]);
+  const row1Y = useTransform(entranceProgress, [0.2, 0.5], [30, 0]);
 
-  const row2Opacity = useTransform(scrollYProgress, [0.12, 0.22], [0, 1]);
-  const row2Y = useTransform(scrollYProgress, [0.12, 0.22], [40, 0]);
+  const row2Opacity = useTransform(entranceProgress, [0.35, 0.65], [0, 1]);
+  const row2Y = useTransform(entranceProgress, [0.35, 0.65], [40, 0]);
 
-  const row3Opacity = useTransform(scrollYProgress, [0.16, 0.26], [0, 1]);
-  const row3Y = useTransform(scrollYProgress, [0.16, 0.26], [50, 0]);
+  const row3Opacity = useTransform(entranceProgress, [0.5, 0.8], [0, 1]);
+  const row3Y = useTransform(entranceProgress, [0.5, 0.8], [50, 0]);
 
-  const row4Opacity = useTransform(scrollYProgress, [0.2, 0.3], [0, 1]);
-  const row4Y = useTransform(scrollYProgress, [0.2, 0.3], [60, 0]);
+  const row4Opacity = useTransform(entranceProgress, [0.65, 0.95], [0, 1]);
+  const row4Y = useTransform(entranceProgress, [0.65, 0.95], [60, 0]);
 
-  // Two sections of scroll
-  const sectionHeight = viewportHeight * 2 - SMALL_HEADER_HEIGHT * 2;
+  // 2.5 sections of scroll
+  const sectionHeight = viewportHeight * 2.5 - SMALL_HEADER_HEIGHT * 2.5;
 
   return (
     <section
       ref={sectionRef}
-      className="relative border-b"
+      className="relative md:border-b"
       style={{ height: sectionHeight }}
     >
       {/* Sticky container that stays in view */}
@@ -227,7 +233,7 @@ export function FullStackUnicorn() {
 
         {/* Right column - Title with border sliding in from right */}
         <motion.div
-          className="flex items-start justify-center border-l p-6 md:items-center md:p-8 lg:p-12"
+          className="flex items-start justify-center overflow-hidden border-l p-6 md:items-center md:p-8 lg:p-12"
           style={{
             x: rightColumnX,
           }}

@@ -16,7 +16,7 @@ export default function Home() {
       <Separator />
       <FullStackUnicorn />
       <TheMinimalistSavant />
-      <Separator />
+      <Separator className="hidden md:block" />
       <TheThinker />
       <Separator />
       <TheRenaissanceTechnologist />
