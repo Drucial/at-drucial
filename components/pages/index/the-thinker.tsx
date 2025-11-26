@@ -53,11 +53,7 @@ export function TheThinker() {
   );
 
   // Mobile heading slides down from top
-  const mobileHeaderY = useTransform(
-    mobileProgress,
-    [0, 1],
-    ["-100%", "0%"]
-  );
+  const mobileHeaderY = useTransform(mobileProgress, [0, 1], ["-100%", "0%"]);
 
   // Stagger first 4 blog cards opacity, rest are always visible
   const cardOpacity0 = useTransform(
@@ -120,10 +116,10 @@ export function TheThinker() {
       style={{
         paddingTop: !isMobile ? paddingY : undefined,
         paddingBottom: !isMobile ? paddingY : undefined,
-        height: isMobile ? `calc(100svh - ${SMALL_HEADER_HEIGHT}px)` : undefined,
+        height: isMobile ? `calc(100vh - ${SMALL_HEADER_HEIGHT}px)` : undefined,
       }}
     >
-      <div className="border-border flex h-full flex-1 flex-col overflow-hidden border-t md:border-y md:h-auto">
+      <div className="border-border flex h-full flex-1 flex-col overflow-hidden border-t md:h-auto md:border-y">
         {/* Mobile heading - horizontal at top */}
         <motion.div
           className="border-border flex items-center justify-center border-b p-6 md:hidden"
