@@ -51,7 +51,7 @@ export function UiUxDesignerEngineer() {
   });
 
   // Horizontal parallax: moves right to left as section enters viewport
-  const x = useTransform(scrollYProgress, [0, 1], ["-10%", "-35%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["2%", "-20%"]);
 
   const { containerRef, registerLetter } = useVariableProximity<HTMLDivElement>(
     {

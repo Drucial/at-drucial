@@ -152,6 +152,19 @@ export function FullStackUnicorn() {
   // Right column and border slide in from right together
   const rightColumnX = useTransform(scrollYProgress, [0, 0.2], ["100%", "0%"]);
 
+  // Staggered text row animations for right column
+  const row1Opacity = useTransform(scrollYProgress, [0.05, 0.12], [0, 1]);
+  const row1Y = useTransform(scrollYProgress, [0.05, 0.12], [30, 0]);
+
+  const row2Opacity = useTransform(scrollYProgress, [0.08, 0.15], [0, 1]);
+  const row2Y = useTransform(scrollYProgress, [0.08, 0.15], [40, 0]);
+
+  const row3Opacity = useTransform(scrollYProgress, [0.11, 0.18], [0, 1]);
+  const row3Y = useTransform(scrollYProgress, [0.11, 0.18], [50, 0]);
+
+  const row4Opacity = useTransform(scrollYProgress, [0.14, 0.21], [0, 1]);
+  const row4Y = useTransform(scrollYProgress, [0.14, 0.21], [60, 0]);
+
   // Three sections of scroll
   const sectionHeight = viewportHeight * 3 - SMALL_HEADER_HEIGHT * 3;
 
@@ -220,12 +233,30 @@ export function FullStackUnicorn() {
           }}
         >
           <div className="font-teko text-border tracking-tightest flex flex-col font-black uppercase tabular-nums">
-            <span className="text-[9.5vw] leading-[7vw]">The</span>
-            <span className="text-[12.5vw] leading-[9vw]">Full-</span>
-            <span className="text-[12.5vw] leading-[9vw]">Stack</span>
-            <span className="text-accent text-[9.5vw] leading-[7vw]">
+            <motion.span
+              className="text-[9.5vw] leading-[7vw]"
+              style={{ opacity: row1Opacity, y: row1Y }}
+            >
+              The
+            </motion.span>
+            <motion.span
+              className="text-[12.5vw] leading-[9vw]"
+              style={{ opacity: row2Opacity, y: row2Y }}
+            >
+              Full-
+            </motion.span>
+            <motion.span
+              className="text-[12.5vw] leading-[9vw]"
+              style={{ opacity: row3Opacity, y: row3Y }}
+            >
+              Stack
+            </motion.span>
+            <motion.span
+              className="text-accent text-[9.5vw] leading-[7vw]"
+              style={{ opacity: row4Opacity, y: row4Y }}
+            >
               Unicorn
-            </span>
+            </motion.span>
           </div>
         </motion.div>
       </div>

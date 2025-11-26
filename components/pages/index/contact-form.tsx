@@ -1,7 +1,9 @@
 "use client";
 
+import { useRef } from "react";
+
 import type { MotionValue } from "motion/react";
-import { motion, useMotionValue, useTransform } from "motion/react";
+import { motion, useMotionValue, useScroll, useTransform } from "motion/react";
 
 import { CalendarGrid } from "@/components/ui/calendar-grid";
 import { FormInput } from "@/components/ui/form-input";
@@ -24,12 +26,14 @@ type ContactFormProps = {
   formData: ContactFormData;
   onFormDataChange: (data: Partial<ContactFormData>) => void;
   scrollYProgress?: MotionValue<number>;
+  isMobile?: boolean;
 };
 
 export function ContactForm({
   formData,
   onFormDataChange,
   scrollYProgress,
+  isMobile = false,
 }: ContactFormProps) {
   const {
     name,
@@ -40,49 +44,116 @@ export function ContactForm({
     message,
   } = formData;
 
+  // Refs for mobile element-based scroll tracking
+  const nameRef = useRef<HTMLDivElement>(null);
+  const emailRef = useRef<HTMLDivElement>(null);
+  const row2Ref = useRef<HTMLDivElement>(null);
+  const row3Ref = useRef<HTMLDivElement>(null);
+  const row4Ref = useRef<HTMLDivElement>(null);
+
   // Default motion value for when scrollYProgress isn't provided
   const defaultProgress = useMotionValue(1);
   const progress = scrollYProgress ?? defaultProgress;
 
-  // Staggered row animations with exponential Y offset
-  const row1Opacity = useTransform(progress, [0.15, 0.35], [0, 1]);
-  const row1Y = useTransform(progress, [0.15, 0.35], [80, 0]);
+  // Desktop: staggered field animations based on section scroll
+  // Note: form wrapper fades in at 0.4-0.8, so start after that
+  // Name & Email animate together (same row on desktop)
+  const nameOpacityDesktop = useTransform(progress, [0.45, 0.55], [0, 1]);
+  const nameYDesktop = useTransform(progress, [0.45, 0.55], [40, 0]);
 
-  const row2Opacity = useTransform(progress, [0.2, 0.4], [0, 1]);
-  const row2Y = useTransform(progress, [0.2, 0.4], [120, 0]);
+  const emailOpacityDesktop = useTransform(progress, [0.45, 0.55], [0, 1]);
+  const emailYDesktop = useTransform(progress, [0.45, 0.55], [40, 0]);
 
-  const row3Opacity = useTransform(progress, [0.25, 0.45], [0, 1]);
-  const row3Y = useTransform(progress, [0.25, 0.45], [160, 0]);
+  const row2OpacityDesktop = useTransform(progress, [0.55, 0.65], [0, 1]);
+  const row2YDesktop = useTransform(progress, [0.55, 0.65], [50, 0]);
 
-  const row4Opacity = useTransform(progress, [0.3, 0.5], [0, 1]);
-  const row4Y = useTransform(progress, [0.3, 0.5], [200, 0]);
+  const row3OpacityDesktop = useTransform(progress, [0.65, 0.75], [0, 1]);
+  const row3YDesktop = useTransform(progress, [0.65, 0.75], [60, 0]);
+
+  const row4OpacityDesktop = useTransform(progress, [0.75, 0.85], [0, 1]);
+  const row4YDesktop = useTransform(progress, [0.75, 0.85], [70, 0]);
+
+  // Mobile: element-based scroll tracking for each field (progressive stagger)
+  const { scrollYProgress: nameProgress } = useScroll({
+    target: nameRef,
+    offset: ["start end", "start 0.85"],
+  });
+  const nameOpacityMobile = useTransform(nameProgress, [0, 1], [0, 1]);
+  const nameYMobile = useTransform(nameProgress, [0, 1], [20, 0]);
+
+  const { scrollYProgress: emailProgress } = useScroll({
+    target: emailRef,
+    offset: ["start end", "start 0.8"],
+  });
+  const emailOpacityMobile = useTransform(emailProgress, [0, 1], [0, 1]);
+  const emailYMobile = useTransform(emailProgress, [0, 1], [25, 0]);
+
+  const { scrollYProgress: row2Progress } = useScroll({
+    target: row2Ref,
+    offset: ["start end", "start 0.75"],
+  });
+  const row2OpacityMobile = useTransform(row2Progress, [0, 1], [0, 1]);
+  const row2YMobile = useTransform(row2Progress, [0, 1], [30, 0]);
+
+  const { scrollYProgress: row3Progress } = useScroll({
+    target: row3Ref,
+    offset: ["start end", "start 0.65"],
+  });
+  const row3OpacityMobile = useTransform(row3Progress, [0, 1], [0, 1]);
+  const row3YMobile = useTransform(row3Progress, [0, 1], [35, 0]);
+
+  const { scrollYProgress: row4Progress } = useScroll({
+    target: row4Ref,
+    offset: ["start end", "start 0.55"],
+  });
+  const row4OpacityMobile = useTransform(row4Progress, [0, 1], [0, 1]);
+  const row4YMobile = useTransform(row4Progress, [0, 1], [40, 0]);
+
+  // Select mobile or desktop values
+  const nameOpacity = isMobile ? nameOpacityMobile : nameOpacityDesktop;
+  const nameY = isMobile ? nameYMobile : nameYDesktop;
+  const emailOpacity = isMobile ? emailOpacityMobile : emailOpacityDesktop;
+  const emailY = isMobile ? emailYMobile : emailYDesktop;
+  const row2Opacity = isMobile ? row2OpacityMobile : row2OpacityDesktop;
+  const row2Y = isMobile ? row2YMobile : row2YDesktop;
+  const row3Opacity = isMobile ? row3OpacityMobile : row3OpacityDesktop;
+  const row3Y = isMobile ? row3YMobile : row3YDesktop;
+  const row4Opacity = isMobile ? row4OpacityMobile : row4OpacityDesktop;
+  const row4Y = isMobile ? row4YMobile : row4YDesktop;
 
   return (
     <form className="space-y-8">
       {/* Name & Email row */}
-      <motion.div
-        className="grid gap-8 md:grid-cols-2 md:gap-0"
-        style={{ opacity: row1Opacity, y: row1Y }}
-      >
-        <FormInput
-          required
-          label="Name"
-          placeholder="Your name"
-          value={name}
-          onChange={(e) => onFormDataChange({ name: e.target.value })}
-        />
-        <FormInput
-          required
-          label="Email"
-          placeholder="your@email.com"
-          type="email"
-          value={email}
-          onChange={(e) => onFormDataChange({ email: e.target.value })}
-        />
-      </motion.div>
+      <div className="grid gap-8 md:grid-cols-2 md:gap-0">
+        <motion.div
+          ref={nameRef}
+          style={{ opacity: nameOpacity, y: nameY }}
+        >
+          <FormInput
+            required
+            label="Name"
+            placeholder="Your name"
+            value={name}
+            onChange={(e) => onFormDataChange({ name: e.target.value })}
+          />
+        </motion.div>
+        <motion.div
+          ref={emailRef}
+          style={{ opacity: emailOpacity, y: emailY }}
+        >
+          <FormInput
+            required
+            label="Email"
+            placeholder="your@email.com"
+            type="email"
+            value={email}
+            onChange={(e) => onFormDataChange({ email: e.target.value })}
+          />
+        </motion.div>
+      </div>
 
       {/* Project Type */}
-      <motion.div style={{ opacity: row2Opacity, y: row2Y }}>
+      <motion.div ref={row2Ref} style={{ opacity: row2Opacity, y: row2Y }}>
         <ProjectTypeSelector
           projectType={projectType}
           onSelectProjectType={(type) =>
@@ -93,6 +164,7 @@ export function ContactForm({
 
       {/* Date & Time row */}
       <motion.div
+        ref={row3Ref}
         className="grid gap-8 md:grid-cols-2"
         style={{ opacity: row3Opacity, y: row3Y }}
       >
@@ -110,7 +182,7 @@ export function ContactForm({
       </motion.div>
 
       {/* Message */}
-      <motion.div style={{ opacity: row4Opacity, y: row4Y }}>
+      <motion.div ref={row4Ref} style={{ opacity: row4Opacity, y: row4Y }}>
         <FormTextarea
           label="Message"
           placeholder="Tell me about your project..."

@@ -96,6 +96,7 @@ export function TheConnection() {
           >
             <ContactForm
               formData={formData}
+              isMobile={isMobile}
               scrollYProgress={scrollYProgress}
               onFormDataChange={handleFormDataChange}
             />

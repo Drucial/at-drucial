@@ -1,5 +1,7 @@
 "use client";
 
+import { useRef } from "react";
+
 import { motion, useScroll, useTransform } from "motion/react";
 
 import { HEADER_HEIGHT, SMALL_HEADER_HEIGHT } from "@/components/layout/header";
@@ -7,18 +9,36 @@ import { useViewport } from "@/components/providers/viewport-provider";
 import { Keyboard } from "@/components/svgs/keyboard";
 
 export function TheAlchemist() {
+  const sectionRef = useRef<HTMLElement>(null);
   const { viewportHeight, isMobile } = useViewport();
   const { scrollY } = useScroll();
+
+  // Track section scroll - complete when section bottom reaches header
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", `end ${SMALL_HEADER_HEIGHT}px`],
+  });
+
+  // Track from section bottom at viewport bottom to section bottom at header
+  const { scrollYProgress: subtitleProgress } = useScroll({
+    target: sectionRef,
+    offset: ["end end", `end ${SMALL_HEADER_HEIGHT}px`],
+  });
 
   // Parallax effect: keyboard moves up as you scroll down (opposite direction)
   const keyboardY = useTransform(scrollY, [0, 800], [0, -600]);
 
-  // Pseudo-sticky parallax for subtitle text (moves down at similar rate to keyboard)
-  const subtitleY = useTransform(scrollY, [0, 800], [0, 600]);
+  // Pseudo-sticky parallax for subtitle text (moves down to stay in frame longer)
+  const subtitleY = useTransform(subtitleProgress, [0, 1], [0, 600]);
+
+  // Main heading translates down and fades out on scroll
+  const headingY = useTransform(scrollYProgress, [0, 1], ["0%", "115%"]);
+  const headingOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
   return (
     <section
-      className="grid divide-x lg:grid-cols-[2fr_1fr]"
+      ref={sectionRef}
+      className="grid divide-x overflow-hidden lg:grid-cols-[2fr_1fr]"
       style={{
         height: isMobile
           ? viewportHeight - SMALL_HEADER_HEIGHT
@@ -41,8 +61,12 @@ export function TheAlchemist() {
           animate={{ opacity: 1, y: 0 }}
           className="mt-auto leading-[0.7] tracking-tighter"
           initial={{ opacity: 0, y: 80 }}
-          style={{ fontSize: "clamp(5.4rem, 16vw, 17rem)" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
+          style={{
+            fontSize: "clamp(5.4rem, 16vw, 17rem)",
+            translateY: headingY,
+            opacity: headingOpacity,
+          }}
         >
           The <br />
           Alchemist
