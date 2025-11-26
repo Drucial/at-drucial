@@ -177,9 +177,86 @@ export function FullStackUnicorn() {
       className="relative md:border-b"
       style={{ height: sectionHeight }}
     >
-      {/* Sticky container that stays in view */}
+      {/* Mobile: Heading scrolls away, accordion is sticky */}
+      {/* Desktop: Both columns sticky side-by-side */}
+
+      {/* Mobile heading - scrolls normally */}
+      <motion.div
+        className="flex items-center justify-center overflow-hidden border-l p-6 md:hidden"
+        style={{ x: rightColumnX }}
+      >
+        <div className="font-teko text-border tracking-tightest flex flex-col font-black uppercase tabular-nums">
+          <motion.span
+            className="text-[9.5vw] leading-[7vw]"
+            style={{ opacity: row1Opacity, y: row1Y }}
+          >
+            The
+          </motion.span>
+          <motion.span
+            className="text-[12.5vw] leading-[9vw]"
+            style={{ opacity: row2Opacity, y: row2Y }}
+          >
+            Full-
+          </motion.span>
+          <motion.span
+            className="text-[12.5vw] leading-[9vw]"
+            style={{ opacity: row3Opacity, y: row3Y }}
+          >
+            Stack
+          </motion.span>
+          <motion.span
+            className="text-accent text-[9.5vw] leading-[7vw]"
+            style={{ opacity: row4Opacity, y: row4Y }}
+          >
+            Unicorn
+          </motion.span>
+        </div>
+      </motion.div>
+
+      <Separator className="md:hidden" />
+
+      {/* Mobile accordion - sticky */}
+      <motion.div
+        className="bg-background sticky z-10 flex flex-col items-center justify-start border-r p-6 pb-20 md:hidden"
+        style={{
+          top: SMALL_HEADER_HEIGHT,
+          minHeight: `calc(100svh - ${SMALL_HEADER_HEIGHT}px)`,
+          x: leftColumnX,
+        }}
+      >
+        <Accordion
+          collapsible
+          className="w-full max-w-[65ch]"
+          type="single"
+          value={activeItem}
+          onValueChange={handleAccordionChange}
+        >
+          {accordionData.map((item, index) => (
+            <AnimatedAccordionItem
+              key={item.value}
+              index={index}
+              item={item}
+              scrollYProgress={scrollYProgress}
+            />
+          ))}
+        </Accordion>
+
+        {/* Progress indicator */}
+        <motion.div
+          className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-1"
+          style={{
+            opacity: useTransform(scrollYProgress, [0, 0.3], [0, 1]),
+          }}
+        >
+          {Array.from({ length: 10 }).map((_, i) => (
+            <ProgressBar key={i} index={i} scrollYProgress={scrollYProgress} />
+          ))}
+        </motion.div>
+      </motion.div>
+
+      {/* Desktop: Sticky container with both columns */}
       <div
-        className="border-border sticky flex flex-col-reverse overflow-hidden md:grid md:grid-cols-2"
+        className="border-border sticky hidden overflow-hidden md:grid md:grid-cols-2"
         style={{
           top: SMALL_HEADER_HEIGHT,
           height: `calc(100dvh - ${SMALL_HEADER_HEIGHT}px)`,
@@ -187,7 +264,7 @@ export function FullStackUnicorn() {
       >
         {/* Left column - Accordion */}
         <motion.div
-          className="relative flex flex-1 items-start justify-center overflow-hidden border-r p-6 md:flex-none md:items-center md:border-r-0 md:p-8 lg:p-12"
+          className="relative flex items-center justify-center overflow-hidden p-8 lg:p-12"
           style={{ x: leftColumnX }}
         >
           <Accordion
@@ -209,7 +286,7 @@ export function FullStackUnicorn() {
 
           {/* Progress indicator */}
           <motion.div
-            className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-1 md:bottom-24"
+            className="absolute bottom-24 left-1/2 flex -translate-x-1/2 gap-1"
             style={{
               opacity: useTransform(scrollYProgress, [0, 0.3], [0, 1]),
             }}
@@ -224,14 +301,10 @@ export function FullStackUnicorn() {
           </motion.div>
         </motion.div>
 
-        <Separator className="md:hidden" />
-
-        {/* Right column - Title with border sliding in from right */}
+        {/* Right column - Title */}
         <motion.div
-          className="flex items-start justify-center overflow-hidden border-l p-6 md:items-center md:p-8 lg:p-12"
-          style={{
-            x: rightColumnX,
-          }}
+          className="flex items-center justify-center overflow-hidden border-l p-8 lg:p-12"
+          style={{ x: rightColumnX }}
         >
           <div className="font-teko text-border tracking-tightest flex flex-col font-black uppercase tabular-nums">
             <motion.span

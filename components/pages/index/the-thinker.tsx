@@ -123,7 +123,7 @@ export function TheThinker() {
         height: isMobile ? `calc(100svh - ${SMALL_HEADER_HEIGHT}px)` : undefined,
       }}
     >
-      <div className="border-border flex h-full flex-1 flex-col overflow-hidden border-y md:h-auto">
+      <div className="border-border flex h-full flex-1 flex-col overflow-hidden border-t md:border-y md:h-auto">
         {/* Mobile heading - horizontal at top */}
         <motion.div
           className="border-border flex items-center justify-center border-b p-6 md:hidden"
