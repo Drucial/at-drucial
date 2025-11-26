@@ -27,24 +27,34 @@ export function TheConnection() {
     setFormData((prev) => ({ ...prev, ...data }));
   };
 
+  // Desktop: entrance based on section reaching top
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "start start"],
   });
 
+  // Mobile: entrance starts later (when section is 70% visible)
+  const { scrollYProgress: mobileEntranceProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "start 0.3"],
+  });
+
+  // Use mobile progress on mobile, desktop progress otherwise
+  const entranceProgress = isMobile ? mobileEntranceProgress : scrollYProgress;
+
   // Scroll animations - complete when section reaches top
-  // Preview slides in 100% from the right
+  // Preview slides in 100% from the right (desktop only)
   const rightOpacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
   const rightX = useTransform(scrollYProgress, [0, 0.5], ["100%", "0%"]);
 
   // Staggered entrance for left column elements with exponential Y parallax
   // Header - first to appear, smaller Y offset
-  const headerOpacity = useTransform(scrollYProgress, [0, 0.4], [0, 1]);
-  const headerY = useTransform(scrollYProgress, [0, 0.4], [60, 0]);
+  const headerOpacity = useTransform(entranceProgress, [0.3, 0.7], [0, 1]);
+  const headerY = useTransform(entranceProgress, [0.3, 0.7], [60, 0]);
 
   // Form - appears slightly later, larger Y offset (exponential feel)
-  const formOpacity = useTransform(scrollYProgress, [0.1, 0.5], [0, 1]);
-  const formY = useTransform(scrollYProgress, [0.1, 0.5], [150, 0]);
+  const formOpacity = useTransform(entranceProgress, [0.4, 0.8], [0, 1]);
+  const formY = useTransform(entranceProgress, [0.4, 0.8], [150, 0]);
 
   // Mobile-only: Email preview slides up and fades in (based on its own scroll position)
   const { scrollYProgress: previewProgress } = useScroll({

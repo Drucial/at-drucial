@@ -12,7 +12,7 @@ import { RollingText } from "@/components/ui/rolling-text";
 
 export function TheRenaissanceTechnologist() {
   const sectionRef = useRef<HTMLElement>(null);
-  const { viewportHeight } = useViewport();
+  const { viewportHeight, isMobile } = useViewport();
 
   // Entrance animations - complete when section reaches header
   const { scrollYProgress: entranceProgress } = useScroll({
@@ -47,7 +47,9 @@ export function TheRenaissanceTechnologist() {
     <section
       ref={sectionRef}
       className="relative grid grid-rows-[auto_1fr] divide-y overflow-hidden"
-      style={{ minHeight: viewportHeight - SMALL_HEADER_HEIGHT }}
+      style={{
+        minHeight: !isMobile ? viewportHeight - SMALL_HEADER_HEIGHT : undefined,
+      }}
     >
       {/* Heading + Description - overlapping image, pushed right */}
       <motion.div
