@@ -10,7 +10,7 @@ import { Keyboard } from "@/components/svgs/keyboard";
 
 export function TheAlchemist() {
   const sectionRef = useRef<HTMLElement>(null);
-  const { viewportHeight, isMobile } = useViewport();
+  const { isMobile } = useViewport();
   const { scrollY } = useScroll();
 
   // Track section scroll - complete when section bottom reaches header
@@ -38,11 +38,11 @@ export function TheAlchemist() {
   return (
     <section
       ref={sectionRef}
-      className="grid divide-x overflow-hidden lg:grid-cols-[2fr_1fr]"
+      className="grid overflow-hidden md:divide-x lg:grid-cols-[2fr_1fr]"
       style={{
         height: isMobile
-          ? viewportHeight - SMALL_HEADER_HEIGHT
-          : viewportHeight - HEADER_HEIGHT,
+          ? `calc(100svh - ${SMALL_HEADER_HEIGHT}px)`
+          : `calc(100svh - ${HEADER_HEIGHT}px)`,
       }}
     >
       {/* Heading Column */}

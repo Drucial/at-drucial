@@ -11,7 +11,6 @@ import {
 } from "motion/react";
 
 import { SMALL_HEADER_HEIGHT } from "@/components/layout/header";
-import { useViewport } from "@/components/providers/viewport-provider";
 import {
   Accordion,
   AccordionContent,
@@ -81,7 +80,7 @@ function AnimatedAccordionItem({
       <AccordionItem value={item.value}>
         <AccordionTrigger>{item.title}</AccordionTrigger>
         <AccordionContent>
-          <div className="space-y-4">
+          <div className="space-y-4 text-sm md:text-base">
             {item.content.map((paragraph, idx) => (
               <p key={idx}>{paragraph}</p>
             ))}
@@ -95,7 +94,6 @@ function AnimatedAccordionItem({
 export function FullStackUnicorn() {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeItem, setActiveItem] = useState("");
-  const { viewportHeight } = useViewport();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -172,7 +170,7 @@ export function FullStackUnicorn() {
   const row4Y = useTransform(entranceProgress, [0.65, 0.95], [60, 0]);
 
   // 2.5 sections of scroll
-  const sectionHeight = viewportHeight * 2.5 - SMALL_HEADER_HEIGHT * 2.5;
+  const sectionHeight = `calc(250svh - ${SMALL_HEADER_HEIGHT * 2.5}px)`;
 
   return (
     <section
@@ -185,7 +183,7 @@ export function FullStackUnicorn() {
         className="border-border sticky flex flex-col-reverse overflow-hidden md:grid md:grid-cols-2"
         style={{
           top: SMALL_HEADER_HEIGHT,
-          height: viewportHeight - SMALL_HEADER_HEIGHT,
+          height: `calc(100dvh - ${SMALL_HEADER_HEIGHT}px)`,
         }}
       >
         {/* Left column - Accordion */}
@@ -209,8 +207,6 @@ export function FullStackUnicorn() {
               />
             ))}
           </Accordion>
-
-          <Separator className="absolute bottom-16 left-0 w-full md:hidden" />
 
           {/* Progress indicator */}
           <motion.div

@@ -127,7 +127,7 @@ function AnimatedLetter({
 
 export function TheMinimalistSavant() {
   const sectionRef = useRef<HTMLElement>(null);
-  const { viewportHeight, isMobile } = useViewport();
+  const { isMobile } = useViewport();
 
   // Scroll progress for this section
   const { scrollYProgress } = useScroll({
@@ -146,7 +146,7 @@ export function TheMinimalistSavant() {
     <section
       ref={sectionRef}
       className="bg-background text-foreground relative grid grid-cols-12 gap-x-8 overflow-hidden px-6 md:px-8 lg:gap-x-12 lg:px-12"
-      style={{ minHeight: viewportHeight - SMALL_HEADER_HEIGHT }}
+      style={{ minHeight: `calc(100svh - ${SMALL_HEADER_HEIGHT}px)` }}
     >
       {/* Left column - Heading with letter animations */}
       <div className="col-span-12 flex items-center py-24 pr-8 md:col-span-5 md:py-32 lg:py-40">

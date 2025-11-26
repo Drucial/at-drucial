@@ -7,7 +7,7 @@ import { NAV_LINKS } from "./nav-links";
 
 export function Nav() {
   return (
-    <nav className="flex h-full items-center divide-x border-l">
+    <nav className="flex h-full items-center divide-x">
       {NAV_LINKS.map((link) => (
         <NavLink key={link.href} {...link} />
       ))}

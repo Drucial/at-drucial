@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning lang="en">
-      <body className="border antialiased">
+      <body className="antialiased">
         <ViewportProvider>
           <ThemeProvider
             disableTransitionOnChange
