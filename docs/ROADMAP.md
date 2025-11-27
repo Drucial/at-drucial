@@ -11,7 +11,10 @@ The homepage has several sections implemented with scroll-based animations. Core
 - [x] Hero - The Alchemist
 - [x] Full Stack Unicorn
 - [x] The Minimalist Savant
-- [x] UI/UX Designer Engineer (needs review)
+- [x] UI/UX Designer Engineer
+- [x] The Perpetual Thinker (Blog)
+- [x] The Renaissance Technologist (Profile)
+- [x] The Connection (Contact/Appointment)
 
 ---
 
@@ -19,8 +22,8 @@ The homepage has several sections implemented with scroll-based animations. Core
 
 ### Code Review & Polish
 
-- [ ] Review The Minimalist Savant section
-- [ ] Review The Thinker section (blog)
+- [x] Review The Minimalist Savant section
+- [x] Review The Thinker section (blog)
 - [ ] Code cleanup and optimization
 - [ ] Animation timing consistency
 
@@ -50,21 +53,23 @@ The homepage has several sections implemented with scroll-based animations. Core
 - [x] Slide navigation between posts
 - [x] Direct URL support with fallback animations
 
+### Profile Section - "The Renaissance Technologist"
+
+- [x] Component scaffold
+- [x] Content and data
+- [x] Scroll animations
+- [x] Scroll-based fade out animations
+- [x] Parallax scroll effect for content
+
+### Contact Section - "The Connection"
+
+- [x] Component scaffold
+- [x] Appointment/contact form with live preview
+- [x] Scroll animations
+
 ---
 
 ## Remaining Sections
-
-### Profile Section - "The Renaissance Technologist"
-
-- [ ] Component scaffold
-- [ ] Content and data
-- [ ] Scroll animations
-
-### Contact Section - "The Shop-Talker"
-
-- [ ] Component scaffold
-- [ ] Appointment scheduler integration
-- [ ] Scroll animations
 
 ### Previous Work / Logos (TBD)
 

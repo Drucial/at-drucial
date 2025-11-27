@@ -1,5 +1,6 @@
 "use client";
 
+import type { KeyboardEvent } from "react";
 import { useRef } from "react";
 
 import type { BlogPost } from "@/data/blog-posts";
@@ -20,11 +21,21 @@ export function BlogCard({ post, index, onClick }: BlogCardProps) {
     }
   }
 
+  function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      handleClick();
+    }
+  }
+
   return (
     <div
       ref={cardRef}
-      className="group hover:bg-muted/50 flex h-full cursor-pointer flex-col p-8 transition-colors"
+      className="group hover:bg-muted/50 focus-visible:ring-ring flex h-full cursor-pointer flex-col p-8 transition-colors focus-visible:ring-2 focus-visible:outline-none"
+      role="button"
+      tabIndex={0}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
     >
       {/* Image placeholder - flexible height on mobile, 3:2 on desktop */}
       <div className="bg-muted w-full flex-1 overflow-hidden md:aspect-[3/2] md:flex-none">

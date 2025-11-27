@@ -4,7 +4,13 @@ import React from "react";
 
 const MOBILE_BREAKPOINT = 768; // md breakpoint
 
-const ViewportContext = React.createContext({
+type ViewportContextType = {
+  viewportWidth: number;
+  viewportHeight: number;
+  isMobile: boolean;
+};
+
+const ViewportContext = React.createContext<ViewportContextType>({
   viewportWidth: 0,
   viewportHeight: 0,
   isMobile: false,
@@ -41,6 +47,6 @@ export function ViewportProvider({ children }: React.PropsWithChildren) {
   );
 }
 
-const useViewport = () => React.useContext(ViewportContext);
-
-export { useViewport };
+export function useViewport(): ViewportContextType {
+  return React.useContext(ViewportContext);
+}
