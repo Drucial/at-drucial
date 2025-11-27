@@ -11,7 +11,7 @@ export function ProjectTypeSelector({
 }) {
   return (
     <div className="border">
-      <div className="text-muted-foreground border-b px-4 py-2 text-xs uppercase tracking-widest">
+      <div className="text-muted-foreground border-b px-4 py-2 text-xs tracking-widest uppercase">
         Project Type
       </div>
       <div className="flex md:grid md:grid-cols-4">

@@ -85,12 +85,7 @@ type TimeDrivenCharProps = {
   delay: number;
 };
 
-function TimeDrivenChar({
-  char,
-  index,
-  isInView,
-  delay,
-}: TimeDrivenCharProps) {
+function TimeDrivenChar({ char, index, isInView, delay }: TimeDrivenCharProps) {
   return (
     <span
       aria-hidden="true"

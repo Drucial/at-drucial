@@ -26,7 +26,7 @@ export function CalendarGrid({
 
   return (
     <div className="border-border border">
-      <div className="border-border flex items-stretch border-b text-xs uppercase tracking-widest">
+      <div className="border-border flex items-stretch border-b text-xs tracking-widest uppercase">
         <span className="text-muted-foreground flex-1 px-4 py-2">
           Select Date
         </span>

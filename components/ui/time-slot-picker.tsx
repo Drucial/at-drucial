@@ -20,7 +20,7 @@ export function TimeSlotPicker({
 }) {
   return (
     <div className="border-border self-start border-t border-r border-l">
-      <div className="border-border text-muted-foreground border-b px-4 py-2 text-xs uppercase tracking-widest">
+      <div className="border-border text-muted-foreground border-b px-4 py-2 text-xs tracking-widest uppercase">
         Select Time
       </div>
       <div className="grid grid-cols-2">

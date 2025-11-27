@@ -15,7 +15,7 @@ export function FormInput({
 }) {
   return (
     <div className="border-border flex flex-col border">
-      <label className="border-border text-muted-foreground border-b px-4 py-2 text-xs uppercase tracking-widest">
+      <label className="border-border text-muted-foreground border-b px-4 py-2 text-xs tracking-widest uppercase">
         {label}
       </label>
       <input

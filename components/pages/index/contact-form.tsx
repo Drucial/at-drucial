@@ -35,14 +35,8 @@ export function ContactForm({
   scrollYProgress,
   isMobile = false,
 }: ContactFormProps) {
-  const {
-    name,
-    email,
-    projectType,
-    selectedDate,
-    selectedTime,
-    message,
-  } = formData;
+  const { name, email, projectType, selectedDate, selectedTime, message } =
+    formData;
 
   // Refs for mobile element-based scroll tracking
   const nameRef = useRef<HTMLDivElement>(null);
@@ -125,10 +119,7 @@ export function ContactForm({
     <form className="space-y-8">
       {/* Name & Email row */}
       <div className="grid gap-8 md:grid-cols-2 md:gap-0">
-        <motion.div
-          ref={nameRef}
-          style={{ opacity: nameOpacity, y: nameY }}
-        >
+        <motion.div ref={nameRef} style={{ opacity: nameOpacity, y: nameY }}>
           <FormInput
             required
             label="Name"
@@ -137,10 +128,7 @@ export function ContactForm({
             onChange={(e) => onFormDataChange({ name: e.target.value })}
           />
         </motion.div>
-        <motion.div
-          ref={emailRef}
-          style={{ opacity: emailOpacity, y: emailY }}
-        >
+        <motion.div ref={emailRef} style={{ opacity: emailOpacity, y: emailY }}>
           <FormInput
             required
             label="Email"
