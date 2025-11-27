@@ -112,7 +112,7 @@ export function TheThinker() {
   return (
     <motion.section
       ref={sectionRef}
-      className="border-border relative flex flex-col justify-center"
+      className="relative flex flex-col justify-center border-x"
       style={{
         paddingTop: !isMobile ? paddingY : undefined,
         paddingBottom: !isMobile ? paddingY : undefined,
@@ -126,10 +126,10 @@ export function TheThinker() {
           style={{ y: mobileHeaderY }}
         >
           <div className="relative">
-            <span className="font-teko text-muted-foreground text-8xl leading-none font-bold uppercase">
+            <span className="font-teko text-foreground text-8xl leading-none font-bold uppercase">
               Thinker
             </span>
-            <span className="font-teko text-muted-foreground absolute -top-2.5 left-1.5 text-lg font-black tracking-widest uppercase">
+            <span className="font-teko text-foreground absolute -top-2.5 left-1.5 text-lg font-black tracking-widest uppercase">
               The
             </span>
           </div>
@@ -166,7 +166,7 @@ export function TheThinker() {
           {/* Blog posts - horizontal scroll with snap */}
           <div
             ref={scrollContainerRef}
-            className="flex flex-1 snap-x snap-mandatory divide-x overflow-x-auto md:flex-none"
+            className="flex flex-1 snap-x snap-mandatory overflow-x-auto md:flex-none md:divide-x"
           >
             {blogPosts.map((post, index) => (
               <motion.div

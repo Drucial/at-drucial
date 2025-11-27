@@ -27,7 +27,7 @@ export function Header() {
   return (
     <motion.header
       animate={{ opacity: 1, y: 0 }}
-      className="bg-background sticky top-0 z-50 flex w-screen items-center justify-between overflow-hidden border-y pl-4 md:pl-6"
+      className="bg-background sticky top-0 z-50 flex w-screen items-center justify-between overflow-hidden border-x border-y pl-4 md:pl-6"
       initial={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       style={{

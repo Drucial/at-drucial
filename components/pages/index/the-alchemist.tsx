@@ -32,7 +32,7 @@ export function TheAlchemist() {
   return (
     <section
       ref={sectionRef}
-      className="grid overflow-hidden md:divide-x lg:grid-cols-[2fr_1fr]"
+      className="grid overflow-hidden border-x md:divide-x lg:grid-cols-[2fr_1fr]"
       style={{
         height: isMobile
           ? `calc(100svh - ${SMALL_HEADER_HEIGHT}px)`

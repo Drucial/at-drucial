@@ -56,14 +56,16 @@ export function TheRenaissanceTechnologist() {
   return (
     <section
       ref={sectionRef}
-      className="relative grid grid-rows-[auto_1fr] divide-y overflow-hidden"
+      className="relative grid grid-rows-[auto_1fr] divide-y overflow-hidden md:border-x"
       style={{
-        minHeight: !isMobile ? `calc(100svh - ${SMALL_HEADER_HEIGHT}px)` : undefined,
+        minHeight: !isMobile
+          ? `calc(100svh - ${SMALL_HEADER_HEIGHT}px)`
+          : undefined,
       }}
     >
       {/* Heading + Description - overlapping image, pushed right */}
       <motion.div
-        className="grid grid-cols-[1fr_5fr] md:grid-cols-[1fr_2fr]"
+        className="grid grid-cols-[1fr_5fr] border-x md:grid-cols-[1fr_2fr] md:border-x-0"
         style={{ opacity: textOpacity }}
       >
         <motion.div className="overflow-hidden" style={{ x: leftColumnX }}>

@@ -174,7 +174,7 @@ export function FullStackUnicorn() {
   return (
     <section
       ref={sectionRef}
-      className="relative md:border-b"
+      className="relative md:border-x md:border-b"
       style={{ height: sectionHeight }}
     >
       {/* Mobile: Heading scrolls away, accordion is sticky */}
@@ -182,7 +182,7 @@ export function FullStackUnicorn() {
 
       {/* Mobile heading - scrolls normally */}
       <motion.div
-        className="flex items-center justify-center overflow-hidden border-l p-6 md:hidden"
+        className="flex items-center justify-center overflow-hidden border-r border-l p-6 md:hidden md:border-r-0"
         style={{ x: rightColumnX }}
       >
         <div className="font-teko text-foreground/50 tracking-tightest flex flex-col font-black uppercase tabular-nums">
@@ -217,7 +217,7 @@ export function FullStackUnicorn() {
 
       {/* Mobile accordion - sticky */}
       <motion.div
-        className="bg-background sticky z-10 flex flex-col items-center justify-start border-r p-6 pb-20 md:hidden"
+        className="bg-background sticky z-10 flex flex-col items-center justify-start border-r border-l p-6 pb-20 md:hidden md:border-l-0"
         style={{
           top: SMALL_HEADER_HEIGHT,
           minHeight: `calc(100svh - ${SMALL_HEADER_HEIGHT}px)`,

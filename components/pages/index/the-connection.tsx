@@ -73,7 +73,7 @@ export function TheConnection() {
   const footerY = useTransform(footerProgress, [0, 0.5], [40, 0]);
 
   return (
-    <section ref={sectionRef} className="overflow-hidden">
+    <section ref={sectionRef} className="overflow-hidden border-x">
       <div className="relative md:grid md:grid-cols-[2fr_1fr] lg:grid-cols-[4fr_3fr]">
         {/* Left column - Form */}
         <div className="border-border flex flex-col gap-6 p-6 md:justify-center md:border-r-0 md:p-8">
@@ -106,7 +106,7 @@ export function TheConnection() {
         {/* Right column - Live message preview */}
         <motion.div
           ref={previewRef}
-          className="flex border-t border-l md:border-t-0"
+          className="flex border-t md:border-t-0 md:border-l"
           style={{
             opacity: isMobile ? previewOpacity : rightOpacity,
             x: isMobile ? undefined : rightX,

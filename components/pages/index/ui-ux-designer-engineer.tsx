@@ -66,7 +66,7 @@ export function UiUxDesignerEngineer() {
   return (
     <section
       ref={sectionRef}
-      className="flex items-center overflow-hidden p-6 md:p-8"
+      className="flex items-center overflow-hidden border-x p-6 md:p-8"
     >
       <motion.div
         ref={containerRef}

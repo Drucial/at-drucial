@@ -139,13 +139,12 @@ export function TheMinimalistSavant() {
   const quoteTranslateX = useTransform(scrollYProgress, [0.25, 0.45], [100, 0]);
   const quoteOpacity = useTransform(scrollYProgress, [0.25, 0.4], [0, 1]);
 
-
   if (isMobile) return;
 
   return (
     <section
       ref={sectionRef}
-      className="bg-background text-foreground relative grid grid-cols-12 gap-x-8 overflow-hidden px-6 md:px-8 lg:gap-x-12 lg:px-12"
+      className="bg-background text-foreground relative grid grid-cols-12 gap-x-8 overflow-hidden border-x px-6 md:px-8 lg:gap-x-12 lg:px-12"
       style={{ minHeight: `calc(100svh - ${SMALL_HEADER_HEIGHT}px)` }}
     >
       {/* Left column - Heading with letter animations */}
