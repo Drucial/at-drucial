@@ -5,6 +5,7 @@ import {
   CVProjects,
   CVSkills,
 } from "@/components/pages/cv";
+import { TheConnection } from "@/components/pages/index";
 import { Separator } from "@/components/ui/separator";
 
 export default function CVPage() {
@@ -19,6 +20,8 @@ export default function CVPage() {
       <CVSkills />
       <Separator />
       <CVEducation />
+      <Separator />
+      <TheConnection heading="Communication" />
     </main>
   );
 }

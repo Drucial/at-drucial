@@ -13,21 +13,24 @@ export function CVSkills() {
   return (
     <section className="border-x">
       {/* Header */}
-      <div className="border-b px-6 py-4 md:px-8 lg:px-12">
-        <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+      <div className="border-b px-6 py-6 md:px-8 md:py-8 lg:px-12">
+        <h2
+          className="font-bold tracking-tight"
+          style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)" }}
+        >
           Skills
         </h2>
       </div>
 
       {/* Skills Grid */}
-      <div className="grid divide-y md:grid-cols-2 md:divide-y-0 lg:grid-cols-4 lg:divide-x">
+      <div className="grid divide-y md:grid-cols-2 md:divide-y-0 lg:grid-cols-4">
         {resume.skills.map((category, index) => {
           const Icon = skillIcons[category.icon] || WrenchIcon;
 
           return (
             <div
               key={category.name}
-              className={`p-6 md:p-8 lg:p-12 ${index < 2 ? "md:border-b lg:border-b-0" : ""} ${index % 2 === 0 ? "md:border-r lg:border-r-0" : ""}`}
+              className={`p-6 md:p-8 lg:p-12 ${index < 2 ? "md:border-b lg:border-b-0" : ""} ${index % 2 === 0 ? "md:border-r lg:border-r-0" : ""} ${index > 0 ? "lg:border-l" : ""}`}
             >
               <div className="mb-4 flex items-center gap-3">
                 <Icon className="text-muted-foreground size-5" />

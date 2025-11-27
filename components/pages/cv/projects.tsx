@@ -4,8 +4,11 @@ export function CVProjects() {
   return (
     <section className="border-x">
       {/* Header */}
-      <div className="flex items-baseline justify-between border-b px-6 py-4 md:px-8 lg:px-12">
-        <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+      <div className="flex items-baseline justify-between border-b px-6 py-6 md:px-8 md:py-8 lg:px-12">
+        <h2
+          className="font-bold tracking-tight"
+          style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)" }}
+        >
           Projects
         </h2>
         <span className="text-muted-foreground font-mono text-sm">

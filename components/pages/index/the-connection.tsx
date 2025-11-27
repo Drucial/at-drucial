@@ -8,7 +8,13 @@ import { ContactForm, EmailPreview } from "@/components/pages/index";
 import type { ContactFormData } from "@/components/pages/index/contact-form";
 import { useViewport } from "@/components/providers/viewport-provider";
 
-export function TheConnection() {
+type TheConnectionProps = {
+  heading?: string;
+};
+
+export function TheConnection({
+  heading = "The Conversation",
+}: TheConnectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLDivElement>(null);
@@ -79,13 +85,13 @@ export function TheConnection() {
         <div className="border-border flex flex-col gap-6 p-6 md:justify-center md:border-r-0 md:p-8">
           {/* Header */}
           <motion.h3
-            className="text-[clamp(4rem,7vw,8rem)] leading-12 font-bold tracking-tight lg:leading-24"
+            className="text-[clamp(2.5rem,10vw,8rem)] font-bold leading-none tracking-tight"
             style={{
               opacity: headerOpacity,
               y: headerY,
             }}
           >
-            The Conversation
+            {heading}
           </motion.h3>
 
           <motion.div

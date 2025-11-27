@@ -5,7 +5,10 @@ export function CVEducation() {
     <section className="grid border-x md:grid-cols-[1fr_2fr] md:divide-x">
       {/* Left - Label */}
       <div className="border-b p-6 md:border-b-0 md:p-8 lg:p-12">
-        <h2 className="text-muted-foreground text-3xl font-bold tracking-tight md:text-4xl">
+        <h2
+          className="text-muted-foreground font-bold tracking-tight"
+          style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)" }}
+        >
           Education
         </h2>
       </div>
