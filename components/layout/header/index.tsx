@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { motion, useScroll, useTransform } from "motion/react";
 
 import { useViewport } from "@/components/providers/viewport-provider";
@@ -34,7 +36,10 @@ export function Header() {
         height: isMobile ? SMALL_HEADER_HEIGHT : headerHeight,
       }}
     >
-      <Logo />
+      <Link href="/">
+        <Logo />
+        <span className="sr-only">Home</span>
+      </Link>
       <Separator className="ml-auto h-full w-px" orientation="vertical" />
       <Nav />
     </motion.header>

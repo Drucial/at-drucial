@@ -14,29 +14,21 @@ export type NavLinkProps = {
   Icon: LucideIcon;
   label: string;
   href: string;
+  external?: boolean;
 };
 
-export function NavLink({ Icon, label, href }: NavLinkProps) {
+export function NavLink({ Icon, label, href, external }: NavLinkProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   const { ref, bgX, bgY, handlers } = useDirectionalHover<HTMLAnchorElement>();
   const { icon1Controls, icon2Controls, icon1Initial, icon2Initial } =
     useIconFlip(!isHovered);
 
-  return (
-    <Link
-      ref={ref}
-      className="relative flex aspect-square h-full shrink-0 items-center justify-center overflow-hidden"
-      href={href}
-      onMouseEnter={(e) => {
-        setIsHovered(true);
-        handlers.onMouseEnter(e);
-      }}
-      onMouseLeave={(e) => {
-        setIsHovered(false);
-        handlers.onMouseLeave(e);
-      }}
-    >
+  const className =
+    "relative flex aspect-square h-full shrink-0 items-center justify-center overflow-hidden";
+
+  const content = (
+    <>
       <motion.div
         className="bg-muted absolute inset-0"
         style={{ translateX: bgX, translateY: bgY }}
@@ -61,6 +53,45 @@ export function NavLink({ Icon, label, href }: NavLinkProps) {
         </motion.div>
       </div>
       <span className="sr-only">{label}</span>
+    </>
+  );
+
+  const mouseHandlers = {
+    onMouseEnter: (e: React.MouseEvent<HTMLAnchorElement>) => {
+      setIsHovered(true);
+      handlers.onMouseEnter(e);
+    },
+    onMouseLeave: (e: React.MouseEvent<HTMLAnchorElement>) => {
+      setIsHovered(false);
+      handlers.onMouseLeave(e);
+    },
+  };
+
+  if (external) {
+    return (
+      <a
+        ref={ref}
+        className={className}
+        href={href}
+        rel="noopener noreferrer"
+        target="_blank"
+        onMouseEnter={mouseHandlers.onMouseEnter}
+        onMouseLeave={mouseHandlers.onMouseLeave}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <Link
+      ref={ref}
+      className={className}
+      href={href}
+      onMouseEnter={mouseHandlers.onMouseEnter}
+      onMouseLeave={mouseHandlers.onMouseLeave}
+    >
+      {content}
     </Link>
   );
 }
