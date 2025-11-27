@@ -166,7 +166,7 @@ export function TheThinker() {
           {/* Blog posts - horizontal scroll with snap */}
           <div
             ref={scrollContainerRef}
-            className="flex flex-1 snap-x snap-mandatory overflow-x-auto md:flex-none md:divide-x"
+            className="flex min-w-0 flex-1 snap-x snap-mandatory overflow-x-auto md:divide-x"
           >
             {blogPosts.map((post, index) => (
               <motion.div
