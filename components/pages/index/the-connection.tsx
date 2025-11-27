@@ -85,7 +85,7 @@ export function TheConnection({
         <div className="border-border flex flex-col gap-6 p-6 md:justify-center md:border-r-0 md:p-8">
           {/* Header */}
           <motion.h3
-            className="text-[clamp(2.5rem,10vw,8rem)] font-bold leading-none tracking-tight"
+            className="text-[clamp(2.5rem,10vw,8rem)] leading-none font-bold tracking-tight"
             style={{
               opacity: headerOpacity,
               y: headerY,
