@@ -20,24 +20,29 @@ export function ContactSuccess({ name, onReset }: ContactSuccessProps) {
     >
       {/* Mobile Layout */}
       <div className="flex flex-1 flex-col md:hidden">
-        {/* Left - Celebratory Typography */}
+        {/* Eyebrow section */}
+        <motion.div
+          animate={{ opacity: 1, y: 0 }}
+          className="border-border border-b px-6 py-4"
+          initial={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          <span className="text-muted-foreground font-mono text-xs tracking-widest uppercase">
+            Consider yourself heard
+          </span>
+        </motion.div>
+
+        {/* Message Received */}
         <div className="flex flex-1 flex-col justify-center p-6">
-          {/* Staggered word reveal */}
           <div className="-space-y-2">
             <motion.div
               animate={{ opacity: 1, x: 0 }}
               className="overflow-hidden"
               initial={{ opacity: 0, x: -40 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <span
-                className="text-muted-foreground block font-mono text-xs tracking-widest uppercase"
-                style={{ marginBottom: "0.5rem" }}
-              >
-                Consider yourself heard
-              </span>
               <h2
-                className="text-foreground/50 leading-[0.85] tracking-tighter"
+                className="text-foreground leading-[0.85] tracking-tighter"
                 style={{ fontSize: "clamp(4rem, 18vw, 6rem)" }}
               >
                 Message
@@ -48,10 +53,10 @@ export function ContactSuccess({ name, onReset }: ContactSuccessProps) {
               animate={{ opacity: 1, x: 0 }}
               className="overflow-hidden"
               initial={{ opacity: 0, x: -40 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
             >
               <h2
-                className="text-foreground/50 leading-[0.85] tracking-tighter"
+                className="text-foreground leading-[0.85] tracking-tighter"
                 style={{ fontSize: "clamp(4rem, 18vw, 6rem)" }}
               >
                 Received
@@ -65,7 +70,7 @@ export function ContactSuccess({ name, onReset }: ContactSuccessProps) {
           animate={{ opacity: 1, y: 0 }}
           className="border-t p-6"
           initial={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
         >
           <p className="text-muted-foreground mb-4 text-sm">
             Thanks{name ? `, ${name}` : ""}! I&apos;ll be in touch within 24
@@ -82,70 +87,85 @@ export function ContactSuccess({ name, onReset }: ContactSuccessProps) {
       </div>
 
       {/* Desktop Layout */}
-      <div className="hidden flex-1 md:grid md:grid-cols-[4fr_3fr] md:divide-x lg:grid-cols-[4fr_3fr]">
-        {/* Left - Celebratory Typography */}
-        <div className="flex flex-col justify-center p-8 lg:p-12">
-          {/* Staggered word reveal with dynamic sizing */}
-          <div className="-space-y-3">
-            <motion.div
-              animate={{ opacity: 1, x: 0 }}
-              className="overflow-hidden"
-              initial={{ opacity: 0, x: -60 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <span className="text-muted-foreground mb-2 block font-mono text-sm tracking-widest uppercase">
-                Consider yourself heard
-              </span>
-              <h2
-                className="text-foreground/50 leading-[0.85] tracking-tighter"
-                style={{ fontSize: "clamp(5rem, 12vw, 10rem)" }}
-              >
-                Message
-              </h2>
-            </motion.div>
+      <div className="hidden flex-1 md:grid md:grid-cols-[4fr_3fr] lg:grid-cols-[4fr_3fr]">
+        {/* Left Column */}
+        <div className="border-border flex flex-col border-r">
+          {/* Eyebrow section */}
+          <motion.div
+            animate={{ opacity: 1, y: 0 }}
+            className="border-border border-b px-8 py-4 lg:px-12"
+            initial={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <span className="text-muted-foreground font-mono text-sm tracking-widest uppercase">
+              Consider yourself heard
+            </span>
+          </motion.div>
 
-            <motion.div
-              animate={{ opacity: 1, x: 0 }}
-              className="overflow-hidden"
-              initial={{ opacity: 0, x: -60 }}
-              transition={{ duration: 0.6, delay: 0.25 }}
-            >
-              <h2
-                className="text-foreground/50 leading-[0.85] tracking-tighter"
-                style={{ fontSize: "clamp(5rem, 12vw, 10rem)" }}
+          {/* Message Received */}
+          <div className="flex flex-1 flex-col justify-center p-8 lg:p-12">
+            <div className="-space-y-3">
+              <motion.div
+                animate={{ opacity: 1, x: 0 }}
+                className="overflow-hidden"
+                initial={{ opacity: 0, x: -60 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
               >
-                Received
-              </h2>
-            </motion.div>
+                <h2
+                  className="text-foreground leading-[0.85] tracking-tighter"
+                  style={{ fontSize: "clamp(5rem, 12vw, 10rem)" }}
+                >
+                  Message
+                </h2>
+              </motion.div>
+
+              <motion.div
+                animate={{ opacity: 1, x: 0 }}
+                className="overflow-hidden"
+                initial={{ opacity: 0, x: -60 }}
+                transition={{ duration: 0.6, delay: 0.35 }}
+              >
+                <h2
+                  className="text-foreground leading-[0.85] tracking-tighter"
+                  style={{ fontSize: "clamp(5rem, 12vw, 10rem)" }}
+                >
+                  Received
+                </h2>
+              </motion.div>
+            </div>
           </div>
         </div>
 
-        {/* Right - Confirmation */}
-        <div className="flex flex-col justify-between p-8 lg:p-12">
-          <motion.div
-            animate={{ opacity: 1, x: 0 }}
-            className="max-w-md"
-            initial={{ opacity: 0, x: 40 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <p className="text-muted-foreground text-lg leading-relaxed md:text-xl">
-              Thanks{name ? `, ${name}` : ""}! Your message is already making
-              its way to my inbox.
-            </p>
-            <p className="text-muted-foreground mt-6">
-              I&apos;ll get back to you within 24 hours. In the meantime,
-              you&apos;ll find a confirmation waiting in your inbox.
-            </p>
-          </motion.div>
+        {/* Right Column */}
+        <div className="flex flex-col">
+          {/* Confirmation text */}
+          <div className="flex flex-1 flex-col p-8 lg:p-12">
+            <motion.div
+              animate={{ opacity: 1, x: 0 }}
+              className="max-w-md"
+              initial={{ opacity: 0, x: 40 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <p className="text-muted-foreground text-lg leading-relaxed md:text-xl">
+                Thanks{name ? `, ${name}` : ""}! Your message is already making
+                its way to my inbox.
+              </p>
+              <p className="text-muted-foreground mt-6">
+                I&apos;ll get back to you within 24 hours. In the meantime,
+                you&apos;ll find a confirmation waiting in your inbox.
+              </p>
+            </motion.div>
+          </div>
 
+          {/* Reset button section */}
           <motion.div
             animate={{ opacity: 1, y: 0 }}
-            className="pt-6"
+            className="border-border border-t"
             initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
           >
             <button
-              className="text-muted-foreground hover:text-foreground font-mono text-sm transition-colors"
+              className="text-muted-foreground hover:bg-muted hover:text-foreground w-full px-8 py-4 text-left font-mono text-sm tracking-widest uppercase transition-colors lg:px-12"
               type="button"
               onClick={onReset}
             >
