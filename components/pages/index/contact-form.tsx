@@ -207,6 +207,7 @@ export function ContactForm({
           name="selectedTime"
           render={({ field }) => (
             <TimeSlotPicker
+              disabled={!formData.selectedDate}
               selectedTime={field.value as TimeSlot | null}
               onSelectTime={(time) => {
                 field.onChange(time);

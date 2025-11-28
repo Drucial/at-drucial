@@ -5,7 +5,11 @@ import { useRef, useState, useTransition } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 
 import { sendContactEmail } from "@/actions/send-contact-email";
-import { ContactForm, EmailPreview } from "@/components/pages/index";
+import {
+  ContactForm,
+  ContactSuccess,
+  EmailPreview,
+} from "@/components/pages/index";
 import type { ContactFormData } from "@/components/pages/index/contact-form";
 import { useViewport } from "@/components/providers/viewport-provider";
 
@@ -24,6 +28,7 @@ export function TheConnection({
   const { isMobile } = useViewport();
   const [isPending, startTransition] = useTransition();
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
+  const [submittedName, setSubmittedName] = useState("");
 
   const [formData, setFormData] = useState<ContactFormData>({
     name: "",
@@ -36,6 +41,11 @@ export function TheConnection({
 
   const handleFormDataChange = (data: Partial<ContactFormData>) => {
     setFormData((prev) => ({ ...prev, ...data }));
+  };
+
+  const handleReset = () => {
+    setSubmitStatus("idle");
+    setSubmittedName("");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -52,8 +62,9 @@ export function TheConnection({
       const result = await sendContactEmail(formData);
 
       if (result.success) {
+        setSubmittedName(formData.name);
         setSubmitStatus("success");
-        // Reset form after success
+        // Reset form data (but keep success view)
         setFormData({
           name: "",
           email: "",
@@ -112,6 +123,14 @@ export function TheConnection({
   });
   const footerOpacity = useTransform(footerProgress, [0, 0.5], [0, 1]);
   const footerY = useTransform(footerProgress, [0, 0.5], [40, 0]);
+
+  if (submitStatus === "success") {
+    return (
+      <section ref={sectionRef} className="overflow-hidden border-x">
+        <ContactSuccess name={submittedName} onReset={handleReset} />
+      </section>
+    );
+  }
 
   return (
     <section ref={sectionRef} className="overflow-hidden border-x">

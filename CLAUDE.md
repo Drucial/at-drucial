@@ -359,6 +359,74 @@ Using OKLCH color space for perceptually uniform colors with automatic dark mode
 
 These colors automatically adapt to dark mode without additional CSS.
 
+### UI Brand Patterns
+
+The site uses a distinctive visual language with asymmetric layouts, subdivided sections, and bold typography. Key patterns:
+
+#### Asymmetric Hero Layout
+
+Used for impactful section headers (CV hero, success states). Features stacked large text with contrasting opacity and strategic borders:
+
+```tsx
+<div className="flex flex-1 flex-col">
+  {/* Top-left element with border-r */}
+  <div className="flex w-max flex-1 items-end border-r p-6">
+    <h1
+      className="leading-[0.75] tracking-tighter"
+      style={{ fontSize: "clamp(6rem, 10vw, 10rem)" }}
+    >
+      First
+    </h1>
+  </div>
+
+  {/* Center title bar with border-y */}
+  <div className="border-y py-3">
+    <p className="text-muted-foreground text-center font-mono text-sm tracking-widest uppercase">
+      Cheeky tagline here
+    </p>
+  </div>
+
+  {/* Bottom-right element with border-l */}
+  <div className="w-max flex-1 self-end border-l p-6">
+    <h1
+      className="text-muted-foreground text-right leading-[0.85] tracking-tighter"
+      style={{ fontSize: "clamp(6rem, 10vw, 10rem)" }}
+    >
+      Second
+    </h1>
+  </div>
+</div>
+```
+
+#### Typography Contrast
+
+Create visual hierarchy by contrasting `text-foreground` (bright) with `text-muted-foreground` (subdued):
+
+```tsx
+<h2 className="tracking-tighter">Message</h2>           {/* Bright */}
+<h2 className="text-muted-foreground">Received</h2>     {/* Subdued */}
+```
+
+#### Section Dividers
+
+Use `border-border` for consistent dividers. Common patterns:
+
+- `border-x` - Vertical section boundaries
+- `border-t` / `border-b` - Horizontal dividers
+- `divide-x` / `divide-y` - Between grid columns/rows
+
+#### Eyebrow/Title Bar
+
+Centered monospace text in a bordered strip:
+
+```tsx
+<div className="border-y py-3">
+  <p className="text-muted-foreground text-center font-mono text-sm tracking-widest uppercase">
+    Section identifier
+  </p>
+</div>
+```
+
 ### Prose Width Utilities
 
 For readable text content:

@@ -14,12 +14,16 @@ export type TimeSlot = (typeof TIME_SLOTS)[number];
 export function TimeSlotPicker({
   selectedTime,
   onSelectTime,
+  disabled = false,
 }: {
   selectedTime: TimeSlot | null;
   onSelectTime: (time: TimeSlot) => void;
+  disabled?: boolean;
 }) {
   return (
-    <div className="border-border self-start border-t border-r border-l">
+    <div
+      className={`border-border self-start border-t border-r border-l transition-opacity ${disabled ? "opacity-40" : ""}`}
+    >
       <div className="border-border text-muted-foreground border-b px-4 py-2 text-xs tracking-widest uppercase">
         Select Time
       </div>
@@ -30,6 +34,7 @@ export function TimeSlotPicker({
           return (
             <button
               key={time}
+              disabled={disabled}
               type="button"
               className={`border-border relative overflow-hidden border-b px-4 py-3 text-sm transition-colors ${
                 !isLastCol ? "border-r" : ""
@@ -37,7 +42,7 @@ export function TimeSlotPicker({
                 selectedTime === time
                   ? "bg-foreground text-background"
                   : "text-muted-foreground hover:text-foreground"
-              }`}
+              } ${disabled ? "cursor-not-allowed" : ""}`}
               onClick={() => onSelectTime(time)}
             >
               {time}

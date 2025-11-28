@@ -1,5 +1,6 @@
 export type { ContactFormData } from "./contact-form";
 export { ContactForm } from "./contact-form";
+export { ContactSuccess } from "./contact-success";
 export { EmailPreview } from "./email-preview";
 export { FullStackUnicorn } from "./full-stack-unicorn";
 export { TheAlchemist } from "./the-alchemist";
