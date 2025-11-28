@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useTransition } from "react";
 
 import { motion, useScroll, useTransform } from "motion/react";
 
+import { sendContactEmail } from "@/actions/send-contact-email";
 import { ContactForm, EmailPreview } from "@/components/pages/index";
 import type { ContactFormData } from "@/components/pages/index/contact-form";
 import { useViewport } from "@/components/providers/viewport-provider";
@@ -12,6 +13,8 @@ type TheConnectionProps = {
   heading?: string;
 };
 
+type SubmitStatus = "idle" | "sending" | "success" | "error";
+
 export function TheConnection({
   heading = "The Conversation",
 }: TheConnectionProps) {
@@ -19,6 +22,8 @@ export function TheConnection({
   const previewRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLDivElement>(null);
   const { isMobile } = useViewport();
+  const [isPending, startTransition] = useTransition();
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
 
   const [formData, setFormData] = useState<ContactFormData>({
     name: "",
@@ -31,6 +36,36 @@ export function TheConnection({
 
   const handleFormDataChange = (data: Partial<ContactFormData>) => {
     setFormData((prev) => ({ ...prev, ...data }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Basic validation
+    if (!formData.name || !formData.email) {
+      return;
+    }
+
+    setSubmitStatus("sending");
+
+    startTransition(async () => {
+      const result = await sendContactEmail(formData);
+
+      if (result.success) {
+        setSubmitStatus("success");
+        // Reset form after success
+        setFormData({
+          name: "",
+          email: "",
+          projectType: null,
+          selectedDate: null,
+          selectedTime: null,
+          message: "",
+        });
+      } else {
+        setSubmitStatus("error");
+      }
+    });
   };
 
   // Desktop: entrance based on section reaching top
@@ -119,7 +154,12 @@ export function TheConnection({
             y: isMobile ? previewY : undefined,
           }}
         >
-          <EmailPreview formData={formData} />
+          <EmailPreview
+            formData={formData}
+            isPending={isPending}
+            submitStatus={submitStatus}
+            onSubmit={handleSubmit}
+          />
         </motion.div>
       </div>
 
@@ -138,9 +178,9 @@ export function TheConnection({
             directly at{" "}
             <a
               className="text-foreground/60 hover:text-foreground underline"
-              href="mailto:hello@drucial.com"
+              href="mailto:drew@drucial.dev"
             >
-              hello@drucial.com
+              drew@drucial.dev
             </a>
           </p>
         </div>

@@ -37,7 +37,7 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
             className={`absolute top-1/2 right-2 text-red-500 transition-all duration-200 ${
               error
                 ? "-translate-y-1/2 opacity-100"
-                : "-translate-y-full pointer-events-none opacity-0"
+                : "pointer-events-none -translate-y-full opacity-0"
             }`}
           >
             {error}

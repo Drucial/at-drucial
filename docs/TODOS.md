@@ -4,7 +4,7 @@
 
 ### The Connection Form
 
-- [ ] Wire up form with React Hook Form and Resend
+- [x] Wire up form with React Hook Form and Resend
 - [ ] Add social links to form footer on left
 
 ### Footer

@@ -8,13 +8,17 @@ import { useDirectionalHover } from "@/hooks/use-directional-hover";
 
 import type { ContactFormData } from "./contact-form";
 
+type SubmitStatus = "idle" | "sending" | "success" | "error";
+
 type EmailPreviewProps = {
   formData: ContactFormData;
+  isPending?: boolean;
+  submitStatus?: SubmitStatus;
   onSubmit?: (e: React.FormEvent) => void;
 };
 
 export const EmailPreview = forwardRef<HTMLDivElement, EmailPreviewProps>(
-  ({ formData, onSubmit }, ref) => {
+  ({ formData, isPending = false, submitStatus = "idle", onSubmit }, ref) => {
     const { name, email, projectType, selectedDate, selectedTime, message } =
       formData;
 
@@ -44,7 +48,7 @@ export const EmailPreview = forwardRef<HTMLDivElement, EmailPreviewProps>(
             </div>
             <div className="flex gap-2 text-xs">
               <span className="text-foreground/40">To:</span>
-              <span className="text-muted-foreground">hello@drucial.com</span>
+              <span className="text-muted-foreground">drew@drucial.dev</span>
             </div>
             <div className="flex gap-2 text-xs">
               <span className="text-foreground/40">Subject:</span>
@@ -92,20 +96,44 @@ export const EmailPreview = forwardRef<HTMLDivElement, EmailPreviewProps>(
 
         {/* Submit */}
         <div className="mt-auto">
-          <button
-            ref={submitRef}
-            className="hover:bg-foreground hover:text-background border-border relative w-full overflow-hidden border-t py-4 text-sm font-medium tracking-widest uppercase transition-colors"
-            type="submit"
-            onClick={onSubmit}
-            onMouseEnter={handlers.onMouseEnter}
-            onMouseLeave={handlers.onMouseLeave}
-          >
-            <motion.div
-              className="bg-foreground absolute inset-0"
-              style={{ translateX: bgX, translateY: bgY }}
-            />
-            <span className="relative z-10">Send Request</span>
-          </button>
+          {submitStatus === "success" ? (
+            <div className="border-border border-t py-4 text-center text-sm font-medium tracking-widest text-green-500 uppercase">
+              Message Sent!
+            </div>
+          ) : submitStatus === "error" ? (
+            <button
+              ref={submitRef}
+              className="border-border relative w-full overflow-hidden border-t py-4 text-sm font-medium tracking-widest text-red-500 uppercase transition-colors hover:bg-red-500 hover:text-white"
+              type="submit"
+              onClick={onSubmit}
+              onMouseEnter={handlers.onMouseEnter}
+              onMouseLeave={handlers.onMouseLeave}
+            >
+              <motion.div
+                className="absolute inset-0 bg-red-500"
+                style={{ translateX: bgX, translateY: bgY }}
+              />
+              <span className="relative z-10">Error - Try Again</span>
+            </button>
+          ) : (
+            <button
+              ref={submitRef}
+              className="hover:bg-foreground hover:text-background border-border relative w-full overflow-hidden border-t py-4 text-sm font-medium tracking-widest uppercase transition-colors disabled:opacity-50"
+              disabled={isPending}
+              type="submit"
+              onClick={onSubmit}
+              onMouseEnter={handlers.onMouseEnter}
+              onMouseLeave={handlers.onMouseLeave}
+            >
+              <motion.div
+                className="bg-foreground absolute inset-0"
+                style={{ translateX: bgX, translateY: bgY }}
+              />
+              <span className="relative z-10">
+                {isPending ? "Sending..." : "Send Request"}
+              </span>
+            </button>
+          )}
         </div>
       </div>
     );

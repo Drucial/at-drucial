@@ -66,6 +66,8 @@ The homepage has several sections implemented with scroll-based animations. Core
 - [x] Component scaffold
 - [x] Appointment/contact form with live preview
 - [x] Scroll animations
+- [x] React Hook Form + Zod validation
+- [x] Resend email integration (dual emails: notification + confirmation)
 
 ---
 

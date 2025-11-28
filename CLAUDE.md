@@ -10,6 +10,7 @@ This document outlines coding standards, architectural patterns, and best practi
 - **Animation**: Motion (Framer Motion) 12.23.24
 - **Theming**: next-themes for dark/light mode
 - **Icons**: Lucide React
+- **Email**: Resend (transactional emails)
 - **Type Safety**: TypeScript 5
 
 ## Code Style & Linting
@@ -114,6 +115,15 @@ hooks/
 ```
 
 Custom hooks follow the `use-*` naming convention and are placed in the root `hooks/` directory.
+
+### Server Actions
+
+```
+actions/
+└── send-contact-email.ts   # Contact form email via Resend
+```
+
+Server actions are placed in the root `actions/` directory and use the `"use server"` directive.
 
 ## Layout System
 
