@@ -174,44 +174,46 @@ export function FullStackUnicorn() {
   return (
     <section
       ref={sectionRef}
-      className="relative md:border-x md:border-b"
+      className="relative w-screen md:border-x md:border-b"
       style={{ height: sectionHeight }}
     >
       {/* Mobile: Heading scrolls away, accordion is sticky */}
       {/* Desktop: Both columns sticky side-by-side */}
 
       {/* Mobile heading - scrolls normally */}
-      <motion.div
-        className="flex items-center justify-center overflow-hidden border-r border-l p-6 md:hidden md:border-r-0"
-        style={{ x: rightColumnX }}
-      >
-        <div className="font-teko text-foreground/50 tracking-tightest flex flex-col font-black uppercase tabular-nums">
-          <motion.span
-            className="text-[9.5vw] leading-[7vw]"
-            style={{ opacity: row1Opacity, y: row1Y }}
-          >
-            The
-          </motion.span>
-          <motion.span
-            className="text-foreground text-[12.5vw] leading-[9vw]"
-            style={{ opacity: row2Opacity, y: row2Y }}
-          >
-            Full-
-          </motion.span>
-          <motion.span
-            className="text-foreground text-[12.5vw] leading-[9vw]"
-            style={{ opacity: row3Opacity, y: row3Y }}
-          >
-            Stack
-          </motion.span>
-          <motion.span
-            className="text-[9.5vw] leading-[7vw]"
-            style={{ opacity: row4Opacity, y: row4Y }}
-          >
-            Unicorn
-          </motion.span>
-        </div>
-      </motion.div>
+      <div className="overflow-hidden md:hidden">
+        <motion.div
+          className="flex items-center justify-center border-r border-l p-6 md:border-r-0"
+          style={{ x: rightColumnX }}
+        >
+          <div className="font-teko text-foreground/50 tracking-tightest flex flex-col font-black uppercase tabular-nums">
+            <motion.span
+              className="text-[9.5vw] leading-[7vw]"
+              style={{ opacity: row1Opacity, y: row1Y }}
+            >
+              The
+            </motion.span>
+            <motion.span
+              className="text-foreground text-[12.5vw] leading-[9vw]"
+              style={{ opacity: row2Opacity, y: row2Y }}
+            >
+              Full-
+            </motion.span>
+            <motion.span
+              className="text-foreground text-[12.5vw] leading-[9vw]"
+              style={{ opacity: row3Opacity, y: row3Y }}
+            >
+              Stack
+            </motion.span>
+            <motion.span
+              className="text-[9.5vw] leading-[7vw]"
+              style={{ opacity: row4Opacity, y: row4Y }}
+            >
+              Unicorn
+            </motion.span>
+          </div>
+        </motion.div>
+      </div>
 
       <Separator className="md:hidden" />
 
