@@ -1,4 +1,5 @@
 import "./globals.css";
+import "@/styles/highlight.css";
 
 import type { Metadata } from "next";
 

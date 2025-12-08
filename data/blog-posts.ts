@@ -1,3 +1,13 @@
+import type { LucideIcon } from "lucide-react";
+import {
+  Accessibility,
+  Code2,
+  Layers,
+  Layout,
+  Sparkles,
+  Workflow,
+} from "lucide-react";
+
 export type BlogPost = {
   id: string;
   slug: string;
@@ -7,6 +17,7 @@ export type BlogPost = {
   date: string;
   readTime: string;
   image: string;
+  icon?: LucideIcon;
   tags: string[];
 };
 
@@ -57,6 +68,7 @@ The goal isn't to work harder—it's to work in a way that feels effortless.
     date: "2024-01-15",
     readTime: "5 min",
     image: "/placeholder-blog-1.jpg",
+    icon: Workflow,
     tags: ["productivity", "tools", "workflow"],
   },
   {
@@ -111,6 +123,7 @@ Remember: tools should serve your workflow, not the other way around.
     date: "2024-01-10",
     readTime: "8 min",
     image: "/placeholder-blog-2.jpg",
+    icon: Layers,
     tags: ["productivity", "tools", "workflow"],
   },
   {
@@ -178,6 +191,7 @@ A design system is a product. Treat it like one.
     date: "2024-01-05",
     readTime: "6 min",
     image: "/placeholder-blog-3.jpg",
+    icon: Layout,
     tags: ["design", "systems", "architecture"],
   },
   {
@@ -248,6 +262,7 @@ Perfect is the enemy of good. Ship it.
     date: "2024-01-01",
     readTime: "7 min",
     image: "/placeholder-blog-4.jpg",
+    icon: Code2,
     tags: ["code", "refactoring", "best-practices"],
   },
   {
@@ -324,6 +339,7 @@ Start simple. Add complexity only when needed.
     date: "2023-12-28",
     readTime: "6 min",
     image: "/placeholder-blog-5.jpg",
+    icon: Sparkles,
     tags: ["animation", "design", "ux"],
   },
   {
@@ -417,6 +433,7 @@ Accessibility is a journey, not a destination. Start where you are and improve c
     date: "2023-12-20",
     readTime: "9 min",
     image: "/placeholder-blog-6.jpg",
+    icon: Accessibility,
     tags: ["accessibility", "ux", "best-practices"],
   },
 ];

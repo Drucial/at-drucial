@@ -1,0 +1,141 @@
+/* GitHub Dark theme for syntax highlighting */
+/* Adapted for light/dark mode support using CSS variables */
+
+.hljs {
+  color: oklch(var(--foreground));
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-variable.language_ {
+  color: oklch(var(--primary));
+}
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-title.function_ {
+  color: #2563eb; /* blue-600 */
+}
+
+.dark .hljs-title,
+.dark .hljs-title.class_,
+.dark .hljs-title.class_.inherited__,
+.dark .hljs-title.function_ {
+  color: #60a5fa; /* blue-400 */
+}
+
+.hljs-attr,
+.hljs-attribute,
+.hljs-literal,
+.hljs-meta,
+.hljs-number,
+.hljs-operator,
+.hljs-variable,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id {
+  color: #0891b2; /* cyan-600 */
+}
+
+.dark .hljs-attr,
+.dark .hljs-attribute,
+.dark .hljs-literal,
+.dark .hljs-meta,
+.dark .hljs-number,
+.dark .hljs-operator,
+.dark .hljs-variable,
+.dark .hljs-selector-attr,
+.dark .hljs-selector-class,
+.dark .hljs-selector-id {
+  color: #22d3ee; /* cyan-400 */
+}
+
+.hljs-regexp,
+.hljs-string {
+  color: #16a34a; /* green-600 */
+}
+
+.dark .hljs-regexp,
+.dark .hljs-string {
+  color: #4ade80; /* green-400 */
+}
+
+.hljs-built_in,
+.hljs-symbol {
+  color: #ca8a04; /* yellow-600 */
+}
+
+.dark .hljs-built_in,
+.dark .hljs-symbol {
+  color: #facc15; /* yellow-400 */
+}
+
+.hljs-comment,
+.hljs-code,
+.hljs-formula {
+  color: oklch(var(--muted-foreground));
+}
+
+.hljs-name,
+.hljs-quote,
+.hljs-selector-tag,
+.hljs-selector-pseudo {
+  color: #9333ea; /* purple-600 */
+}
+
+.dark .hljs-name,
+.dark .hljs-quote,
+.dark .hljs-selector-tag,
+.dark .hljs-selector-pseudo {
+  color: #c084fc; /* purple-400 */
+}
+
+.hljs-subst {
+  color: oklch(var(--foreground));
+}
+
+.hljs-section {
+  color: oklch(var(--primary));
+  font-weight: 700;
+}
+
+.hljs-bullet {
+  color: #ea580c; /* orange-600 */
+}
+
+.dark .hljs-bullet {
+  color: #fb923c; /* orange-400 */
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: 700;
+}
+
+.hljs-addition {
+  background-color: #dcfce7; /* green-100 */
+  color: #166534; /* green-800 */
+}
+
+.dark .hljs-addition {
+  background-color: #14532d; /* green-900 */
+  color: #bbf7d0; /* green-200 */
+}
+
+.hljs-deletion {
+  background-color: #fee2e2; /* red-100 */
+  color: #991b1b; /* red-800 */
+}
+
+.dark .hljs-deletion {
+  background-color: #7f1d1d; /* red-900 */
+  color: #fecaca; /* red-200 */
+}

@@ -11,7 +11,7 @@ export type BlogCardProps = {
   onClick: (bounds: DOMRect) => void;
 };
 
-export function BlogCard({ post, index, onClick }: BlogCardProps) {
+export function BlogCard({ post, onClick }: BlogCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
 
   function handleClick() {
@@ -37,13 +37,12 @@ export function BlogCard({ post, index, onClick }: BlogCardProps) {
       onClick={handleClick}
       onKeyDown={handleKeyDown}
     >
-      {/* Image placeholder - flexible height on mobile, 3:2 on desktop */}
+      {/* Icon hero - flexible height on mobile, 3:2 on desktop */}
       <div className="bg-muted w-full flex-1 overflow-hidden md:aspect-[3/2] md:flex-none">
-        {/* Replace with actual image */}
         <div className="flex h-full w-full items-center justify-center transition-transform duration-300 group-hover:scale-105">
-          <span className="text-muted-foreground text-sm">
-            Image {index + 1}
-          </span>
+          {post.icon && (
+            <post.icon className="text-muted-foreground h-12 w-12 stroke-1 md:h-16 md:w-16" />
+          )}
         </div>
       </div>
 

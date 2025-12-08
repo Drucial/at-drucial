@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 
 import { useBlogModal } from "@/components/providers/blog-modal-provider";
+import { MarkdownContent } from "@/components/ui/markdown-content";
 import { NavButton } from "@/components/ui/nav-button";
 import { blogPosts } from "@/data/blog-posts";
 
@@ -164,6 +165,7 @@ export default function BlogModal() {
           >
             <motion.div
               key={slug}
+              data-lenis-prevent
               animate={{ x: 0, opacity: 1 }}
               className="absolute inset-0 overflow-y-auto"
               initial={{
@@ -177,18 +179,15 @@ export default function BlogModal() {
               }}
             >
               <div className="mx-auto max-w-4xl px-6 py-12">
-                {/* Hero image */}
-                <div className="bg-muted aspect-[2/1] w-full">
-                  {/* Replace with actual image */}
-                  <div className="flex h-full w-full items-center justify-center">
-                    <span className="text-muted-foreground text-sm">
-                      Hero Image
-                    </span>
-                  </div>
+                {/* Hero icon */}
+                <div className="bg-muted flex aspect-[2/1] w-full items-center justify-center">
+                  {post.icon && (
+                    <post.icon className="text-muted-foreground h-24 w-24 stroke-1" />
+                  )}
                 </div>
 
                 {/* Title */}
-                <h1 className="font-teko mt-8 text-5xl font-bold md:text-6xl lg:text-7xl">
+                <h1 className="font-teko mt-8 text-5xl leading-tight font-bold md:text-6xl lg:text-7xl">
                   {post.title}
                 </h1>
 
@@ -205,11 +204,8 @@ export default function BlogModal() {
                 </div>
 
                 {/* Content */}
-                <div className="prose prose-neutral dark:prose-invert mt-8 max-w-none">
-                  {/* Render markdown content - for now just whitespace-pre-wrap */}
-                  <div className="whitespace-pre-wrap">
-                    {post.content.trim()}
-                  </div>
+                <div className="mt-8">
+                  <MarkdownContent content={post.content} />
                 </div>
               </div>
             </motion.div>
