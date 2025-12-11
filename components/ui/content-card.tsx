@@ -3,6 +3,8 @@
 import type { KeyboardEvent } from "react";
 import { useRef } from "react";
 
+import { ArrowRight } from "lucide-react";
+
 import type { ContentItem } from "@/data/content-types";
 
 export type ContentCardProps = {
@@ -54,10 +56,16 @@ export function ContentCard({ item, onClick }: ContentCardProps) {
         <p className="text-muted-foreground mt-2 line-clamp-5 text-sm md:line-clamp-2">
           {item.excerpt}
         </p>
-        <div className="text-muted-foreground mt-auto flex gap-2 pt-4 text-xs">
-          <span>{item.meta.primary}</span>
-          <span>·</span>
-          <span>{item.meta.secondary}</span>
+        <div className="text-muted-foreground mt-auto flex items-center justify-between gap-2 pt-4 text-xs">
+          <div className="flex gap-2">
+            <span>{item.meta.primary}</span>
+            <span>·</span>
+            <span>{item.meta.secondary}</span>
+          </div>
+          <span className="text-primary flex items-center gap-1 md:hidden">
+            View
+            <ArrowRight className="h-3 w-3" />
+          </span>
         </div>
       </div>
     </div>

@@ -155,13 +155,7 @@ export function TheMaker() {
               >
                 Maker
               </span>
-              <span
-                className="font-teko text-background absolute bottom-4 left-4 text-xl font-black tracking-widest uppercase"
-                style={{
-                  writingMode: "vertical-rl",
-                  transform: "rotate(180deg)",
-                }}
-              >
+              <span className="font-teko text-background absolute bottom-2 left-7 text-base font-bold tracking-widest uppercase">
                 The
               </span>
             </div>
