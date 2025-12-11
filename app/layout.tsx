@@ -4,7 +4,7 @@ import "@/styles/highlight.css";
 import type { Metadata } from "next";
 
 import { Header } from "@/components/layout/header";
-import { BlogModalProvider } from "@/components/providers/blog-modal-provider";
+import { ContentModalProvider } from "@/components/providers/content-modal-provider";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ViewportProvider } from "@/components/providers/viewport-provider";
@@ -33,11 +33,11 @@ export default function RootLayout({
             defaultTheme="system"
           >
             <SmoothScrollProvider>
-              <BlogModalProvider>
+              <ContentModalProvider>
                 <Header />
                 {children}
                 {modal}
-              </BlogModalProvider>
+              </ContentModalProvider>
             </SmoothScrollProvider>
           </ThemeProvider>
         </ViewportProvider>

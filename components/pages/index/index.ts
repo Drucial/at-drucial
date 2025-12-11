@@ -5,7 +5,7 @@ export { EmailPreview } from "./email-preview";
 export { FullStackUnicorn } from "./full-stack-unicorn";
 export { TheAlchemist } from "./the-alchemist";
 export { TheConnection } from "./the-connection";
+export { TheMaker } from "./the-maker";
 export { TheMinimalistSavant } from "./the-minimalist-savant";
 export { TheRenaissanceTechnologist } from "./the-renaissance-technologist";
-export { TheThinker } from "./the-thinker";
 export { UiUxDesignerEngineer } from "./ui-ux-designer-engineer";

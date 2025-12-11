@@ -3,15 +3,15 @@
 import type { KeyboardEvent } from "react";
 import { useRef } from "react";
 
-import type { BlogPost } from "@/data/blog-posts";
+import type { ContentItem } from "@/data/content-types";
 
-export type BlogCardProps = {
-  post: BlogPost;
+export type ContentCardProps = {
+  item: ContentItem;
   index: number;
   onClick: (bounds: DOMRect) => void;
 };
 
-export function BlogCard({ post, onClick }: BlogCardProps) {
+export function ContentCard({ item, onClick }: ContentCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
 
   function handleClick() {
@@ -40,8 +40,8 @@ export function BlogCard({ post, onClick }: BlogCardProps) {
       {/* Icon hero - flexible height on mobile, 3:2 on desktop */}
       <div className="bg-muted w-full flex-1 overflow-hidden md:aspect-[3/2] md:flex-none">
         <div className="flex h-full w-full items-center justify-center transition-transform duration-300 group-hover:scale-105">
-          {post.icon && (
-            <post.icon className="text-muted-foreground h-12 w-12 stroke-1 md:h-16 md:w-16" />
+          {item.icon && (
+            <item.icon className="text-muted-foreground h-12 w-12 stroke-1 md:h-16 md:w-16" />
           )}
         </div>
       </div>
@@ -49,15 +49,15 @@ export function BlogCard({ post, onClick }: BlogCardProps) {
       {/* Content */}
       <div className="flex flex-1 flex-col pt-4 md:flex-none">
         <h3 className="font-teko group-hover:text-primary text-xl leading-tight font-semibold transition-colors">
-          {post.title}
+          {item.title}
         </h3>
         <p className="text-muted-foreground mt-2 line-clamp-5 text-sm md:line-clamp-2">
-          {post.excerpt}
+          {item.excerpt}
         </p>
         <div className="text-muted-foreground mt-auto flex gap-2 pt-4 text-xs">
-          <span>{post.readTime}</span>
+          <span>{item.meta.primary}</span>
           <span>·</span>
-          <span>{post.date}</span>
+          <span>{item.meta.secondary}</span>
         </div>
       </div>
     </div>

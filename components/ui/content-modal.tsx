@@ -1,28 +1,37 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 
-import { useBlogModal } from "@/components/providers/blog-modal-provider";
+import { useContentModal } from "@/components/providers/content-modal-provider";
 import { MarkdownContent } from "@/components/ui/markdown-content";
 import { NavButton } from "@/components/ui/nav-button";
-import { blogPosts } from "@/data/blog-posts";
+import type { ContentItem, ContentType } from "@/data/content-types";
 
-export default function BlogModal() {
-  const params = useParams();
+type ContentModalProps = {
+  item: ContentItem | undefined;
+  items: ContentItem[];
+  contentType: ContentType;
+  basePath: string;
+};
+
+export function ContentModal({
+  item,
+  items,
+  contentType,
+  basePath,
+}: ContentModalProps) {
   const router = useRouter();
-  const { cardBounds, slideDirection, setSlideDirection } = useBlogModal();
+  const { cardBounds, slideDirection, setSlideDirection } = useContentModal();
   const [isClosing, setIsClosing] = useState(false);
 
-  const slug = params.slug as string;
-  const post = blogPosts.find((p) => p.slug === slug);
-  const currentIndex = blogPosts.findIndex((p) => p.slug === slug);
-  const prevPost = currentIndex > 0 ? blogPosts[currentIndex - 1] : null;
-  const nextPost =
-    currentIndex < blogPosts.length - 1 ? blogPosts[currentIndex + 1] : null;
+  const currentIndex = item ? items.findIndex((i) => i.id === item.id) : -1;
+  const prevItem = currentIndex > 0 ? items[currentIndex - 1] : null;
+  const nextItem =
+    currentIndex < items.length - 1 ? items[currentIndex + 1] : null;
 
   useEffect(() => {
     // Lock body scroll when modal is open
@@ -33,7 +42,7 @@ export default function BlogModal() {
     };
   }, []);
 
-  if (!post) {
+  if (!item) {
     return null;
   }
 
@@ -48,16 +57,16 @@ export default function BlogModal() {
   }
 
   function handlePrev() {
-    if (prevPost) {
+    if (prevItem) {
       setSlideDirection(-1); // Slide from left
-      router.replace(`/blog/${prevPost.slug}`);
+      router.replace(`${basePath}/${prevItem.slug}`);
     }
   }
 
   function handleNext() {
-    if (nextPost) {
+    if (nextItem) {
       setSlideDirection(1); // Slide from right
-      router.replace(`/blog/${nextPost.slug}`);
+      router.replace(`${basePath}/${nextItem.slug}`);
     }
   }
 
@@ -71,8 +80,10 @@ export default function BlogModal() {
     height: 400,
   };
 
-  // If slideDirection is non-zero, we're navigating between posts - skip container animation
+  // If slideDirection is non-zero, we're navigating between items - skip container animation
   const isNavigating = slideDirection !== 0;
+
+  const itemLabel = contentType === "blog" ? "post" : "project";
 
   return (
     <AnimatePresence onExitComplete={handleExitComplete}>
@@ -141,11 +152,11 @@ export default function BlogModal() {
           >
             <div className="flex items-center gap-4">
               <span className="text-muted-foreground font-mono text-sm">
-                {post.date}
+                {item.meta.primary}
               </span>
               <span className="text-muted-foreground">·</span>
               <span className="text-muted-foreground font-mono text-sm">
-                {post.readTime}
+                {item.meta.secondary}
               </span>
             </div>
             <div className="border-border flex h-full border-l">
@@ -164,7 +175,7 @@ export default function BlogModal() {
             }}
           >
             <motion.div
-              key={slug}
+              key={item.slug}
               data-lenis-prevent
               animate={{ x: 0, opacity: 1 }}
               className="absolute inset-0 overflow-y-auto"
@@ -181,19 +192,26 @@ export default function BlogModal() {
               <div className="mx-auto max-w-4xl px-6 py-12">
                 {/* Hero icon */}
                 <div className="bg-muted flex aspect-[2/1] w-full items-center justify-center">
-                  {post.icon && (
-                    <post.icon className="text-muted-foreground h-24 w-24 stroke-1" />
+                  {item.icon && (
+                    <item.icon className="text-muted-foreground h-24 w-24 stroke-1" />
                   )}
                 </div>
 
                 {/* Title */}
                 <h1 className="font-teko mt-8 text-5xl leading-tight font-bold md:text-6xl lg:text-7xl">
-                  {post.title}
+                  {item.title}
                 </h1>
+
+                {/* Subtitle (e.g., role for projects) */}
+                {item.subtitle && (
+                  <p className="text-muted-foreground mt-2 font-mono text-sm">
+                    {item.subtitle}
+                  </p>
+                )}
 
                 {/* Tags */}
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {post.tags.map((tag) => (
+                  {item.tags.map((tag) => (
                     <span
                       key={tag}
                       className="bg-muted text-muted-foreground rounded px-2 py-1 font-mono text-xs"
@@ -203,9 +221,22 @@ export default function BlogModal() {
                   ))}
                 </div>
 
+                {/* URL */}
+                {item.url && (
+                  <a
+                    className="text-primary mt-4 inline-flex items-center gap-1 font-mono text-sm hover:underline"
+                    href={item.url}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {item.url.replace(/^https?:\/\//, "")}
+                    <ArrowRight className="h-3 w-3" />
+                  </a>
+                )}
+
                 {/* Content */}
                 <div className="mt-8">
-                  <MarkdownContent content={post.content} />
+                  <MarkdownContent content={item.content} />
                 </div>
               </div>
             </motion.div>
@@ -231,15 +262,15 @@ export default function BlogModal() {
           >
             <div className="border-border flex h-full divide-x border-r">
               <NavButton
-                disabled={!prevPost}
-                label="Previous post"
+                disabled={!prevItem}
+                label={`Previous ${itemLabel}`}
                 onClick={handlePrev}
               >
                 <ChevronLeft className="h-4 w-4" />
               </NavButton>
               <NavButton
-                disabled={!nextPost}
-                label="Next post"
+                disabled={!nextItem}
+                label={`Next ${itemLabel}`}
                 onClick={handleNext}
               >
                 <ChevronRight className="h-4 w-4" />
@@ -247,7 +278,7 @@ export default function BlogModal() {
             </div>
 
             <div className="text-muted-foreground px-6 font-mono text-sm">
-              {currentIndex + 1} / {blogPosts.length}
+              {currentIndex + 1} / {items.length}
             </div>
           </motion.footer>
         </motion.div>

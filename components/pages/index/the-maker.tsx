@@ -11,13 +11,13 @@ import { useContentModal } from "@/components/providers/content-modal-provider";
 import { useViewport } from "@/components/providers/viewport-provider";
 import { ContentCard } from "@/components/ui/content-card";
 import { NavButton } from "@/components/ui/nav-button";
-import { blogPosts } from "@/data/blog-posts";
 import type { ContentItem } from "@/data/content-types";
-import { blogPostToContentItem } from "@/data/content-types";
+import { projectToContentItem } from "@/data/content-types";
+import { projects } from "@/data/projects";
 
-const contentItems = blogPosts.map(blogPostToContentItem);
+const contentItems = projects.map(projectToContentItem);
 
-export function TheThinker() {
+export function TheMaker() {
   const sectionRef = useRef<HTMLElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -31,8 +31,8 @@ export function TheThinker() {
       width: bounds.width,
       height: bounds.height,
     });
-    setContentType("blog");
-    router.push(`/blog/${item.slug}`);
+    setContentType("projects");
+    router.push(`/projects/${item.slug}`);
   }
 
   const { scrollYProgress } = useScroll({
@@ -59,7 +59,7 @@ export function TheThinker() {
   // Mobile heading slides down from top
   const mobileHeaderY = useTransform(mobileProgress, [0, 1], ["-100%", "0%"]);
 
-  // Stagger first 4 blog cards opacity, rest are always visible
+  // Stagger first 4 project cards opacity, rest are always visible
   const cardOpacity0 = useTransform(
     isMobile ? mobileProgress : scrollYProgress,
     isMobile ? [0.4, 0.8] : [0.35, 0.45],
@@ -131,7 +131,7 @@ export function TheThinker() {
         >
           <div className="relative">
             <span className="font-teko text-foreground text-8xl leading-none font-bold uppercase">
-              Thinker
+              Maker
             </span>
             <span className="font-teko text-foreground absolute -top-2.5 left-1.5 text-lg font-black tracking-widest uppercase">
               The
@@ -153,7 +153,7 @@ export function TheThinker() {
                   transform: "rotate(180deg)",
                 }}
               >
-                Thinker
+                Maker
               </span>
               <span
                 className="font-teko text-background absolute bottom-4 left-4 text-xl font-black tracking-widest uppercase"
@@ -167,7 +167,7 @@ export function TheThinker() {
             </div>
           </motion.div>
 
-          {/* Blog posts - horizontal scroll with snap */}
+          {/* Projects - horizontal scroll with snap */}
           <div
             ref={scrollContainerRef}
             className="flex min-w-0 flex-1 snap-x snap-mandatory overflow-x-auto md:divide-x"
@@ -197,7 +197,7 @@ export function TheThinker() {
         {/* Footer with nav controls */}
         <div className="border-border flex h-16 shrink-0 items-center justify-between border-t md:h-12">
           <span className="text-muted-foreground pl-4 font-mono text-sm">
-            {contentItems.length} articles
+            {contentItems.length} projects
           </span>
           <div className="border-border flex h-full divide-x border-l">
             <NavButton label="Previous" onClick={scrollLeft}>
