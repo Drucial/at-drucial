@@ -3,7 +3,7 @@ import { TheAlchemist } from "@/components/pages/index/the-alchemist";
 import { TheConnection } from "@/components/pages/index/the-connection";
 import { TheMaker } from "@/components/pages/index/the-maker";
 import { TheMinimalistSavant } from "@/components/pages/index/the-minimalist-savant";
-import { TheRenaissanceTechnologist } from "@/components/pages/index/the-renaissance-technologist";
+import { ThePolymath } from "@/components/pages/index/the-polymath";
 import { UiUxDesignerEngineer } from "@/components/pages/index/ui-ux-designer-engineer";
 import { Separator } from "@/components/ui/separator";
 
@@ -19,7 +19,7 @@ export default function Home() {
       <Separator className="hidden md:block" />
       <TheMaker />
       <Separator />
-      <TheRenaissanceTechnologist />
+      <ThePolymath />
       <Separator />
       <TheConnection />
     </main>

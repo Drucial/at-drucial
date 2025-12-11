@@ -10,7 +10,7 @@ import { useViewport } from "@/components/providers/viewport-provider";
 import { BlurText } from "@/components/ui/blur-text";
 import { RollingText } from "@/components/ui/rolling-text";
 
-export function TheRenaissanceTechnologist() {
+export function ThePolymath() {
   const sectionRef = useRef<HTMLElement>(null);
   const { isMobile } = useViewport();
 
@@ -70,7 +70,7 @@ export function TheRenaissanceTechnologist() {
       >
         <motion.div className="overflow-hidden" style={{ x: leftColumnX }}>
           <Image
-            alt="Drucial - Renaissance Technologist"
+            alt="Drucial - The Polymath"
             className="h-full w-auto origin-[50%_60%] scale-300 md:hidden"
             height={1920}
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -95,7 +95,7 @@ export function TheRenaissanceTechnologist() {
               scrollDuration={0.25}
               scrollTrigger={0.24}
               scrollYProgress={fullProgress}
-              text="Technologist"
+              text="Polymath"
             />
           </h2>
         </motion.div>
@@ -112,7 +112,7 @@ export function TheRenaissanceTechnologist() {
             style={{ y: imageY, opacity: imageOpacity }}
           >
             <Image
-              alt="Drucial - Renaissance Technologist"
+              alt="Drucial - The Polymath"
               className="h-auto w-full"
               height={1920}
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -137,7 +137,7 @@ export function TheRenaissanceTechnologist() {
             scrollTrigger={0.3}
             scrollYProgress={entranceProgress}
             stepDuration={0.2}
-            text="As a seasoned UX/UI designer based in Charlotte's vibrant NoDa arts district, I thrive at the intersection of creativity and technology."
+            text="I grew up in Seattle, spent a decade in aerospace composites in Charlotte, and eventually taught myself to design and build software. I now call NoDa, the city's arts district, home."
           />
           <BlurText
             animateBy="words"
@@ -149,7 +149,7 @@ export function TheRenaissanceTechnologist() {
             scrollTrigger={0.3}
             scrollYProgress={entranceProgress}
             stepDuration={0.2}
-            text="My journey from Seattle's startup scene to the aerospace industry and back has been marked by a self-taught mastery in research, design, and engineering, fueled by a relentless pursuit of creative excellence."
+            text="Along the way I founded and sold a creative agency, joined startups at various stages, and learned to move between design and code without losing sight of either."
           />
           <BlurText
             animateBy="words"
@@ -161,7 +161,7 @@ export function TheRenaissanceTechnologist() {
             scrollTrigger={0.3}
             scrollYProgress={entranceProgress}
             stepDuration={0.2}
-            text="I've honed my skills through diverse experiences—from founding and selling a business to pioneering new products at Craftwork."
+            text="These days I split my time between Craftwork and my own projects at Praxis Labs, always chasing that balance of craft and speed."
           />
           <BlurText
             animateBy="words"
@@ -173,7 +173,7 @@ export function TheRenaissanceTechnologist() {
             scrollTrigger={0.3}
             scrollYProgress={entranceProgress}
             stepDuration={0.2}
-            text="Beyond developing world-class products, I'm a devoted dad, a collector of motorcycles and bicycles, and a culinary enthusiast who believes in the magic of a delectable meal with good company."
+            text="Outside of work, I'm a devoted dad, a collector of motorcycles, bicycles, and vintage jazz records, and someone who believes a good meal with good company is time well spent."
           />
         </motion.div>
       </motion.div>
