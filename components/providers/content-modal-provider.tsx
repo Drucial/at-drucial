@@ -27,9 +27,9 @@ export function ContentModalProvider({
 }) {
   const [cardBounds, setCardBounds] = useState<CardBounds | null>(null);
   const [slideDirection, setSlideDirection] = useState<number>(0);
-  const [contentType, setContentType] = useState<
-    "blog" | "projects" | null
-  >(null);
+  const [contentType, setContentType] = useState<"blog" | "projects" | null>(
+    null
+  );
 
   return (
     <ContentModalContext.Provider
