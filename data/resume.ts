@@ -72,7 +72,7 @@ export const resume: Resume = {
       ],
     },
     {
-      title: "UX/UI Designer & Full-Stack Engineer",
+      title: "Principal Designer & Full Stack Developer",
       company: "Craftwork",
       period: "Jul 2023 – Present",
       description: [
@@ -83,7 +83,7 @@ export const resume: Resume = {
       ],
     },
     {
-      title: "Design Engineer",
+      title: "Designer & Frontend Developer",
       company: "Stashpad",
       period: "Jan 2022 – Jul 2023",
       description: [
@@ -132,25 +132,25 @@ export const resume: Resume = {
         "An AI-powered journaling app designed to help users reflect deeply, visually, and emotionally through writing, AI feedback, and creative prompts.",
         "Built from scratch with a clean full-stack architecture (Next.js, PostgreSQL, S3, OpenAI, Tailwind), with zero client-side dependencies for rendering Markdown.",
         "Developed features like mood-based image generation, encrypted entries, multi-image support, and an immersive AI reflection mode.",
-        "Currently in private beta.",
+        "Currently in public beta.",
       ],
     },
     {
       name: "Craftwork OS",
-      role: "Full-Stack Engineer & UX Designer",
+      role: "Principal Designer & Full Stack Developer",
       description: [
-        "Internal platform to streamline project workflows, sales handoff, and delivery management for a fast-moving design/dev agency.",
-        "Designed and engineered core modules, including stage-based progress tracking, internal estimators, and workflow automation.",
-        "Focused on performance, usability, and long-term maintainability across the platform.",
+        "Internal ERP and CRM platform for Craftwork, a Y Combinator startup (top of class, 2023) providing residential painting services across 3 markets.",
+        "Helped transform a barebones Rails app into a powerful operations tool, building the design system, Human Interface Guidelines, and design review SOPs from scratch.",
+        "Shipped key features including the Staffing Calendar, Project Management Flow, and Unified Communications (phone, SMS, email, internal messaging).",
       ],
     },
     {
       name: "Stashpad",
-      role: "Design Engineer",
+      role: "Designer & Frontend Developer",
       description: [
-        "Lightweight, local-first notes app built for developers who think fast and write faster.",
-        "Contributed to the product's visual system and core UX patterns, built UI components in React, and helped establish a cohesive brand experience.",
-        "Worked closely with the founding team on product strategy and direction.",
+        "A Techstars-backed, fast, local-first note-taking app for developers.",
+        "Worked as both designer and frontend developer, focusing on UI and UX through two major design overhauls.",
+        "Also contributed to marketing via the YouTube channel as the voice of Stashpad for a brief time.",
       ],
     },
   ],
@@ -197,8 +197,8 @@ export const resume: Resume = {
   contact: [
     {
       label: "Email",
-      href: "mailto:drew@drew-white.dev",
-      display: "drew@drew-white.dev",
+      href: "mailto:drew@drucial.dev",
+      display: "drew@drucial.dev",
     },
     {
       label: "LinkedIn",
@@ -212,8 +212,8 @@ export const resume: Resume = {
     },
     {
       label: "Portfolio",
-      href: "https://drew-white.dev",
-      display: "drew-white.dev",
+      href: "https://drucial.dev",
+      display: "drucial.dev",
     },
   ],
 };

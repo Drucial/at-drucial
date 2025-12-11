@@ -61,16 +61,16 @@ Praxis Labs is where I want to focus my future: a product incubator where philos
   },
   {
     id: "2",
-    slug: "auranote-ai",
-    title: "Auranote AI",
+    slug: "auranote",
+    title: "AuraNote",
     company: "Praxis Labs",
-    role: "Founder & Lead Developer",
+    role: "Co-Founder & Principal Engineer",
     excerpt:
       "Write easily. Reflect deeply. See clearly. An AI-powered journaling platform with a thoughtful approach to emotional wellness.",
     description: `
-## Auranote AI
+## AuraNote
 
-Auranote is an AI-powered journaling platform currently in public beta. It's designed to make reflection accessible while offering deeper insights through thoughtful AI integration.
+AuraNote is an AI-powered journaling platform currently in public beta. It's designed to make reflection accessible while offering deeper insights through thoughtful AI integration.
 
 ### Your Personal Aura
 
@@ -98,20 +98,20 @@ Currently web-only, with plans for a mobile app in 2026.
   },
   {
     id: "3",
-    slug: "paintserver",
-    title: "Paintserver",
+    slug: "craftwork-os",
+    title: "Craftwork OS",
     company: "Craftwork",
     role: "Principal Designer & Full Stack Developer",
     excerpt:
       "Helped transform a barebones Rails app into a CRM, analytics platform, and operations tool for a Y Combinator startup.",
     description: `
-## Paintserver
+## Craftwork OS
 
-Paintserver is Craftwork's internal ERP and CRM platform that manages the entire painting operation from lead to project close. Craftwork finished top of class in their Y Combinator batch in 2023 and currently services 3 markets.
+Craftwork OS is the company's internal ERP and CRM platform that manages the entire painting operation from lead to project close. Craftwork finished top of class in their Y Combinator batch in 2023 and currently services 3 markets.
 
 ### The Challenge
 
-When I joined, Paintserver was a barebones stock Rails app with scaffolded views and little consideration for the user. It worked as a tool if you knew how to work it. I was brought on to help right the ship as lead designer and full stack developer.
+When I joined, the platform was a barebones stock Rails app with scaffolded views and little consideration for the user. It worked as a tool if you knew how to work it. I was brought on to help right the ship as lead designer and full stack developer.
 
 ### Building the Foundation
 
@@ -169,7 +169,7 @@ The portal has become a key differentiator for Craftwork. Customers regularly me
 
 ### Technology
 
-Next.js application powered by Payload CMS for marketing content. The portal connects to Paintserver via API using tRPC, keeping customer data in sync with operations in real-time.
+Next.js application powered by Payload CMS for marketing content. The portal connects to Craftwork OS via API using tRPC, keeping customer data in sync with operations in real-time.
     `,
     year: "2023-Present",
     tags: ["Next.js", "Payload CMS", "tRPC", "Customer Portal"],
