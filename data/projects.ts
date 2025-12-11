@@ -30,21 +30,21 @@ export const projects: Project[] = [
     company: "Praxis Labs",
     role: "Founder",
     excerpt:
-      "An innovative product think tank—a logical home for ventures spanning software, design, and content creation.",
+      "A product incubator and logical home for ventures spanning software, design, and content creation.",
     description: `
 ## About Praxis Labs
 
-Praxis Labs is my R&D umbrella company and product incubator. With so many ideas and projects in flight, I needed a logical home—both financially and thematically—to host all my ventures. A place to distribute final products, showcase works-in-progress, and discuss ideas openly.
+Praxis Labs is my R&D umbrella company and product incubator. With ideas and projects constantly in flight, I needed a logical home, both financially and thematically, to host my ventures. A place to distribute products, showcase works-in-progress, and discuss ideas openly.
 
 ### Philosophy
 
-Nothing extra. Everything essential. Praxis Labs is built on constraint and intentionality—removing friction and distilling ideas to their core.
+Nothing extra. Everything essential. Praxis Labs is built on constraint and intentionality, removing friction and distilling ideas to their core.
 
 ### Active Projects
 
-- **Shad-zen** - A Next.js project template with shadcn/ui, Tailwind, and Motion/React. Includes heavy code style and lint guidelines designed to keep AI copilots in check while generating code.
+- **Shad-zen** - A Next.js project template with shadcn/ui, Tailwind, and Motion/React. Includes code style and lint guidelines designed to keep AI copilots in check while generating code.
 
-- **Hyper Mono** - A mono synth plugin for all major DAWs. A unique twist on the classic dual oscillator synth with advanced harmonic controls and wide-range LFO controls. Written in C++.
+- **Hyper Mono** - A mono synth plugin for all major DAWs. A twist on the classic dual oscillator synth with advanced harmonic controls and wide-range LFO controls. Written in C++.
 
 - **Gratis** - A gratitude journal app focused on calm, reflection, and speed. Designed to be completed in under five minutes daily. Includes mood tracking, task tracking, and daily focus features. Currently in beta, prepping for App Store launch.
 
@@ -52,7 +52,7 @@ Nothing extra. Everything essential. Praxis Labs is built on constraint and inte
 
 ### Vision
 
-Praxis Labs is my future—an innovative product think tank where philosophy meets practice, and process takes precedence over perfection.
+Praxis Labs is where I want to focus my future: a product incubator where philosophy meets practice, and process takes precedence over perfection.
     `,
     year: "2025",
     tags: ["R&D", "Incubator", "Software", "Design", "Open Source"],
@@ -66,7 +66,7 @@ Praxis Labs is my future—an innovative product think tank where philosophy mee
     company: "Praxis Labs",
     role: "Founder & Lead Developer",
     excerpt:
-      "Write easily. Reflect deeply. See clearly. An AI-powered journaling platform with a unique approach to emotional wellness.",
+      "Write easily. Reflect deeply. See clearly. An AI-powered journaling platform with a thoughtful approach to emotional wellness.",
     description: `
 ## Auranote AI
 
@@ -74,7 +74,7 @@ Auranote is an AI-powered journaling platform currently in public beta. It's des
 
 ### Your Personal Aura
 
-Each user gets an evolving "Aura"—an AI companion tuned to their needs based on entries and conversations. It can generate support, help users introspect, and create images to help process or experience emotions in a tangible way.
+Each user gets an evolving "Aura," an AI companion tuned to their needs based on entries and conversations. It can generate support, help users introspect, and create images to help process or experience emotions in a tangible way.
 
 ### Features
 
@@ -85,7 +85,7 @@ Each user gets an evolving "Aura"—an AI companion tuned to their needs based o
 
 ### What Sets It Apart
 
-The simplicity of use combined with multiple levels of opt-in AI integration. The UI focuses on creating a simplistic, inviting, and calming feeling—a safe space for introspection rather than a clinical tool.
+Simplicity of use combined with multiple levels of opt-in AI integration. The UI focuses on creating an inviting and calming experience, a safe space for introspection rather than a clinical tool.
 
 ### Roadmap
 
@@ -103,7 +103,7 @@ Currently web-only, with plans for a mobile app in 2026.
     company: "Craftwork",
     role: "Principal Designer & Full Stack Developer",
     excerpt:
-      "Transformed a barebones Rails app into a powerful CRM, analytics machine, and operations swiss army knife for a Y Combinator startup.",
+      "Helped transform a barebones Rails app into a CRM, analytics platform, and operations tool for a Y Combinator startup.",
     description: `
 ## Paintserver
 
@@ -111,28 +111,28 @@ Paintserver is Craftwork's internal ERP and CRM platform that manages the entire
 
 ### The Challenge
 
-When I joined, Paintserver was a barebones stock Rails app with scaffolded views and no consideration for the user. It worked as a tool—if you knew how to work it. I was brought on to right the ship as lead designer and full stack developer.
+When I joined, Paintserver was a barebones stock Rails app with scaffolded views and little consideration for the user. It worked as a tool if you knew how to work it. I was brought on to help right the ship as lead designer and full stack developer.
 
 ### Building the Foundation
 
-Despite having no prior Ruby or Rails experience, I picked it up quickly and evolved the app alongside the team. Beyond feature development, I built the infrastructure for quality:
+Despite having no prior Ruby or Rails experience, I picked it up quickly and evolved the app alongside the team. Beyond feature development, I helped build the infrastructure for quality:
 
-- **Design System** - A comprehensive component library for consistent UI
+- **Design System** - A component library for consistent UI
 - **Human Interface Guidelines** - Standards for interaction patterns across the app
 - **Design Review SOPs** - Processes ensuring quality at every release
 - **Brand Guidelines** - Collaborated with our brand designer on visual identity
 
-### Key Features I Shipped
+### Key Features
 
-- **Staffing Calendar** - A complex web of availability between projects, deliveries, and crews presented in an intuitive, highly effective interface. Coordinates scheduling across multiple markets.
+- **Staffing Calendar** - A complex web of availability between projects, deliveries, and crews presented in an intuitive interface. Coordinates scheduling across multiple markets.
 
-- **Project Management Flow** - My crowning achievement. A dedicated UX based on every team's SOPs, ensuring every project from lead-in to close gets the same attention, follows the same procedures, and receives top-level quality.
+- **Project Management Flow** - The feature I'm most proud of. A dedicated UX based on every team's SOPs, ensuring every project from lead-in to close gets the same attention and follows the same procedures.
 
 - **Unified Communications** - Task system combined with a comms UI integrating phone, SMS, email, and internal messaging directly in the application.
 
 ### My Role
 
-I operate on a small team of engineers and lead a small team of designers as principal designer. Day-to-day splits between design review, ideation, research, and engineering the features I lead. Project management and progress reporting are significant, but the actual implementation—splitting time between Figma and the terminal—is what I love.
+I work on a small team of engineers and lead a small team of designers as principal designer. Day-to-day splits between design review, ideation, research, and engineering the features I lead. Project management and progress reporting are significant, but the actual implementation, splitting time between Figma and the terminal, is what I love.
     `,
     year: "2023-Present",
     tags: ["Rails", "ERP", "CRM", "Design Systems", "Y Combinator"],
@@ -145,27 +145,27 @@ I operate on a small team of engineers and lead a small team of designers as pri
     company: "Craftwork",
     role: "Principal Designer & Full Stack Developer",
     excerpt:
-      "The Apple-like buying experience for home services—featuring the industry's only self-serve estimating tool and a premium customer portal.",
+      "A premium buying experience for home services featuring the industry's only self-serve estimating tool and a comprehensive customer portal.",
     description: `
 ## Craftwork Website & Customer Portal
 
-The customer-facing side of Craftwork, encompassing the marketing website and customer portal. Our CEO's dream is to bring the Apple or Tesla buying experience to home services—and this is how we deliver it.
+The customer-facing side of Craftwork, encompassing the marketing website and customer portal. The goal is to make hiring a painter feel as seamless and premium as any modern consumer experience.
 
 ### My Role
 
-While I've contributed design and implementation across the marketing site and approved all designs there, my key impact on marketing was motion design and overall vision. My primary focus is the Customer Portal—a vision cut from my own flesh, though built as a true team effort.
+While I've contributed design and implementation across the marketing site, my key impact there was motion design. My primary focus is the Customer Portal, something I've invested a lot in personally, though it's very much a team effort.
 
 ### The Customer Portal
 
-Every customer who contacts Craftwork gets access to a portal that provides an extremely premium experience matching the quality of our expert painters. It includes:
+Every customer who contacts Craftwork gets access to a portal that provides a premium experience matching the quality of our painters. It includes:
 
 - **Self-Serve Estimating Tool** - The only one in the industry. Customers can get accurate estimates on their own terms.
 - **Onboarding Flow** - A guided experience that sets expectations and builds confidence from first contact.
 - **Project Progress Tracker** - Real-time visibility into every stage of their project.
 
-### The Differentiator
+### Impact
 
-This portal is the core thing that separates us from the competition in our customers' eyes. The direct mentions of it in reviews—right next to how floored they are by our painting—are the proof.
+The portal has become a key differentiator for Craftwork. Customers regularly mention it in reviews alongside praise for the painting quality itself.
 
 ### Technology
 
@@ -183,19 +183,19 @@ Next.js application powered by Payload CMS for marketing content. The portal con
     company: "Stashpad",
     role: "Designer & Frontend Developer",
     excerpt:
-      "A Techstars-backed, lightning-fast note-taking app for developers. I joined a scrappy team to shape the UI/UX through two major design overhauls.",
+      "A Techstars-backed, lightning-fast note-taking app for developers. I joined a scrappy team to help shape the UI/UX through two major design overhauls.",
     description: `
 ## Stashpad
 
-Stashpad was a blazing-fast, local-first note-taking application designed for developers and power users. I discovered them on social media shortly after they came out of Techstars, and after speaking with the CEO and CTO, I was sold by the vision and the CEO's tenacity and conviction. On the design front, their minds were wide open—plenty of room to make a mark. A playground.
+Stashpad was a fast, local-first note-taking application designed for developers and power users. I discovered them on social media shortly after they came out of Techstars, and after speaking with the CEO and CTO, I was sold by the vision and the CEO's tenacity. On the design front, their minds were wide open, plenty of room to contribute.
 
 ### The Team
 
-A small, scrappy team of 5 engineers and 2 designers. I functioned as both designer and frontend developer, focusing on UI and UX. I also did some marketing via the YouTube channel as the voice of Stashpad for a brief time.
+A small, scrappy team of 5 engineers and 2 designers. I worked as both designer and frontend developer, focusing on UI and UX. I also did some marketing via the YouTube channel as the voice of Stashpad for a brief time.
 
 ### The Work
 
-The app went through two major design overhauls during my tenure. We had no design system to speak of, and the app eventually diverged from itself—prompting a complete restart. We rebuilt from scratch twice, each time refining the vision for what a developer-focused notes app should feel like.
+The app went through two major design overhauls during my time there. We had no design system to speak of, and the app eventually diverged from itself, prompting a complete restart. We rebuilt from scratch twice, each time refining the vision for what a developer-focused notes app should feel like.
 
 ### Key Features
 
@@ -206,7 +206,7 @@ The app went through two major design overhauls during my tenure. We had no desi
 
 ### Outcome
 
-Unfortunately, Stashpad suffered some self-inflicted wounds and dissolved about a year after my departure. Despite the ending, it was a formative experience in early-stage product development and the realities of startup life.
+Stashpad dissolved about a year after my departure. Despite the ending, it was a formative experience in early-stage product development and the realities of startup life.
     `,
     year: "2022-2023",
     tags: ["Electron", "Techstars", "Developer Tools", "UI/UX"],
