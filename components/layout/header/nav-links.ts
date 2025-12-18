@@ -1,8 +1,13 @@
-import { FileTextIcon, FlaskConicalIcon } from "lucide-react";
+import { FileTextIcon, FlaskConicalIcon, ImagesIcon } from "lucide-react";
 
 import type { NavLinkProps } from "./nav-link";
 
 export const NAV_LINKS: NavLinkProps[] = [
+  {
+    Icon: ImagesIcon,
+    label: "Gallery",
+    href: "/gallery",
+  },
   {
     Icon: FileTextIcon,
     label: "Resume",
