@@ -52,8 +52,8 @@ export function GallerySection({
       <motion.div
         className="relative"
         style={{
-          width: "70vw",
-          maxWidth: "1200px",
+          width: isMobile ? "100vw" : "70vw",
+          maxWidth: isMobile ? "none" : "1200px",
           translateY: imageY,
           opacity: wrapperOpacity,
           scale: wrapperScale,

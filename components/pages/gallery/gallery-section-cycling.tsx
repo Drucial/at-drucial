@@ -6,6 +6,7 @@ import Image from "next/image";
 import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
 
 import { SMALL_HEADER_HEIGHT } from "@/components/layout/header";
+import { useViewport } from "@/components/providers/viewport-provider";
 
 type GallerySectionCyclingProps = {
   images: { src: string; alt: string }[];
@@ -18,6 +19,7 @@ export function GallerySectionCycling({
 }: GallerySectionCyclingProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { isMobile } = useViewport();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -50,8 +52,8 @@ export function GallerySectionCycling({
       <motion.div
         className="relative"
         style={{
-          width: "70vw",
-          maxWidth: "1200px",
+          width: isMobile ? "100vw" : "70vw",
+          maxWidth: isMobile ? "none" : "1200px",
           translateY: imageY,
           opacity: wrapperOpacity,
           scale: wrapperScale,
