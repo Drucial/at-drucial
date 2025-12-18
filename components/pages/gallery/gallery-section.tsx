@@ -2,7 +2,9 @@
 
 import { useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
+import { ArrowUpRight } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
 
 import { HEADER_HEIGHT, SMALL_HEADER_HEIGHT } from "@/components/layout/header";
@@ -11,12 +13,16 @@ import { useViewport } from "@/components/providers/viewport-provider";
 type GallerySectionProps = {
   imageSrc: string;
   imageAlt: string;
+  name: string;
+  href?: string;
   isFirst?: boolean;
 };
 
 export function GallerySection({
   imageSrc,
   imageAlt,
+  name,
+  href,
   isFirst = false,
 }: GallerySectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -46,46 +52,64 @@ export function GallerySection({
   return (
     <section
       ref={sectionRef}
-      className="relative flex items-center justify-center overflow-hidden border-x"
+      className="relative flex flex-col overflow-hidden border-x"
       style={{ height: sectionHeight }}
     >
-      <motion.div
-        className="relative"
-        style={{
-          width: isMobile ? "100vw" : "70vw",
-          maxWidth: isMobile ? "none" : "1200px",
-          translateY: imageY,
-          opacity: wrapperOpacity,
-          scale: wrapperScale,
-        }}
-      >
-        {/* Grid lines */}
+      {/* Image area */}
+      <div className="relative flex flex-1 items-center justify-center overflow-hidden">
         <motion.div
-          className="bg-border absolute top-0 left-1/2 h-px w-screen -translate-x-1/2"
-          style={{ scaleX: lineScaleX }}
-        />
-        <motion.div
-          className="bg-border absolute bottom-0 left-1/2 h-px w-screen -translate-x-1/2"
-          style={{ scaleX: lineScaleX }}
-        />
-        <motion.div
-          className="bg-border absolute top-1/2 left-0 h-screen w-px -translate-y-1/2"
-          style={{ scaleY: lineScaleY }}
-        />
-        <motion.div
-          className="bg-border absolute top-1/2 right-0 h-screen w-px -translate-y-1/2"
-          style={{ scaleY: lineScaleY }}
-        />
+          className="relative"
+          style={{
+            width: isMobile ? "100vw" : "70vw",
+            maxWidth: isMobile ? "none" : "1200px",
+            translateY: imageY,
+            opacity: wrapperOpacity,
+            scale: wrapperScale,
+          }}
+        >
+          {/* Grid lines */}
+          <motion.div
+            className="bg-border absolute top-0 left-1/2 h-px w-screen -translate-x-1/2"
+            style={{ scaleX: lineScaleX }}
+          />
+          <motion.div
+            className="bg-border absolute bottom-0 left-1/2 h-px w-screen -translate-x-1/2"
+            style={{ scaleX: lineScaleX }}
+          />
+          <motion.div
+            className="bg-border absolute top-1/2 left-0 h-screen w-px -translate-y-1/2"
+            style={{ scaleY: lineScaleY }}
+          />
+          <motion.div
+            className="bg-border absolute top-1/2 right-0 h-screen w-px -translate-y-1/2"
+            style={{ scaleY: lineScaleY }}
+          />
 
-        <Image
-          alt={imageAlt}
-          className="h-auto w-full"
-          height={800}
-          priority={isFirst}
-          src={imageSrc}
-          width={1200}
-        />
-      </motion.div>
+          <Image
+            alt={imageAlt}
+            className="h-auto w-full"
+            height={800}
+            priority={isFirst}
+            src={imageSrc}
+            width={1200}
+          />
+        </motion.div>
+      </div>
+
+      {/* Footer */}
+      <div className="border-border flex h-16 shrink-0 items-center justify-end border-t pr-4 md:h-12">
+        {href ? (
+          <Link
+            className="text-foreground hover:text-muted-foreground flex items-center gap-1 font-mono text-sm transition-colors"
+            href={href}
+          >
+            {name}
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
+        ) : (
+          <span className="text-foreground font-mono text-sm">{name}</span>
+        )}
+      </div>
     </section>
   );
 }

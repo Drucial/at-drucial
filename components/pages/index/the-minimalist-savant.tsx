@@ -129,9 +129,10 @@ export function TheMinimalistSavant() {
   const sectionRef = useRef<HTMLElement>(null);
   const { isMobile } = useViewport();
 
-  // Scroll progress for this section
+  // Scroll progress for this section - only pass target when not mobile
+  // to avoid hydration errors when component returns early
   const { scrollYProgress } = useScroll({
-    target: sectionRef,
+    target: isMobile ? undefined : sectionRef,
     offset: ["start end", "end start"],
   });
 
@@ -139,7 +140,7 @@ export function TheMinimalistSavant() {
   const quoteTranslateX = useTransform(scrollYProgress, [0.25, 0.45], [100, 0]);
   const quoteOpacity = useTransform(scrollYProgress, [0.25, 0.4], [0, 1]);
 
-  if (isMobile) return;
+  if (isMobile) return null;
 
   return (
     <section

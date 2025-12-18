@@ -35,17 +35,31 @@ export default function GalleryPage() {
     <main>
       <GallerySection
         isFirst
+        href="/projects/praxis-labs"
         imageAlt="Hypr Mono"
         imageSrc="/images/hypr-mono.webp"
+        name="Hypr Mono"
       />
       <Separator />
-      <GallerySectionCycling images={AURANOTE_IMAGES} />
+      <GallerySectionCycling
+        href="/projects/auranote"
+        images={AURANOTE_IMAGES}
+        name="AuraNote"
+      />
       <Separator />
-      <GallerySectionCycling images={GRATIS_IMAGES} />
+      <GallerySectionCycling
+        href="/projects/praxis-labs"
+        images={GRATIS_IMAGES}
+        name="Gratis"
+      />
       <Separator />
-      <GallerySectionCycling images={PANTREO_IMAGES} />
+      <GallerySectionCycling images={PANTREO_IMAGES} name="Pantreo" />
       <Separator />
-      <GallerySectionCycling images={PS_STAGE_IMAGES} />
+      <GallerySectionCycling
+        href="/projects/craftwork-os"
+        images={PS_STAGE_IMAGES}
+        name="Craftwork OS"
+      />
       <Separator />
       <TheConnection />
     </main>
